@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VILLA PAAYIZ — A House Between Memory and Landscape</title>
+<meta name="description" content="Villa Paayiz — Contemporary villa in Keleston, Shiraz. A frame through which nature, memory, tradition and time are experienced.">
+
+<!-- 
+  VILLA PAAYIZ — Single File Cinematic Presentation
+  -------------------------------------------------
+  EASY IMAGE REPLACEMENT:
+  - Search for CONFIG IMAGES object in <script> and replace URLs
+  - Or directly replace <img src=""> in markup
+  - Local path example: src="./images/exterior-01.jpg"
+
+  COLOR CUSTOMIZATION:
+  - Edit :root CSS variables
+
+  STRUCTURE ORDER:
+  Landscape → Memory → Tradition → Concept → Architecture → Interior → Life → Time → Memory
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;0,600;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ——————————————————————————————————————————
+  ROOT / TOKENS
+—————————————————————————————————————————— */
+:root{
+  /* Palette — Deep burnt orange, muted brown, warm beige, off-white */
+  --paper:#FBF7F1;
+  --paper-2:#F2E9DE;
+  --paper-3:#E8DDD0;
+  --ink:#171512;
+  --ink-2:#3A3530;
+  --muted:#8E837B;
+  --muted-2:#B9AEA6;
+  --line:rgba(23,21,18,0.11);
+  --line-2:rgba(23,21,18,0.07);
+  --burnt:#B95A2F;         /* deep burnt orange */
+  --burnt-deep:#8A3A1D;
+  --moss:#2D332E;          /* cool exterior contrast */
+  --fog:#9EA8AD;
+  --warm-light:#FFF2E2;
+  
+  /* Typography */
+  --serif:"Cormorant Garamond", Georgia, serif;
+  --sans:"Syne", "Space Grotesk", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, monospace;
+
+  --space-xl:clamp(80px,12vw,180px);
+  --space-lg:clamp(56px,8vw,120px);
+  --space-md:clamp(32px,5vw,72px);
+
+  --ease-cinema:cubic-bezier(.25,.08,.18,.99);
+  --ease-slow:cubic-bezier(.62,.05,.2,.99);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth; background:var(--paper); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  overscroll-behavior-y:none;
+}
+img{display:block; width:100%; height:auto; }
+button{border:0;background:none;font:inherit;cursor:pointer;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* Lenis-like smooth inertia via CSS only, enhanced with JS Raf */
+
+/* ——————————————————————————————————————————
+  FILM GRAIN & VIGNETTE
+—————————————————————————————————————————— */
+.grain{
+  position:fixed; inset:-50%; z-index:9999; pointer-events:none;
+  opacity:.055; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainMove 8s steps(10) infinite;
+}
+@keyframes grainMove{
+  0%,100%{transform:translate(0,0)}
+  10%{transform:translate(-2%,-3%)}
+  20%{transform:translate(-4%,2%)}
+  30%{transform:translate(2%,-5%)}
+  50%{transform:translate(-1%,6%)}
+}
+.vignette{
+  position:fixed; inset:0; pointer-events:none; z-index:5;
+  background:radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(23,21,18,0.06) 100%);
+}
+.progress{
+  position:fixed; top:0; left:0; right:0; height:1px; z-index:100;
+  background:var(--line-2);
+}
+.progress__bar{
+  height:100%; width:0%; background:var(--ink); transform-origin:left;
+  transition:width .15s linear;
+}
+
+/* ——————————————————————————————————————————
+  NAVIGATION
+—————————————————————————————————————————— */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:22px clamp(18px,3.2vw,40px);
+  mix-blend-mode:normal;
+  transition:transform .8s var(--ease-cinema), background .6s;
+}
+.nav--hidden{transform:translateY(-100%)}
+.nav__logo{
+  font-family:var(--sans); font-weight:600; letter-spacing:.18em; font-size:11px; text-transform:uppercase;
+  display:flex; gap:16px; align-items:center;
+}
+.nav__logo-mark{width:20px; height:1px; background:var(--ink); display:inline-block}
+.nav__center{
+  position:absolute; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+  opacity:.9; display:flex; gap:10px; align-items:center;
+}
+.nav__chapter-dot{width:4px;height:4px;border-radius:50%;background:var(--burnt); display:inline-block; transform:scale(0); transition:transform .6s var(--ease-cinema)}
+.nav__chapter-dot.is-active{transform:scale(1)}
+.nav__menu{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+.nav__menu:hover{color:var(--ink)}
+.nav--scrolled{background:rgba(251,247,241,0.84); backdrop-filter:blur(18px) saturate(1.2); border-bottom:1px solid var(--line-2)}
+
+/* Index Overlay */
+.index{
+  position:fixed; inset:0; z-index:80; background:var(--paper);
+  padding:clamp(24px,4vw,48px);
+  display:flex; flex-direction:column; justify-content:space-between;
+  transform:translateY(100%); transition:transform .9s var(--ease-slow);
+}
+.index.is-open{transform:translateY(0)}
+.index__top{display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase}
+.index__list{list-style:none; margin-top:8vh}
+.index__item{border-bottom:1px solid var(--line); }
+.index__link{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:18px 0; font-size:clamp(28px,4.8vw,64px); line-height:.95; letter-spacing:-.02em;
+  font-family:var(--serif); font-weight:300; transition:padding-left .6s var(--ease-cinema), color .4s;
+}
+.index__link:hover{padding-left:18px; color:var(--burnt)}
+.index__link span:last-child{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.index__bottom{display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; letter-spacing:.15em; color:var(--muted); text-transform:uppercase;}
+
+/* ——————————————————————————————————————————
+  SHARED SECTION STYLES
+—————————————————————————————————————————— */
+main{position:relative}
+.section{
+  position:relative; width:100%; 
+}
+.fullscreen{
+  min-height:100svh; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;
+}
+.eyebrow{
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:22px;
+}
+.eyebrow::before{content:""; width:22px; height:1px; background:currentColor; opacity:.4}
+.label-burnt{color:var(--burnt)}
+.serif{font-family:var(--serif)}
+.quote{
+  font-family:var(--serif); font-weight:300; font-style:italic; line-height:1.15; letter-spacing:-.02em;
+}
+.reveal{opacity:0; transform:translateY(26px); transition:opacity 1.2s var(--ease-cinema), transform 1.2s var(--ease-cinema); will-change:transform,opacity}
+.reveal.is-visible{opacity:1; transform:translateY(0)}
+.reveal--delay-1{transition-delay:.12s}
+.reveal--delay-2{transition-delay:.24s}
+.reveal--delay-3{transition-delay:.36s}
+
+.parallax-wrap{position:absolute; inset:0; overflow:hidden}
+.parallax-img{
+  position:absolute; inset:-12% -5% -12% -5%; width:110%; height:124%; object-fit:cover;
+  will-change:transform; transform:scale(1.06);
+}
+
+/* ——————————————————————————————————————————
+  HERO
+—————————————————————————————————————————— */
+.hero{
+  background:var(--paper);
+  text-align:center;
+}
+.hero__media{
+  position:absolute; inset:0; overflow:hidden; background:var(--paper-2);
+}
+.hero__media::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(251,247,241,0.12) 0%, rgba(251,247,241,0.04) 30%, rgba(23,21,18,0.22) 88%);
+}
+.hero__content{
+  position:relative; z-index:2; width:100%; height:100svh;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:17vh clamp(18px,3vw,40px) 28px;
+}
+.hero__top{
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+}
+.hero__title{
+  font-family:var(--sans); font-weight:600; letter-spacing:-.04em; line-height:.88;
+  font-size:clamp(56px,11vw,168px); text-transform:uppercase;
+}
+.hero__title span{display:block}
+.hero__title .thin{font-weight:400; letter-spacing:.14em; font-size:.34em; margin-top:.2em; opacity:.8}
+.hero__subtitle{
+  font-family:var(--serif); font-style:italic; font-weight:300;
+  font-size:clamp(18px,2vw,26px); letter-spacing:.01em; color:var(--ink-2);
+}
+.hero__bottom{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:end; gap:20px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(23,21,18,.68);
+}
+.hero__manifesto{
+  text-align:left; max-width:28ch; line-height:1.7; font-family:var(--serif); font-size:13px; font-style:italic; text-transform:none; letter-spacing:.02em;
+  color:rgba(23,21,18,.78); justify-self:start;
+}
+.hero__location{justify-self:center}
+.hero__scroll{justify-self:end; display:flex; align-items:center; gap:10px}
+.hero__scroll-line{width:44px; height:1px; background:var(--ink); transform-origin:left; animation:scrollLine 2.2s var(--ease-cinema) infinite}
+@keyframes scrollLine{0%{transform:scaleX(0); transform-origin:left} 50%{transform:scaleX(1)} 50.1%{transform-origin:right} 100%{transform:scaleX(0); transform-origin:right}}
+
+/* ——————————————————————————————————————————
+  CHAPTERS
+—————————————————————————————————————————— */
+.chapter{
+  padding:var(--space-xl) clamp(18px,4vw,56px);
+  background:var(--paper);
+  border-top:1px solid var(--line-2);
+  display:grid; gap:40px;
+}
+.chapter__inner{max-width:1440px; width:100%; margin:0 auto; display:grid; grid-template-columns:1.2fr .8fr; gap:clamp(24px,5vw,96px); align-items:end}
+.chapter--flipped .chapter__inner{grid-template-columns:.8fr 1.2fr}
+.chapter__media{position:relative; aspect-ratio:1.2/1; overflow:hidden; background:var(--paper-2)}
+.chapter__media img{width:100%; height:100%; object-fit:cover; transition:transform 2.2s var(--ease-cinema)}
+.chapter__media:hover img{transform:scale(1.04)}
+.chapter__text{padding-bottom:8px}
+.chapter__title{
+  font-family:var(--serif); font-weight:300; line-height:1.05; letter-spacing:-.02em;
+  font-size:clamp(32px,4.2vw,64px); margin-bottom:24px;
+}
+.chapter__title em{font-style:italic; color:var(--burnt)}
+.chapter__body{font-family:var(--serif); font-size:clamp(16px,1.35vw,19px); line-height:1.75; color:var(--ink-2); max-width:38ch}
+.chapter__body + .chapter__body{margin-top:14px}
+.chapter__meta{margin-top:32px; font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--muted); text-transform:uppercase; line-height:1.8}
+
+/* Full bleed atmospheric */
+.atmos{
+  position:relative; min-height:92svh; display:flex; align-items:end; overflow:hidden; background:var(--moss)
+}
+.atmos__img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.06); will-change:transform}
+.atmos__veil{position:absolute; inset:0; background:linear-gradient(18deg, rgba(23,21,18,0.72) 6%, rgba(23,21,18,0.08) 58%)}
+.atmos__content{
+  position:relative; z-index:2; padding:clamp(24px,4vw,56px); max-width:760px; color:var(--warm-light)
+}
+.atmos__quote{font-size:clamp(28px,3.6vw,54px)}
+
+/* ——————————————————————————————————————————
+  POETIC GRID - Cheese Memory
+—————————————————————————————————————————— */
+.memory{
+  background:var(--paper-2); padding:var(--space-xl) clamp(18px,4vw,56px);
+}
+.memory__grid{
+  max-width:1440px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:minmax(60px,auto); gap:16px;
+}
+.memory__item{position:relative; overflow:hidden; background:var(--paper-3)}
+.memory__item img{width:100%; height:100%; object-fit:cover; transition:transform 1.8s var(--ease-cinema)}
+.memory__item:hover img{transform:scale(1.05)}
+.memory__item--1{grid-column:1/8; grid-row:1/5; aspect-ratio: 1.4/1}
+.memory__item--2{grid-column:8/13; grid-row:1/3; aspect-ratio: 1.2/0.9}
+.memory__item--3{grid-column:8/13; grid-row:3/6; aspect-ratio: .9/1.1}
+.memory__item--4{grid-column:1/5; grid-row:5/8; aspect-ratio:1/1}
+.memory__item--5{grid-column:5/8; grid-row:5/8; aspect-ratio:.9/1}
+.memory__text{grid-column:5/13; grid-row:8/10; padding-top:32px}
+.memory__title{font-family:var(--serif); font-size:clamp(26px,3.2vw,48px); line-height:1.05; max-width:16ch}
+.memory__title em{color:var(--burnt)}
+
+/* ——————————————————————————————————————————
+  IDEA DIAGRAM
+—————————————————————————————————————————— */
+.idea{
+  background:var(--ink); color:var(--paper); padding:var(--space-xl) clamp(18px,4vw,56px);
+  overflow:hidden;
+}
+.idea__header{max-width:1440px; margin:0 auto 72px; display:flex; justify-content:space-between; gap:24px; align-items:end; flex-wrap:wrap}
+.idea__title{font-family:var(--serif); font-weight:300; font-size:clamp(34px,4.6vw,72px); line-height:.95; letter-spacing:-.02em; max-width:12ch}
+.idea__desc{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2); max-width:36ch; line-height:1.8}
+
+.idea__track{
+  max-width:1440px; margin:0 auto; position:relative;
+  display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.12);
+}
+.idea__step{
+  background:rgba(23,21,18,.96); padding:28px 20px 22px; min-height:320px;
+  display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;
+  transition:background .6s;
+}
+.idea__step::after{
+  content:""; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--burnt); transform:scaleX(0); transform-origin:left; transition:transform 1.2s var(--ease-cinema);
+}
+.idea__step.is-active::after{transform:scaleX(1)}
+.idea__step:hover{background:rgba(255,255,255,.03)}
+.idea__step-index{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--muted-2)}
+.idea__step-label{font-family:var(--sans); font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:12px; margin-top:8px}
+.idea__step-visual{height:108px; display:flex; align-items:end; justify-content:center; margin:26px 0}
+.idea__shape{transition:transform 1s var(--ease-cinema), opacity 1s}
+
+/* Shapes */
+.shape-landscape{width:96px; height:6px; background:linear-gradient(to right,var(--moss), var(--fog)); border-radius:10px; opacity:.8}
+.shape-ground{width:88px; height:3px; background:var(--paper-3); position:relative}
+.shape-ground::after{content:""; position:absolute; left:12%; right:12%; height:18px; bottom:3px; background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.16) 6px 7px)}
+.shape-volume{width:88px; height:14px; background:var(--paper); box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+.shape-frame{width:88px; height:54px; border:1px solid rgba(255,255,255,.7); display:flex; align-items:center; justify-content:center}
+.shape-frame::after{content:""; width:70%; height:60%; border:1px solid var(--burnt); opacity:.9}
+.shape-light{width:6px; height:60px; background:linear-gradient(to bottom, var(--warm-light), transparent); filter:blur(.2px)}
+.shape-life{width:22px; height:22px; border-radius:50%; background:var(--warm-light); box-shadow:0 0 18px var(--warm-light)}
+
+.idea__quote{max-width:1440px; margin:64px auto 0; font-family:var(--serif); font-style:italic; font-size:clamp(20px,2.2vw,30px); color:var(--muted-2); line-height:1.3; max-width:32ch}
+
+/* ——————————————————————————————————————————
+  FORM / PRINCIPLES
+—————————————————————————————————————————— */
+.form{
+  display:grid; grid-template-columns:1.15fr .85fr; min-height:92svh; background:var(--paper);
+  border-top:1px solid var(--line);
+}
+.form__media{position:relative; overflow:hidden; background:var(--paper-2)}
+.form__media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.form__content{padding:clamp(26px,4vw,56px); display:flex; flex-direction:column; justify-content:space-between}
+.form__principles{list-style:none; margin-top:40px; border-top:1px solid var(--line)}
+.form__principle{display:flex; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid var(--line-2); font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+.form__principle b{font-family:var(--sans); font-weight:600; color:var(--ink); letter-spacing:.04em}
+.form__principle span:last-child{color:var(--muted); max-width:22ch; text-align:right; line-height:1.6}
+
+/* ——————————————————————————————————————————
+  ARRIVAL - transition
+—————————————————————————————————————————— */
+.arrival{
+  position:relative; height:200svh; background:var(--ink);
+}
+.arrival__sticky{position:sticky; top:0; height:100svh; overflow:hidden; display:flex; align-items:center; justify-content:center}
+.arrival__bg{position:absolute; inset:0}
+.arrival__bg img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.2s var(--ease-cinema), transform 2.4s var(--ease-cinema); transform:scale(1.08)}
+.arrival__bg img.is-active{opacity:1; transform:scale(1)}
+.arrival__veil{position:absolute; inset:0; background:linear-gradient(to bottom, rgba(23,21,18,0.15), rgba(23,21,18,0.55))}
+.arrival__text{position:relative; z-index:2; color:var(--paper); text-align:center; max-width:56ch; padding:24px}
+.arrival__progress{position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:2; display:flex; gap:8px}
+.arrival__dot{width:32px; height:1px; background:rgba(251,247,241,.24); transition:background .6s}
+.arrival__dot.is-active{background:var(--paper)}
+
+/* ——————————————————————————————————————————
+  INTERIOR SHOWCASE
+—————————————————————————————————————————— */
+.interior{
+  position:relative; min-height:100svh; display:grid; grid-template-columns:1fr; background:var(--paper);
+  border-top:1px solid var(--line-2);
+}
+.interior__media{position:relative; height:92svh; overflow:hidden; background:var(--paper-2)}
+.interior__media img{width:100%; height:100%; object-fit:cover; transform:scale(1.02); transition:transform 2.4s var(--ease-cinema)}
+.interior__media:hover img{transform:scale(1.06)}
+.interior__overlay{
+  position:absolute; inset:0; display:flex; align-items:end; padding:clamp(18px,3.5vw,44px);
+  background:linear-gradient(to top, rgba(23,21,18,0.52) 0%, rgba(23,21,18,0.06) 50%);
+}
+.interior__card{
+  background:rgba(251,247,241,0.92); backdrop-filter:blur(12px);
+  padding:24px 24px 20px; max-width:460px; border:1px solid rgba(23,21,18,0.06);
+}
+.interior__card h3{font-family:var(--serif); font-weight:400; font-size:28px; line-height:1.1; margin-bottom:10px}
+.interior__card p{font-family:var(--serif); font-size:15px; line-height:1.65; color:var(--ink-2)}
+.interior__tag{font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--burnt); margin-bottom:10px; display:block}
+
+/* ——————————————————————————————————————————
+  MODERN KITCHEN - special
+—————————————————————————————————————————— */
+.kitchen{
+  background:var(--paper-2); display:grid; grid-template-columns:.9fr 1.1fr; min-height:100svh; border-top:1px solid var(--line);
+}
+.kitchen__content{padding:clamp(24px,4.5vw,64px); display:flex; flex-direction:column; justify-content:center}
+.kitchen__title{font-family:var(--serif); font-weight:300; font-size:clamp(36px,4vw,64px); line-height:.98; letter-spacing:-.02em; margin:16px 0 24px}
+.kitchen__body{font-family:var(--serif); font-size:17px; line-height:1.7; color:var(--ink-2); max-width:42ch}
+.kitchen__details{margin-top:36px; display:grid; grid-template-columns:1fr 1fr; gap:14px 20px}
+.kitchen__detail{border-top:1px solid var(--line); padding-top:10px}
+.kitchen__detail strong{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:6px}
+.kitchen__detail span{font-family:var(--serif); font-size:13.5px; line-height:1.5; color:var(--ink-2)}
+
+.kitchen__gallery{position:relative; padding:14px; display:grid; grid-template-rows:1.15fr .85fr; gap:14px; background:var(--paper)}
+.kitchen__gallery-main{position:relative; overflow:hidden}
+.kitchen__gallery-main img, .kitchen__gallery-side img{width:100%; height:100%; object-fit:cover}
+.kitchen__gallery-side{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+
+/* ——————————————————————————————————————————
+  PLANS / SECTIONS
+—————————————————————————————————————————— */
+.plans{
+  background:#12100F; color:var(--paper); padding:var(--space-xl) clamp(18px,4vw,56px);
+}
+.plans__header{max-width:1440px; margin:0 auto 56px; display:flex; justify-content:space-between; align-items:end; gap:24px; flex-wrap:wrap}
+.plans__title{font-family:var(--serif); font-weight:300; font-size:clamp(32px,4vw,56px); line-height:.95}
+.plans__note{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:rgba(251,247,241,.5); max-width:40ch; line-height:1.7; text-transform:uppercase}
+.plans__grid{
+  max-width:1440px; margin:0 auto; display:grid; grid-template-columns:repeat(12,1fr); gap:1px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.1);
+}
+.plan-card{background:#181512; aspect-ratio:1.2/1; padding:18px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden}
+.plan-card--wide{grid-column:span 8; aspect-ratio:2.2/1}
+.plan-card--tall{grid-column:span 4; aspect-ratio:.86/1}
+.plan-card--half{grid-column:span 6; aspect-ratio:1.6/1}
+.plan-card__top{display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:rgba(251,247,241,.46)}
+.plan-card__svg{flex:1; display:flex; align-items:center; justify-content:center; padding:18px}
+.plan-card__svg svg{width:100%; height:100%; max-height:220px; overflow:visible}
+.plan-card__label{font-family:var(--serif); font-size:15px; font-style:italic; color:rgba(251,247,241,.8)}
+.plan-card:hover{background:#1E1B18}
+
+/* ——————————————————————————————————————————
+  SEASONS / TIME
+—————————————————————————————————————————— */
+.seasons{
+  background:var(--paper); padding:var(--space-xl) 0 0;
+  border-top:1px solid var(--line);
+}
+.seasons__header{padding:0 clamp(18px,4vw,56px); max-width:1440px; margin:0 auto 40px}
+.seasons__title{font-family:var(--serif); font-weight:300; font-size:clamp(36px,4.4vw,68px); line-height:.95; letter-spacing:-.02em}
+.seasons__strip{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.season{
+  position:relative; aspect-ratio:.9/1.2; overflow:hidden; background:var(--paper-2); cursor:pointer;
+}
+.season img{width:100%; height:100%; object-fit:cover; transition:transform 1.8s var(--ease-cinema), filter 1.2s}
+.season:hover img{transform:scale(1.06)}
+.season--morning img{filter:sepia(.1) saturate(.9) brightness(1.04)}
+.season--noon img{filter:saturate(1.05) contrast(1.05)}
+.season--golden img{filter:sepia(.22) saturate(1.2) hue-rotate(-8deg) brightness(1.02)}
+.season--night img{filter:brightness(.62) saturate(.4) contrast(1.1) hue-rotate(-6deg)}
+.season__overlay{position:absolute; inset:0; background:linear-gradient(to top, rgba(23,21,18,.52), rgba(23,21,18,0) 56%); display:flex; flex-direction:column; justify-content:space-between; padding:18px; color:var(--paper)}
+.season__time{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; opacity:.84}
+.season__label{font-family:var(--serif); font-size:22px; font-weight:300; font-style:italic}
+.season__temp{font-family:var(--mono); font-size:10px; letter-spacing:.12em; opacity:.7; margin-top:4px}
+
+/* ——————————————————————————————————————————
+  FINAL
+—————————————————————————————————————————— */
+.final{
+  position:relative; min-height:100svh; background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center; overflow:hidden; text-align:center;
+}
+.final__media{position:absolute; inset:0}
+.final__media img{width:100%; height:100%; object-fit:cover; opacity:.54; transform:scale(1.06)}
+.final__veil{position:absolute; inset:0; background:radial-gradient(80% 70% at 50% 40%, rgba(23,21,18,.12), rgba(23,21,18,.72) 78%)}
+.final__content{position:relative; z-index:2; padding:clamp(24px,5vw,80px); max-width:760px}
+.final__title{font-family:var(--sans); font-weight:600; letter-spacing:-.04em; font-size:clamp(46px,8vw,120px); line-height:.9; text-transform:uppercase}
+.final__quote{margin-top:28px; font-family:var(--serif); font-style:italic; font-weight:300; font-size:clamp(18px,1.9vw,26px); line-height:1.4; color:rgba(251,247,241,.88); max-width:30ch; margin-left:auto; margin-right:auto}
+.final__line{width:1px; height:64px; background:rgba(251,247,241,.3); margin:30px auto}
+.final__meta{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(251,247,241,.5)}
+
+/* Footer */
+.footer{
+  background:var(--ink); color:rgba(251,247,241,.42); border-top:1px solid rgba(251,247,241,.08);
+  padding:18px clamp(18px,4vw,56px); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+}
+
+/* ——————————————————————————————————————————
+  IMAGE VIEWER
+—————————————————————————————————————————— */
+.viewer{
+  position:fixed; inset:0; z-index:90; background:rgba(23,21,18,0.92); backdrop-filter:blur(16px);
+  display:flex; align-items:center; justify-content:center; padding:28px;
+  opacity:0; pointer-events:none; transition:opacity .6s var(--ease-cinema);
+}
+.viewer.is-open{opacity:1; pointer-events:auto}
+.viewer__img{max-width:92vw; max-height:88vh; object-fit:contain; transform:scale(.96); transition:transform .8s var(--ease-cinema); box-shadow:0 20px 80px rgba(0,0,0,.4)}
+.viewer.is-open .viewer__img{transform:scale(1)}
+.viewer__close{position:absolute; top:20px; right:20px; color:var(--paper); font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; display:flex; gap:12px; align-items:center}
+.viewer__close-line{width:26px; height:1px; background:var(--paper); display:inline-block}
+.viewer__caption{position:absolute; bottom:22px; left:50%; transform:translateX(-50%); color:rgba(251,247,241,.6); font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; text-align:center}
+
+/* Cursor hint for viewable */
+.js-viewable{cursor:zoom-in}
+
+/* ——————————————————————————————————————————
+  RESPONSIVE
+—————————————————————————————————————————— */
+@media (max-width: 980px){
+  .chapter__inner, .chapter--flipped .chapter__inner{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .form__media{aspect-ratio:1.2/1}
+  .kitchen{grid-template-columns:1fr}
+  .kitchen__gallery{order:-1}
+  .memory__grid{grid-template-columns:repeat(6,1fr)}
+  .memory__item--1{grid-column:1/7; grid-row:auto}
+  .memory__item--2{grid-column:1/4}
+  .memory__item--3{grid-column:4/7}
+  .memory__item--4{grid-column:1/4}
+  .memory__item--5{grid-column:4/7}
+  .memory__text{grid-column:1/7}
+  .idea__track{grid-template-columns:repeat(3,1fr)}
+  .plans__grid{grid-template-columns:repeat(6,1fr)}
+  .plan-card--wide{grid-column:span 6}
+  .plan-card--tall{grid-column:span 3}
+  .plan-card--half{grid-column:span 6}
+  .seasons__strip{grid-template-columns:1fr 1fr}
+  .hero__bottom{grid-template-columns:1fr; justify-items:center; text-align:center}
+  .hero__manifesto{text-align:center}
+  .hero__scroll, .hero__location{justify-self:center}
+}
+@media (max-width: 560px){
+  .idea__track{grid-template-columns:1fr 1fr}
+  .seasons__strip{grid-template-columns:1fr}
+  .nav__center{display:none}
+  .kitchen__details{grid-template-columns:1fr}
+}
+
+/* Focus */
+:focus-visible{outline:1px solid var(--burnt); outline-offset:4px}
+
+/* Scrollbar subtle */
+::-webkit-scrollbar{width:6px; height:6px}
+::-webkit-scrollbar-thumb{background:var(--muted-2)}
+::-webkit-scrollbar-track{background:var(--paper-2)}
+</style>
+</head>
+<body>
+  <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+
+  <!-- NAVIGATION -->
+  <header class="nav" id="siteNav">
+    <div class="nav__logo"><span class="nav__logo-mark"></span> VILLA PAAYIZ</div>
+    <div class="nav__center" id="navChapter"><span class="nav__chapter-dot" id="chapterDot"></span><span id="chapterLabel">01 — Opening</span></div>
+    <button class="nav__menu" id="openIndex" aria-label="Open index">Index — 13</button>
+  </header>
+
+  <!-- INDEX OVERLAY -->
+  <aside class="index" id="indexPanel">
+    <div class="index__top"><span>Keleston / Shiraz / Iran — 29.6°N</span> <button id="closeIndex">[ Close ]</button></div>
+    <ol class="index__list">
+      <li class="index__item"><a class="index__link" href="#hero"><span><i>01</i> Opening</span><span>Hero</span></a></li>
+      <li class="index__item"><a class="index__link" href="#landscape"><span><i>02</i> The Landscape</span><span>Fog / Light</span></a></li>
+      <li class="index__item"><a class="index__link" href="#village"><span><i>03</i> The Village</span><span>Keleston</span></a></li>
+      <li class="index__item"><a class="index__link" href="#memory"><span><i>04</i> Memory of Cheese</span><span>Material</span></a></li>
+      <li class="index__item"><a class="index__link" href="#idea"><span><i>05</i> Architectural Idea</span><span>Diagram</span></a></li>
+      <li class="index__item"><a class="index__link" href="#form"><span><i>06</i> The Form</span><span>Monolith</span></a></li>
+      <li class="index__item"><a class="index__link" href="#arrival"><span><i>07</i> Arrival</span><span>Threshold</span></a></li>
+      <li class="index__item"><a class="index__link" href="#living"><span><i>08</i> Living Room</span><span>Forest Frame</span></a></li>
+      <li class="index__item"><a class="index__link" href="#kitchen"><span><i>09</i> Modern Kitchen</span><span>Ritual</span></a></li>
+      <li class="index__item"><a class="index__link" href="#bedroom"><span><i>10</i> Bedroom</span><span>Shelter</span></a></li>
+      <li class="index__item"><a class="index__link" href="#plans"><span><i>11</i> Plans & Sections</span><span>Documents</span></a></li>
+      <li class="index__item"><a class="index__link" href="#seasons"><span><i>12</i> The Seasons</span><span>Time</span></a></li>
+      <li class="index__item"><a class="index__link" href="#final"><span><i>13</i> Final Scene</span><span>Memory</span></a></li>
+    </ol>
+    <div class="index__bottom"><span>Minimal contemporary villa — white monolithic volume</span><span>2026 © Villa Paayiz Archive</span></div>
+  </aside>
+
+  <main>
+  <!-- 01 HERO -->
+  <section id="hero" class="section fullscreen hero" data-nav="01 — Opening">
+    <div class="hero__media" aria-hidden="true">
+      <!-- CONFIG: Replace with your hero render: ./images/hero.jpg -->
+      <img class="parallax-img" data-speed="0.14" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80" alt="White villa in autumn forest" fetchpriority="high">
+    </div>
+    <div class="hero__content">
+      <div class="hero__top reveal">
+        <h1 class="hero__title">
+          <span>Villa</span>
+          <span>Paayiz</span>
+          <span class="thin serif">پاییز</span>
+        </h1>
+        <p class="hero__subtitle serif">A House Between Memory and Landscape</p>
+      </div>
+      <div class="hero__bottom reveal reveal--delay-1">
+        <p class="hero__manifesto">"Architecture does not begin with a form.<br>It begins with a place."</p>
+        <div class="hero__location">Keleston / Shiraz / Iran — 29.61°N 52.54°E</div>
+        <div class="hero__scroll"><span>Scroll to enter</span><span class="hero__scroll-line"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 LANDSCAPE -->
+  <section id="landscape" class="section atmos" data-nav="02 — The Landscape">
+    <img class="atmos__img parallax-img js-viewable" data-speed="0.08" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=80" alt="Foggy autumn forest" loading="lazy">
+    <div class="atmos__veil"></div>
+    <div class="atmos__content">
+      <div class="eyebrow label-burnt">02 — The Landscape</div>
+      <h2 class="quote atmos__quote reveal">Here, autumn is not simply<br>a season.<br><em>It is a memory.</em></h2>
+      <p class="reveal reveal--delay-1" style="margin-top:22px; font-family:var(--serif); font-size:17px; line-height:1.6; color:rgba(255,242,226,.82); max-width:38ch">A landscape of fog, trees, silence and changing light. The forest in Keleston does not surround — it holds, it filters, it remembers. Every October the oaks turn amber and the ground becomes soft with leaves.</p>
+    </div>
+  </section>
+
+  <!-- 03 VILLAGE -->
+  <section id="village" class="section chapter" data-nav="03 — The Village">
+    <div class="chapter__inner">
+      <div class="chapter__media js-viewable reveal">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80" alt="Mountain village Keleston" loading="lazy">
+      </div>
+      <div class="chapter__text">
+        <div class="eyebrow">03 — Keleston Village</div>
+        <h2 class="chapter__title serif reveal">Life here has always been<br>connected <em>to the land.</em></h2>
+        <p class="chapter__body reveal">To animals, milk, handmade objects and the slow transformation of simple materials into something lasting. Keleston, a small settlement in the highlands north of Shiraz, carries a quiet knowledge passed through hands.</p>
+        <p class="chapter__body reveal reveal--delay-1">Stone walls built without mortar. Wood dried for three winters. Cheese wrapped in muslin and left in cool cellars. Architecture here was never an image — it was a consequence.</p>
+        <div class="chapter__meta reveal reveal--delay-2">Elevation 1820m / Rain 310mm / Population 423<br>Primary craft — semi-hard sheep cheese, walnut woodwork</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 MEMORY OF CHEESE -->
+  <section id="memory" class="section memory" data-nav="04 — Memory of Cheese">
+    <div style="max-width:1440px; margin:0 auto 32px; display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:end">
+      <div>
+        <div class="eyebrow">04 — The Memory of Cheese</div>
+        <h2 class="chapter__title serif" style="margin:0">From milk to cheese.<br>From <em>material</em> to memory.</h2>
+      </div>
+      <p style="font-family:var(--serif); max-width:34ch; font-size:16px; line-height:1.7; color:var(--ink-2)">A tradition shaped by hands, time and patience. Not folklore for display, but a way of measuring time. The curd cuts at dawn. The cloth drains until noon. The stone presses until evening.</p>
+    </div>
+
+    <div class="memory__grid">
+      <div class="memory__item memory__item--1 js-viewable reveal"><img src="https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=1400&q=80" alt="Handmade ceramic bowls milk" loading="lazy"></div>
+      <div class="memory__item memory__item--2 js-viewable reveal reveal--delay-1"><img src="https://images.unsplash.com/photo-1591561582301-7d6587ccf2d1?auto=format&fit=crop&w=800&q=80" alt="Woven basket" loading="lazy"></div>
+      <div class="memory__item memory__item--3 js-viewable reveal reveal--delay-2"><img src="https://images.unsplash.com/photo-1608111119891-1bce4d0c4907?auto=format&fit=crop&w=800&q=80" alt="Wooden tools" loading="lazy"></div>
+      <div class="memory__item memory__item--4 js-viewable reveal"><img src="https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&w=800&q=80" alt="Ceramic vessel" loading="lazy"></div>
+      <div class="memory__item memory__item--5 js-viewable reveal reveal--delay-1"><img src="https://images.unsplash.com/photo-1481671703460-040cb8a2d909?auto=format&fit=crop&w=800&q=80" alt="Milk texture" loading="lazy"></div>
+      <div class="memory__text reveal">
+        <h3 class="memory__title serif">"We do not preserve tradition by copying its shape. We preserve it by <em>continuing its patience.</em>"</h3>
+        <p style="margin-top:18px; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)">Milk / Rennet / Cloth / Stone / Wood / Time → Memory</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 ARCHITECTURAL IDEA -->
+  <section id="idea" class="section idea" data-nav="05 — Architectural Idea">
+    <div class="idea__header">
+      <h2 class="idea__title serif reveal">The house does not<br>compete with<br>the landscape.<br><em style="color:var(--burnt)">It becomes a quiet<br>line within it.</em></h2>
+      <p class="idea__desc reveal reveal--delay-1">Concept diagram — A progressive subtraction. We do not add form. We reveal a frame through which forest, light and ritual are experienced. Six moves.</p>
+    </div>
+
+    <div class="idea__track" id="ideaTrack">
+      <div class="idea__step" data-step="1"><div><div class="idea__step-index">01</div><div class="idea__step-label">Landscape</div></div><div class="idea__step-visual"><div class="idea__shape shape-landscape"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">Existing autumn oak forest, fog, slope</div></div>
+      <div class="idea__step" data-step="2"><div><div class="idea__step-index">02</div><div class="idea__step-label">Ground</div></div><div class="idea__step-visual"><div class="idea__shape shape-ground"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">Minimal touch. Three stone points, lifted 45cm</div></div>
+      <div class="idea__step" data-step="3"><div><div class="idea__step-index">03</div><div class="idea__step-label">Horizontal Volume</div></div><div class="idea__step-visual"><div class="idea__shape shape-volume"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">32m long white monolithic bar, east-west</div></div>
+      <div class="idea__step" data-step="4"><div><div class="idea__step-index">04</div><div class="idea__step-label">Frame</div></div><div class="idea__step-visual"><div class="idea__shape shape-frame"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">Carved deep openings, 90cm reveals</div></div>
+      <div class="idea__step" data-step="5"><div><div class="idea__step-index">05</div><div class="idea__step-label">Light</div></div><div class="idea__step-visual"><div class="idea__shape shape-light"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">Warm interior vs cool exterior. Glass as lantern</div></div>
+      <div class="idea__step" data-step="6"><div><div class="idea__step-index">06</div><div class="idea__step-label">Life</div></div><div class="idea__step-visual"><div class="idea__shape shape-life"></div></div><div style="font-family:var(--serif); font-size:13px; line-height:1.4; color:rgba(251,247,241,.6)">Cheese ritual, fire, gathering, forest view</div></div>
+    </div>
+
+    <p class="idea__quote reveal">"Villa Paayiz is not a house placed in nature. It is a frame through which nature, memory, tradition and time are experienced."</p>
+  </section>
+
+  <!-- 06 FORM -->
+  <section id="form" class="section form" data-nav="06 — The Form">
+    <div class="form__media js-viewable">
+      <img class="parallax-img" data-speed="0.06" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80" alt="White horizontal villa form" loading="lazy">
+    </div>
+    <div class="form__content">
+      <div>
+        <div class="eyebrow">06 — The Form</div>
+        <h2 class="chapter__title serif reveal">A low horizontal profile.<br>A <em>white line</em> in amber.</h2>
+        <p class="chapter__body reveal">The building is 32 meters long, 7.2 meters deep, 3.4 meters high. A single monolithic volume, lifted 45 centimeters from the ground on hidden black steel. The elevation reads as pure white plaster, no visible joints.</p>
+      </div>
+      <ul class="form__principles reveal reveal--delay-1">
+        <li class="form__principle"><b>Low horizontal profile</b><span>Reads as horizon, not object</span></li>
+        <li class="form__principle"><b>Minimal intervention</b><span>Touch ground only at 3 points</span></li>
+        <li class="form__principle"><b>Elevated volume</b><span>Leaves forest floor undisturbed, air flows</span></li>
+        <li class="form__principle"><b>Framed views</b><span>Each opening dimensions = forest portrait</span></li>
+        <li class="form__principle"><b>Deep openings</b><span>90cm reveal creates shadow, depth, shelter</span></li>
+        <li class="form__principle"><b>Forest relationship</b><span>All living spaces face north-east oak grove</span></li>
+      </ul>
+      <div class="chapter__meta">Structure — Steel frame / White mineral render / Triple glazed oak frames — U value 0.9</div>
+    </div>
+  </section>
+
+  <!-- 07 ARRIVAL -->
+  <section id="arrival" class="section arrival" data-nav="07 — Arrival">
+    <div class="arrival__sticky">
+      <div class="arrival__bg">
+        <img class="is-active" id="arrivalAerial" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=80" alt="Aerial view villa arrival" loading="lazy">
+        <img id="arrivalPath" src="https://images.unsplash.com/photo-1483794344563-d27a8d18014e?auto=format&fit=crop&w=2400&q=80" alt="Path through autumn forest" loading="lazy">
+        <img id="arrivalEye" src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2400&q=80" alt="Human eye level villa entrance" loading="lazy">
+      </div>
+      <div class="arrival__veil"></div>
+      <div class="arrival__text">
+        <div class="eyebrow" style="color:rgba(251,247,241,.6)">07 — Arrival</div>
+        <h2 class="quote" style="font-size:clamp(28px,4vw,52px); color:var(--paper)"><span id="arrivalText">Arrival is not a moment.<br>It is a gradual transition<br>from landscape to architecture.</span></h2>
+        <p id="arrivalSub" style="margin-top:20px; font-family:var(--serif); font-size:16px; line-height:1.6; color:rgba(251,247,241,.72)">120m gravel walk through oaks. No gate. No fence. Only a soft crunch of leaves, then white wall.</p>
+      </div>
+      <div class="arrival__progress"><div class="arrival__dot is-active"></div><div class="arrival__dot"></div><div class="arrival__dot"></div></div>
+    </div>
+  </section>
+
+  <!-- 08 LIVING ROOM -->
+  <section id="living" class="section interior" data-nav="08 — Living Room">
+    <div class="interior__media js-viewable">
+      <img class="parallax-img" data-speed="0.04" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=80" alt="Living room with forest glazing" loading="lazy">
+      <div class="interior__overlay">
+        <div class="interior__card reveal">
+          <span class="interior__tag">08 — Living Room</span>
+          <h3>The living room is not an enclosed room. It is a place from which the forest is experienced.</h3>
+          <p>Floor-to-ceiling glazing 6.8m wide. Natural walnut floor, Shiraz stone bench, low neutral linen sofa. Warm light 2700K contrasts with cool blue fog outside. No TV. Only fire and trees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 MODERN KITCHEN -->
+  <section id="kitchen" class="section kitchen" data-nav="09 — Modern Kitchen">
+    <div class="kitchen__content">
+      <span class="eyebrow">09 — Modern Kitchen — The Ritual</span>
+      <h2 class="kitchen__title serif reveal">Here, tradition does not return as decoration.<br><em>It returns as a way of living.</em></h2>
+      <p class="kitchen__body reveal">The kitchen is not rustic. It is precisely modern — stone island 3.4m, natural walnut cabinetry without handles, minimal Miele appliances hidden. Then: open oak shelving with handmade ceramic vessels from Meymand, woven willow baskets for bread, a refined cheese preparation zone with cool marble and brass tools. Large window frames the forest exactly at worktop height.</p>
+      <div class="kitchen__details reveal reveal--delay-1">
+        <div class="kitchen__detail"><strong>Stone</strong><span>Shiraz cream limestone, honed, 6cm thick — stays cool for cheese</span></div>
+        <div class="kitchen__detail"><strong>Timber</strong><span>Local walnut, oiled, no lacquer — ages with hands</span></div>
+        <div class="kitchen__detail"><strong>Shelving</strong><span>Solid oak 34mm, open, adjustable brass pins</span></div>
+        <div class="kitchen__detail"><strong>Vessels</strong><span>Hand-thrown ceramic by Zahra Rostami, Keleston atelier</span></div>
+        <div class="kitchen__detail"><strong>Baskets</strong><span>Willow woven, keeps sourdough, dried herbs</span></div>
+        <div class="kitchen__detail"><strong>Cheese Zone</strong><span>Dedicated marble niche — press, drain, salt</span></div>
+      </div>
+      <div class="chapter__meta" style="margin-top:28px">Light — 5.2m linear skylight above island, north light only</div>
+    </div>
+    <div class="kitchen__gallery">
+      <div class="kitchen__gallery-main js-viewable reveal"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1600&q=80" alt="Sophisticated minimal kitchen island stone" loading="lazy"></div>
+      <div class="kitchen__gallery-side">
+        <div class="js-viewable reveal reveal--delay-1"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Warm timber cabinetry" loading="lazy"></div>
+        <div class="js-viewable reveal reveal--delay-2"><img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80" alt="Open wooden shelves ceramic vessels" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 BEDROOM -->
+  <section id="bedroom" class="section chapter chapter--flipped" style="background:var(--paper-2)" data-nav="10 — Bedroom">
+    <div class="chapter__inner">
+      <div class="chapter__text">
+        <div class="eyebrow">10 — Bedroom</div>
+        <h2 class="chapter__title serif reveal">At night, the house becomes a shelter.<br>In the morning, the forest becomes <em>the first image.</em></h2>
+        <p class="chapter__body reveal">Walls in warm clay plaster, floor in walnut, bed low to ground. A single framed view 2.4 x 1.8m — autumn oaks, no other distraction. Soft textiles from Yazd, undyed wool. Reading light is a single ceramic pendant, 25cm above bedside stone.</p>
+        <div class="chapter__meta">Acoustic — 42db wall build-up / Blackout via 90cm deep reveal + oak shutter, no curtain</div>
+      </div>
+      <div class="chapter__media js-viewable reveal reveal--delay-1">
+        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=80" alt="Quiet minimalist bedroom with timber and forest view" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 PLANS -->
+  <section id="plans" class="section plans" data-nav="11 — Plans / Sections">
+    <div class="plans__header">
+      <h2 class="plans__title serif reveal">Plans / Sections / Elevations<br><span style="color:var(--muted-2); font-style:italic;">Thin white lines, dark field.</span></h2>
+      <p class="plans__note reveal">Replace these placeholders with your own SVG/PNG. Use white 0.75pt stroke on #12100F. Export at 2400px. Keep labels in IBM Plex Mono 10px. Scale 1:200 / 1:100.</p>
+    </div>
+    <div class="plans__grid">
+      <!-- Ground Floor Plan -->
+      <div class="plan-card plan-card--wide js-viewable">
+        <div class="plan-card__top"><span>Ground Floor Plan — 1:100</span><span>32.0 x 7.2m</span></div>
+        <div class="plan-card__svg">
+          <svg viewBox="0 0 560 180" fill="none" stroke="rgba(251,247,241,0.9)" stroke-width="0.8">
+            <rect x="20" y="20" width="520" height="120" />
+            <line x1="20" y1="50" x2="540" y2="50" stroke-dasharray="4 4" opacity="0.35"/>
+            <rect x="38" y="24" width="48" height="32" fill="none" stroke="rgba(251,247,241,0.5)"/>
+            <rect x="110" y="24" width="110" height="80" />
+            <rect x="240" y="24" width="92" height="80" />
+            <rect x="350" y="24" width="86" height="80" />
+            <rect x="452" y="24" width="30" height="48" />
+            <circle cx="60" cy="118" r="3" fill="var(--burnt)" stroke="none"/>
+            <text x="20" y="158" fill="rgba(251,247,241,0.45)" font-family="IBM Plex Mono" font-size="7" >N ↑ — Entrance from South — Forest North</text>
+          </svg>
+        </div>
+        <div class="plan-card__label">Living — Kitchen — Bedroom — Bath — Terrace</div>
+      </div>
+      <div class="plan-card plan-card--tall js-viewable">
+        <div class="plan-card__top"><span>Cross Section</span><span>A-A</span></div>
+        <div class="plan-card__svg">
+          <svg viewBox="0 0 200 200" fill="none" stroke="rgba(251,247,241,0.9)" stroke-width="0.8">
+            <path d="M20 150 L20 50 L180 40 L180 150Z"/>
+            <line x1="20" y1="130" x2="180" y2="126" />
+            <rect x="70" y="60" width="60" height="48" stroke="rgba(251,247,241,0.35)"/>
+            <line x1="20" y1="150" x2="0" y2="150" stroke-width="0.4"/><line x1="180" y1="150" x2="200" y2="150" stroke-width="0.4"/>
+          </svg>
+        </div>
+        <div class="plan-card__label">Elevation 45cm — Oak floor — Forest cut</div>
+      </div>
+
+      <div class="plan-card plan-card--tall js-viewable">
+        <div class="plan-card__top"><span>Roof Plan</span><span>Drainage</span></div>
+        <div class="plan-card__svg">
+          <svg viewBox="0 0 200 200" fill="none" stroke="rgba(251,247,241,0.9)" stroke-width="0.8">
+            <rect x="20" y="50" width="160" height="80" />
+            <line x1="20" y1="90" x2="180" y2="90" stroke-dasharray="3 3" opacity="0.4"/>
+            <circle cx="100" cy="90" r="18" stroke="rgba(185,90,47,0.9)" />
+            <circle cx="100" cy="90" r="2" fill="rgba(185,90,47,0.9)" stroke="none"/>
+          </svg>
+        </div>
+        <div class="plan-card__label">Hidden gutter — Central rain chain</div>
+      </div>
+      <div class="plan-card plan-card--half js-viewable">
+        <div class="plan-card__top"><span>Longitudinal Section</span><span>B-B</span></div>
+        <div class="plan-card__svg">
+          <svg viewBox="0 0 400 160" fill="none" stroke="rgba(251,247,241,0.9)" stroke-width="0.8">
+            <rect x="10" y="30" width="380" height="50" />
+            <line x1="10" y1="80" x2="390" y2="80" />
+            <rect x="30" y="35" width="70" height="30" opacity="0.5"/>
+            <rect x="180" y="35" width="100" height="40" opacity="0.3"/>
+            <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(251,247,241,0.25)"/>
+          </svg>
+        </div>
+        <div class="plan-card__label">32m bar — Deep reveals — 2700K interior</div>
+      </div>
+      <div class="plan-card plan-card--half js-viewable">
+        <div class="plan-card__top"><span>Main Elevation — North</span><span>Forest Face</span></div>
+        <div class="plan-card__svg">
+          <svg viewBox="0 0 400 140" fill="none" stroke="rgba(251,247,241,0.9)" stroke-width="0.8">
+            <rect x="10" y="20" width="380" height="60" />
+            <rect x="40" y="28" width="60" height="36" fill="rgba(251,247,241,0.06)"/>
+            <rect x="140" y="28" width="100" height="36" fill="rgba(251,247,241,0.06)"/>
+            <rect x="280" y="28" width="50" height="36" fill="rgba(251,247,241,0.06)"/>
+          </svg>
+        </div>
+        <div class="plan-card__label">White render — Oak frames — Deep shadow</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 SEASONS -->
+  <section id="seasons" class="section seasons" data-nav="12 — The Seasons">
+    <div class="seasons__header">
+      <div class="eyebrow">12 — Time</div>
+      <div style="display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:end">
+        <h2 class="seasons__title serif reveal">The architecture changes<br>with time.<br><em>Morning. Noon. Golden hour. Night.</em></h2>
+        <p class="chapter__body reveal" style="max-width:34ch">Same volume, four atmospheres. The white render absorbs fog at 7am and becomes lantern at 19:30. Time is the final material.</p>
+      </div>
+    </div>
+    <div class="seasons__strip">
+      <div class="season season--morning js-viewable reveal">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Morning villa" loading="lazy">
+        <div class="season__overlay"><span class="season__time">06:40 — Morning</span><div><div class="season__label">Fog light</div><div class="season__temp">8°C / 90% humidity</div></div></div>
+      </div>
+      <div class="season season--noon js-viewable reveal reveal--delay-1">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Noon villa" loading="lazy">
+        <div class="season__overlay"><span class="season__time">12:20 — Noon</span><div><div class="season__label">Flat white</div><div class="season__temp">19°C / Clear</div></div></div>
+      </div>
+      <div class="season season--golden js-viewable reveal reveal--delay-2">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="Golden hour villa" loading="lazy">
+        <div class="season__overlay"><span class="season__time">17:45 — Golden Hour</span><div><div class="season__label">Amber frame</div><div class="season__temp">14°C / Warm</div></div></div>
+      </div>
+      <div class="season season--night js-viewable reveal reveal--delay-3">
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80" alt="Night villa" loading="lazy">
+        <div class="season__overlay"><span class="season__time">20:15 — Night</span><div><div class="season__label">Lantern</div><div class="season__temp">4°C / Silence</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 FINAL -->
+  <section id="final" class="section final" data-nav="13 — Final / Memory">
+    <div class="final__media"><img class="parallax-img" data-speed="0.05" src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2400&q=80" alt="Final aerial villa in autumn" loading="lazy"></div>
+    <div class="final__veil"></div>
+    <div class="final__content">
+      <h2 class="final__title reveal">Villa<br>Paayiz</h2>
+      <div class="final__line reveal reveal--delay-1"></div>
+      <p class="final__quote reveal reveal--delay-1">"A house is not remembered by its walls.<br>It is remembered by the life that happened within them."</p>
+      <div class="final__meta reveal reveal--delay-2" style="margin-top:36px">Keleston — Shiraz — Iran — 2026<br>Built with walnut, stone, memory and autumn light</div>
+      <div style="margin-top:40px" class="reveal reveal--delay-3">
+        <button id="backToTop" style="font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(251,247,241,.6); border-bottom:1px solid rgba(251,247,241,.2); padding-bottom:6px">Back to opening — ↑</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><span>Studio Paayiz — Minimal / Contemporary / Forest</span><span>Images: Unsplash placeholders — replace with your renders in CONFIG</span><span>Typography: Cormorant Garamond + Syne + IBM Plex Mono</span></footer>
+  </main>
+
+  <!-- FULLSCREEN VIEWER -->
+  <div class="viewer" id="viewer">
+    <button class="viewer__close" id="closeViewer"><span class="viewer__close-line"></span> Close — Esc</button>
+    <img class="viewer__img" id="viewerImg" alt="">
+    <div class="viewer__caption" id="viewerCap"></div>
+  </div>
+
+<script>
+/* =========================================================
+  VILLA PAAYIZ — Cinematic Presentation — Vanilla JS
+  =========================================================
+  CONFIG IMAGES: Easy replacement map. Replace URLs with local paths:
+  Example: "./images/exterior-01.jpg"
+*/
+const IMAGE_MAP = {
+  hero: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80",
+  landscape: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=80",
+  village: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80",
+  form: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80",
+  living: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=80"
+};
+
+/* DOM */
+const progressBar = document.getElementById('progressBar');
+const siteNav = document.getElementById('siteNav');
+const chapterLabel = document.getElementById('chapterLabel');
+const chapterDot = document.getElementById('chapterDot');
+const indexPanel = document.getElementById('indexPanel');
+const openIndex = document.getElementById('openIndex');
+const closeIndex = document.getElementById('closeIndex');
+const viewer = document.getElementById('viewer');
+const viewerImg = document.getElementById('viewerImg');
+const viewerCap = document.getElementById('viewerCap');
+const closeViewerBtn = document.getElementById('closeViewer');
+
+/* ——— Scroll progress + nav chapter ——— */
+const sections = [...document.querySelectorAll('[data-nav]')];
+let ticking = false;
+
+function onScroll(){
+  const scrollTop = window.scrollY;
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
+  progressBar.style.width = pct + '%';
+
+  // Active chapter (closest to middle)
+  let current = sections[0];
+  for(const s of sections){
+    if(s.getBoundingClientRect().top <= window.innerHeight * 0.45) current = s;
+  }
+  if(current){
+    chapterLabel.textContent = current.dataset.nav;
+    chapterDot.classList.add('is-active');
+  }
+
+  // Nav hide on scroll down
+  const lastY = onScroll._last || 0;
+  const diff = scrollTop - lastY;
+  if(scrollTop > 280){
+    if(diff > 6) siteNav.classList.add('nav--hidden');
+    else if(diff < -8) siteNav.classList.remove('nav--hidden');
+  } else {
+    siteNav.classList.remove('nav--hidden');
+  }
+  if(scrollTop > 24) siteNav.classList.add('nav--scrolled'); else siteNav.classList.remove('nav--scrolled');
+  onScroll._last = scrollTop;
+  ticking = false;
+}
+window.addEventListener('scroll', ()=>{
+  if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+}, {passive:true});
+onScroll();
+
+/* ——— Intersection Reveals ——— */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('is-visible');
+      // idea steps staggered
+      if(e.target.classList.contains('idea__step')){
+        setTimeout(()=> e.target.classList.add('is-active'), 160 * (+e.target.dataset.step || 0));
+      }
+    }
+  });
+},{threshold:0.18, rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.reveal, .idea__step').forEach(el=> revealObserver.observe(el));
+
+/* ——— Parallax (very slow cinematic) ——— */
+const parallaxImgs = [...document.querySelectorAll('.parallax-img')];
+let rafId=null;
+function parallaxFrame(){
+  const vh = window.innerHeight;
+  parallaxImgs.forEach(img=>{
+    const rect = img.parentElement.getBoundingClientRect();
+    const speed = parseFloat(img.dataset.speed || '0.08');
+    // distance from center
+    const centerDelta = (rect.top + rect.height/2 - vh/2) / vh;
+    const y = centerDelta * -1 * speed * 180; // px
+    img.style.transform = `translate3d(0, ${y}px, 0) scale(1.06)`;
+  });
+  rafId=null;
+}
+function queueParallax(){
+  if(!rafId) rafId = requestAnimationFrame(parallaxFrame);
+}
+window.addEventListener('scroll', queueParallax, {passive:true});
+window.addEventListener('resize', queueParallax);
+queueParallax();
+
+/* ——— Arrival scroll-driven transition (200vh) ——— */
+const arrivalSection = document.getElementById('arrival');
+const arrivalImages = [document.getElementById('arrivalAerial'), document.getElementById('arrivalPath'), document.getElementById('arrivalEye')];
+const arrivalDots = [...document.querySelectorAll('.arrival__dot')];
+const arrivalText = document.getElementById('arrivalText');
+const arrivalSub = document.getElementById('arrivalSub');
+function arrivalUpdate(){
+  if(!arrivalSection) return;
+  const rect = arrivalSection.getBoundingClientRect();
+  const total = arrivalSection.offsetHeight - window.innerHeight;
+  const progress = Math.min(Math.max(-rect.top / (total || 1), 0), 1);
+  let idx = 0;
+  if(progress > 0.33) idx = 1;
+  if(progress > 0.66) idx = 2;
+  arrivalImages.forEach((im,i)=> im.classList.toggle('is-active', i===idx));
+  arrivalDots.forEach((d,i)=> d.classList.toggle('is-active', i===idx));
+  if(idx===0){
+    arrivalText.innerHTML = "Arrival is not a moment.<br>It is a gradual transition<br>from landscape to architecture.";
+    arrivalSub.textContent = "120m gravel walk through oaks. No gate. No fence. Only a soft crunch of leaves, then white wall.";
+  } else if(idx===1){
+    arrivalText.innerHTML = "The path narrows.<br>The trees become closer.<br>The white line appears.";
+    arrivalSub.textContent = "Light filters through amber leaves. Air smells of damp earth and distant smoke.";
+  } else {
+    arrivalText.innerHTML = "You are no longer in the forest.<br>You are not yet inside.<br>You are in between.";
+    arrivalSub.textContent = "Deep oak door, no handle. Push. Warmth, walnut, stone. Cheese and wood.";
+  }
+}
+window.addEventListener('scroll', arrivalUpdate, {passive:true});
+arrivalUpdate();
+
+/* ——— Index overlay ——— */
+function openIndexPanel(){ indexPanel.classList.add('is-open'); document.body.style.overflow='hidden'; }
+function closeIndexPanel(){ indexPanel.classList.remove('is-open'); document.body.style.overflow=''; }
+openIndex.addEventListener('click', openIndexPanel);
+closeIndex.addEventListener('click', closeIndexPanel);
+indexPanel.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeIndexPanel));
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeIndexPanel(); closeViewer(); }});
+
+/* ——— Fullscreen image viewer ——— */
+function openViewer(src, alt){
+  viewerImg.src = src;
+  viewerImg.alt = alt || "";
+  viewerCap.textContent = alt || "";
+  viewer.classList.add('is-open');
+  document.body.style.overflow='hidden';
+}
+function closeViewer(){
+  viewer.classList.remove('is-open');
+  document.body.style.overflow='';
+  setTimeout(()=>{ viewerImg.src=""; }, 400);
+}
+document.querySelectorAll('.js-viewable img, .js-viewable').forEach(el=>{
+  // If element itself is wrapper, find img
+  const img = el.tagName==='IMG' ? el : el.querySelector('img');
+  if(!img) return;
+  el.addEventListener('click', ()=> openViewer(img.src, img.alt));
+});
+viewer.addEventListener('click', (e)=>{ if(e.target===viewer) closeViewer(); });
+closeViewerBtn.addEventListener('click', closeViewer);
+
+/* ——— Keyboard navigation (Section to section) ——— */
+document.addEventListener('keydown', (e)=>{
+  if(indexPanel.classList.contains('is-open') || viewer.classList.contains('is-open')) return;
+  if(e.key==='ArrowDown' || e.key==='PageDown'){
+    e.preventDefault();
+    const cur = sections.findIndex(s=> s.getBoundingClientRect().top > 80);
+    const nextIdx = cur === -1 ? sections.length-1 : cur;
+    if(sections[nextIdx]) sections[nextIdx].scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  if(e.key==='ArrowUp' || e.key==='PageUp'){
+    e.preventDefault();
+    const cur = [...sections].reverse().findIndex(s=> s.getBoundingClientRect().top < -100);
+    const idx = cur === -1 ? 0 : sections.length-1 - cur -1;
+    const prev = sections[Math.max(0, idx)];
+    if(prev) prev.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+
+/* ——— Back to top ——— */
+document.getElementById('backToTop').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ——— Idea track hover sync ——— */
+const ideaSteps = [...document.querySelectorAll('.idea__step')];
+ideaSteps.forEach(step=>{
+  step.addEventListener('mouseenter', ()=>{
+    ideaSteps.forEach(s=> s.classList.remove('is-active'));
+    step.classList.add('is-active');
+  });
+});
+
+/* ——— Image lazy fade-in ——— */
+document.querySelectorAll('img[loading="lazy"]').forEach(img=>{
+  if(img.complete){ img.style.opacity='1'; }
+  else{
+    img.style.opacity='0'; img.style.transition='opacity 1.2s var(--ease-cinema)';
+    img.addEventListener('load', ()=> img.style.opacity='1', {once:true});
+  }
+});
+
+/* ——— Reduce motion accessibility ——— */
+const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+if(mediaReduce.matches){
+  // disable parallax and reveals instant
+  parallaxImgs.forEach(i=> i.style.transform='none');
+  document.querySelectorAll('.reveal').forEach(r=> r.classList.add('is-visible'));
+}
+</script>
+</body>
+</html>
