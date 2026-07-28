@@ -93,12 +93,30 @@ light. **Swap them for the real project photography before publishing**: drop
 files with the same names into `assets/` and re-run `render.py`. Nothing else
 needs to change.
 
+## Brand mark
+
+`logo.py` redraws the SAHI Studio mark as vector-style artwork from
+coordinates (no bitmap tracing): a tall open-bottom frame whose inner rails
+funnel into a pointed tail, with the SAHI logotype built from the same
+hairline geometry so the frame's verticals read as the letters' extenders.
+
+```bash
+python logo.py     # -> brand/logo-{light,dark,alpha}.png
+```
+
+`build_logo(height, ink, ground, progress)` is importable; `progress` (0..1)
+drives the top-down draw-on reveal used on the reel's end card, where the mark
+now replaces the old "SAHI STUDIO" wordmark. The corner watermark retires as
+the end card arrives so the two never compete.
+
 ## Layout
 
 ```
 assets/     10 vertical source frames
 fonts/      Vazirmatn (Persian) + Cormorant Garamond (Latin)
 audio/      raw Persian VO (mp3) + trim/ (normalised wav)
+logo.py     the SAHI Studio mark, drawn from coordinates
+brand/      logo exports (light / dark / transparent)
 render.py   picture: Ken Burns, grade, grain, captions, slit wipes
 score.py    music bed + VO mix
 stills.py   dump graded frames from the timeline

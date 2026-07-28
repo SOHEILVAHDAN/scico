@@ -15,7 +15,8 @@ total = t + R.XFADE
 
 bases = {s.img: R.load_base(s.img) for s in R.SHOTS}
 cues = {(i, j): R.render_cue(c) for i, s in enumerate(R.SHOTS) for j, c in enumerate(s.cues)}
-endcard = R.render_endcard()
+ENDCARD_STEPS = 26
+endcards = [R.render_endcard(i / (ENDCARD_STEPS - 1)) for i in range(ENDCARD_STEPS)]
 watermark = R.render_watermark()
 rng = np.random.default_rng(7)
 
@@ -42,8 +43,10 @@ def frame_at(gt):
                 a = (la[..., 3:4] / 255.0) * fade
                 fl = fl * (1 - a) + la[..., :3] * a
         if s.img == "10-outro.jpg":
-            ec = np.asarray(endcard, np.float32)
-            fade = R.ease(min(1.0, max(0.0, (local - 0.35) / 0.9)))
+            draw_p = min(1.0, max(0.0, (local - 0.30) / 2.0))
+            idx = min(ENDCARD_STEPS - 1, int(R.ease(draw_p) * (ENDCARD_STEPS - 1)))
+            ec = np.asarray(endcards[idx], np.float32)
+            fade = R.ease(min(1.0, max(0.0, (local - 0.25) / 0.7)))
             a = (ec[..., 3:4] / 255.0) * fade
             fl = fl * (1 - a) + ec[..., :3] * a
         w = 1.0

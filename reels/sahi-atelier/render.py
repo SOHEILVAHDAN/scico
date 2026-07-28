@@ -29,6 +29,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import arabic_reshaper
 from bidi.algorithm import get_display
 
+from logo import build_logo
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(ROOT, "assets")
 FONTS = os.path.join(ROOT, "fonts")
@@ -327,34 +329,48 @@ def slit_overlay(arr: np.ndarray, p: float) -> np.ndarray:
 
 # ------------------------------------------------------------------ endcard
 
-def render_endcard() -> Image.Image:
+def render_endcard(progress: float = 1.0) -> Image.Image:
+    """Brand end card. `progress` drives the logo's draw-on reveal."""
     # soft dark plate so the brand block reads over the slit of light
     plate = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     pd = ImageDraw.Draw(plate)
-    pd.ellipse([-W * 0.35, H * 0.30, W * 1.35, H * 0.72], fill=(6, 4, 3, 205))
+    pd.ellipse([-W * 0.35, H * 0.20, W * 1.35, H * 0.80], fill=(6, 4, 3, 215))
     plate = plate.filter(ImageFilter.GaussianBlur(70))
 
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
 
-    f_brand = ImageFont.truetype(LAT_SB, 96)
+    # --- the mark, drawn on from the top
+    mark_h = 760
+    mark = build_logo(mark_h, ink=CREAM, progress=progress, with_studio=False)
+    mx = int(W / 2 - mark.width / 2)
+    my = int(H * 0.30 - mark_h * 0.42)
+    layer.alpha_composite(mark, (mx, my))
+
     f_sub = ImageFont.truetype(LAT_IT, 40)
     f_fa = ImageFont.truetype(FA_REG, 44)
-    f_cta = ImageFont.truetype(LAT_REG, 34)
+    f_cta = ImageFont.truetype(LAT_REG, 32)
+    f_studio = ImageFont.truetype(LAT_REG, 44)
 
-    cy = H * 0.44
-    d.line([(W / 2, cy - 210), (W / 2, cy - 130)], fill=AMBER + (230,), width=3)
+    cy = my + mark_h + 40
 
-    tracked_text(d, (W / 2, cy - 90), "SAHI STUDIO", f_brand, CREAM + (255,), 9.0)
-    tracked_text(d, (W / 2, cy + 42), "Leather Atelier", f_sub, AMBER + (235,), 4.0)
+    # STUDIO, letter-spaced, with flanking rules — matches the logo lockup
+    total = tracked_text(d, (W / 2, cy), "STUDIO", f_studio, CREAM + (245,), 22.0)
+    ry = cy + 30
+    for sgn in (-1, 1):
+        xa = W / 2 + sgn * (total / 2 + 40)
+        d.line([(xa, ry), (xa + sgn * 84, ry)], fill=AMBER + (200,), width=2)
+
+    tracked_text(d, (W / 2, cy + 78), "Leather Atelier", f_sub, AMBER + (235,), 4.0)
 
     shaped = fa("آتلیه‌ی چرم · از کارگاه، تا گالری")
     tw = d.textlength(shaped, font=f_fa)
-    d.text((W / 2 - tw / 2, cy + 120), shaped, font=f_fa, fill=CREAM + (215,))
+    d.text((W / 2 - tw / 2, cy + 150), shaped, font=f_fa, fill=CREAM + (215,))
 
-    d.line([(W / 2 - 60, cy + 214), (W / 2 + 60, cy + 214)], fill=AMBER + (150,), width=1)
-    tracked_text(d, (W / 2, cy + 238), "VOLUME I  ·  A STUDY IN METAMORPHOSIS",
-                 f_cta, CREAM + (170,), 3.2)
+    d.line([(W / 2 - 60, cy + 240), (W / 2 + 60, cy + 240)],
+           fill=AMBER + (150,), width=1)
+    tracked_text(d, (W / 2, cy + 262), "VOLUME I  ·  A STUDY IN METAMORPHOSIS",
+                 f_cta, CREAM + (170,), 3.0)
 
     shadow = layer.filter(ImageFilter.GaussianBlur(12))
     out = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -396,7 +412,9 @@ def main():
     bases = {s.img: load_base(s.img) for s in SHOTS}
     cue_layers = {(i, j): render_cue(c)
                   for i, s in enumerate(SHOTS) for j, c in enumerate(s.cues)}
-    endcard = render_endcard()
+    ENDCARD_STEPS = 26
+    endcards = [render_endcard(i / (ENDCARD_STEPS - 1))
+                for i in range(ENDCARD_STEPS)]
     watermark = render_watermark()
 
     n_frames = int(round(total * FPS))
@@ -444,8 +462,11 @@ def main():
                     fl = fl * (1 - alpha) + la[..., :3] * alpha
 
             if s.img == "10-outro.jpg":
-                ec = np.asarray(endcard, np.float32)
-                fade = ease(min(1.0, max(0.0, (local - 0.35) / 0.9)))
+                draw_p = min(1.0, max(0.0, (local - 0.30) / 2.0))
+                idx = min(ENDCARD_STEPS - 1,
+                          int(ease(draw_p) * (ENDCARD_STEPS - 1)))
+                ec = np.asarray(endcards[idx], np.float32)
+                fade = ease(min(1.0, max(0.0, (local - 0.25) / 0.7)))
                 alpha = (ec[..., 3:4] / 255.0) * fade
                 fl = fl * (1 - alpha) + ec[..., :3] * alpha
 
@@ -473,8 +494,10 @@ def main():
         wa = wm[..., 3:4] / 255.0
         if gt < 1.0:
             wa = wa * ease(gt)
-        if gt > total - 1.2:
-            wa = wa * ease(max(0.0, (total - gt) / 1.2))
+        # retire the corner mark once the end-card logo takes over
+        outro_in = SHOTS[-1].start + 0.30
+        if gt > outro_in:
+            wa = wa * ease(max(0.0, 1.0 - (gt - outro_in) / 0.8))
         acc = acc * (1 - wa) + wm[..., :3] * wa
 
         # open from / close to black
