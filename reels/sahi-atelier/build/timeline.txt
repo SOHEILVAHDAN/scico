@@ -1,0 +1,11 @@
+   0.00     8.10  01-heritage.jpg
+   7.40    13.80  02-craft.jpg
+  13.10    18.70  03-material.jpg
+  18.00    23.70  09-wall.jpg
+  23.00    30.10  04-blueprint.jpg
+  29.40    38.60  05-facade.jpg
+  37.90    45.60  07-threshold.jpg
+  44.90    56.00  06-masterpiece.jpg
+  55.30    62.50  08-gallery.jpg
+  61.80    68.20  10-outro.jpg
+total 68.20

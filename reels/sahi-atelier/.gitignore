@@ -1,0 +1,5 @@
+build/*
+!build/sahi-atelier-reel.mp4
+!build/cover.jpg
+!build/timeline.txt
+__pycache__/
