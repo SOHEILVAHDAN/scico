@@ -123,6 +123,22 @@ VITE_APP_EMAILJS_PUBLIC_KEY=your_public_key
 
 Without these the site runs fine — only submission is disabled.
 
+### The single-file build
+
+For a copy that needs no server, no `npm install` and no build step:
+
+```bash
+npm run build:single
+```
+
+This writes **`sahi-studio.html`** (362 kB) to the project root with the CSS, JS and
+icons inlined. Double-click it, email it, or drop it on any host — it runs from
+`file://` as well as over HTTP. The build then boots the file in jsdom and asserts it
+actually renders before reporting success.
+
+Fonts are the one thing still fetched from Google Fonts; offline, the declared system
+fallbacks apply and the layout holds.
+
 ## <a name="drawings">📐 The drawings</a>
 
 | Component | Drawing | Used for |
@@ -197,6 +213,7 @@ src/
 | --- | --- |
 | `npm run dev` | Vite dev server |
 | `npm run build` | Production build into `dist/` |
+| `npm run build:single` | One self-contained `sahi-studio.html`, then verifies it boots |
 | `npm run preview` | Serve the production build |
 | `npm run lint` | ESLint across app and scripts |
 | `npm run check` | Translation parity + asset references |

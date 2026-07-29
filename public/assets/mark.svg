@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#0B0B0D"/>
+  <!--
+    The studio's own plan diagram: a solid mass with a courtyard cut from its
+    centre. Poché hatch marks the built fabric; the courtyard is left open.
+
+    The hatch is clipped by four plain rectangles forming the ring around the
+    void. Rect clip paths are supported everywhere, whereas evenodd clip-rule
+    and masks are not honoured by every rasteriser.
+  -->
+  <defs>
+    <clipPath id="band-n"><rect x="10" y="10" width="44" height="14"/></clipPath>
+    <clipPath id="band-s"><rect x="10" y="40" width="44" height="14"/></clipPath>
+    <clipPath id="band-w"><rect x="10" y="24" width="14" height="16"/></clipPath>
+    <clipPath id="band-e"><rect x="40" y="24" width="14" height="16"/></clipPath>
+  </defs>
+
+  <g stroke="#ECE9E4" fill="none">
+    <g stroke-width="0.7" stroke-opacity="0.4">
+      <g clip-path="url(#band-n)">
+        <path d="M-4 26 L26 -4 M-4 38 L38 -4 M-4 50 L50 -4 M-4 62 L62 -4 M2 68 L68 2 M14 68 L68 14 M26 68 L68 26 M38 68 L68 38 M50 68 L68 50"/>
+      </g>
+      <g clip-path="url(#band-s)">
+        <path d="M-4 26 L26 -4 M-4 38 L38 -4 M-4 50 L50 -4 M-4 62 L62 -4 M2 68 L68 2 M14 68 L68 14 M26 68 L68 26 M38 68 L68 38 M50 68 L68 50"/>
+      </g>
+      <g clip-path="url(#band-w)">
+        <path d="M-4 26 L26 -4 M-4 38 L38 -4 M-4 50 L50 -4 M-4 62 L62 -4 M2 68 L68 2 M14 68 L68 14 M26 68 L68 26 M38 68 L68 38 M50 68 L68 50"/>
+      </g>
+      <g clip-path="url(#band-e)">
+        <path d="M-4 26 L26 -4 M-4 38 L38 -4 M-4 50 L50 -4 M-4 62 L62 -4 M2 68 L68 2 M14 68 L68 14 M26 68 L68 26 M38 68 L68 38 M50 68 L68 50"/>
+      </g>
+    </g>
+
+    <path d="M10 10 H54 V54 H10 Z" stroke-width="1.6"/>
+    <path d="M24 24 H40 V40 H24 Z" stroke-width="1.6"/>
+  </g>
+</svg>

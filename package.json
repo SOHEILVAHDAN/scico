@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:single": "vite build && node scripts/build-single-file.mjs && node scripts/verify-single-file.mjs",
     "lint": "eslint .",
     "check": "node scripts/check-i18n.mjs",
     "test": "node scripts/check-i18n.mjs && node scripts/smoke-test.mjs",
