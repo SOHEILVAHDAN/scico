@@ -1,67 +1,124 @@
-import { Leva } from 'leva';
-import { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { useMediaQuery } from 'react-responsive';
-import { PerspectiveCamera } from '@react-three/drei';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import Cube from '../components/Cube.jsx';
-import Rings from '../components/Rings.jsx';
-import ReactLogo from '../components/ReactLogo.jsx';
-import Button from '../components/Button.jsx';
-import Target from '../components/Target.jsx';
-import CanvasLoader from '../components/Loading.jsx';
-import HeroCamera from '../components/HeroCamera.jsx';
-import { calculateSizes } from '../constants/index.js';
-import { HackerRoom } from '../components/HackerRoom.jsx';
 import { useLanguage } from '../i18n/index.js';
+import useReducedMotion from '../hooks/useReducedMotion.js';
+import SketchConcept from '../components/sketches/SketchConcept.jsx';
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+/**
+ * Opening frame: the concept sketch draws itself unprompted, the title rises
+ * out of its baseline, and the whole plate drifts away on a parallax as the
+ * visitor scrolls into the manifesto.
+ */
 const Hero = () => {
   const { t } = useLanguage();
+  const root = useRef(null);
+  const reduced = useReducedMotion();
 
-  // Use media queries to determine screen size
-  const isSmall = useMediaQuery({ maxWidth: 440 });
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+  useGSAP(
+    () => {
+      const svg = root.current.querySelector('.hero-sketch svg');
 
-  const sizes = calculateSizes(isSmall, isMobile, isTablet);
+      if (reduced) {
+        gsap.set('.hero-line, .hero-eyebrow, .hero-lead, .hero-stat, .hero-scroll', { opacity: 1, yPercent: 0, y: 0 });
+        if (svg) gsap.set(svg.querySelectorAll('path, line, circle, text'), { opacity: 1 });
+        return;
+      }
+
+      /* --- the sketch draws itself on load, slowly --- */
+      if (svg) {
+        const strokes = gsap.utils.toArray(svg.querySelectorAll('path, line, circle'));
+        strokes.forEach((node) => {
+          const length =
+            typeof node.getTotalLength === 'function' && node.getTotalLength() > 0
+              ? node.getTotalLength()
+              : 2 * Math.PI * (Number(node.getAttribute('r')) || 10);
+          gsap.set(node, { strokeDasharray: length, strokeDashoffset: length });
+        });
+
+        gsap.set(svg.querySelectorAll('text'), { opacity: 0 });
+
+        gsap
+          .timeline({ delay: 0.35 })
+          .to(strokes, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.inOut', stagger: 0.012 })
+          .to(svg.querySelectorAll('text'), { opacity: 1, duration: 0.6, stagger: 0.05 }, '-=0.9');
+      }
+
+      /* --- title and supporting copy --- */
+      gsap
+        .timeline({ delay: 0.15 })
+        .fromTo('.hero-eyebrow', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+        .fromTo(
+          '.hero-line',
+          { yPercent: 118, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1.4, stagger: 0.11, ease: 'expo.out' },
+          '-=0.7',
+        )
+        .fromTo('.hero-lead', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.9')
+        .fromTo(
+          '.hero-stat',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.9, stagger: 0.09, ease: 'power3.out' },
+          '-=0.8',
+        )
+        .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.5');
+
+      /* --- parallax exit --- */
+      gsap.to('.hero-copy', {
+        yPercent: -18,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true },
+      });
+
+      gsap.to('.hero-sketch', {
+        yPercent: 12,
+        ease: 'none',
+        scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true },
+      });
+    },
+    { scope: root, dependencies: [reduced, t] },
+  );
 
   return (
-    <section className="min-h-screen w-full flex flex-col relative" id="home">
-      <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 c-space gap-3">
-        <p className="sm:text-3xl text-xl font-medium text-white text-center font-generalsans">
-          {t.hero.greeting} <span className="waving-hand">👋</span>
-        </p>
-        <p className="hero_tag text-gray_gradient">{t.hero.tagline}</p>
+    <section ref={root} id="index" className="hero-section">
+      {/* the drawing sits behind everything, oversized and cropped */}
+      <div className="hero-sketch" aria-hidden="true">
+        <SketchConcept className="w-full h-full text-line" />
       </div>
 
-      <div className="w-full h-full absolute inset-0">
-        <Canvas className="w-full h-full">
-          <Suspense fallback={<CanvasLoader />}>
-            {/* To hide controller */}
-            <Leva hidden />
-            <PerspectiveCamera makeDefault position={[0, 0, 30]} />
+      <div className="hero-vignette" aria-hidden="true" />
 
-            <HeroCamera isMobile={isMobile}>
-              <HackerRoom scale={sizes.deskScale} position={sizes.deskPosition} rotation={[0.1, -Math.PI, 0]} />
-            </HeroCamera>
+      <div className="hero-copy">
+        <p className="hero-eyebrow">{t.hero.eyebrow}</p>
 
-            <group>
-              <Target position={sizes.targetPosition} />
-              <ReactLogo position={sizes.reactLogoPosition} />
-              <Rings position={sizes.ringPosition} />
-              <Cube position={sizes.cubePosition} />
-            </group>
+        <h1 className="hero-title">
+          {t.hero.lines.map((line, i) => (
+            <span key={i} className="reveal-mask">
+              <span className="hero-line">{line}</span>
+            </span>
+          ))}
+        </h1>
 
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 10]} intensity={0.5} />
-          </Suspense>
-        </Canvas>
+        <p className="hero-lead">{t.hero.lead}</p>
+
+        <dl className="hero-stats">
+          {t.hero.stats.map((stat) => (
+            <div key={stat.label} className="hero-stat">
+              <dt className="hero-stat_value">{stat.value}</dt>
+              <dd className="hero-stat_label">{stat.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
-      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
-        <a href="#contact" className="w-fit">
-          <Button name={t.hero.cta} isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
-        </a>
+      <div className="hero-scroll" aria-hidden="true">
+        <span className="hero-scroll_label">{t.hero.scroll}</span>
+        <span className="hero-scroll_rule" />
       </div>
     </section>
   );

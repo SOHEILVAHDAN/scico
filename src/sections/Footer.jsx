@@ -5,28 +5,31 @@ const Footer = () => {
   const { t } = useLanguage();
 
   return (
-    <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5">
-      <div className="text-white-500 flex gap-2">
-        <p>{t.footer.terms}</p>
-        <p>|</p>
-        <p>{t.footer.privacy}</p>
+    <footer className="footer">
+      <div className="footer-top">
+        <div>
+          <p className="footer-name">{t.meta.studio}</p>
+          <p className="footer-tagline">{t.footer.tagline}</p>
+        </div>
+
+        <ul className="footer-social">
+          {socialLinks.map((link) => (
+            <li key={link.id}>
+              <a href={link.href} target="_blank" rel="noreferrer" className="footer-social_link">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <div className="flex gap-3">
-        {socialLinks.map((link) => (
-          <a
-            key={link.id}
-            href={link.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={link.name}
-            className="social-icon">
-            <img src={link.icon} alt="" aria-hidden="true" className="w-1/2 h-1/2" />
-          </a>
-        ))}
+      <div className="footer-bottom">
+        <p>{t.footer.rights}</p>
+        <p>{t.footer.credits}</p>
+        <a href="#index" className="footer-top_link">
+          {t.footer.backToTop}
+        </a>
       </div>
-
-      <p className="text-white-500">{t.footer.rights}</p>
     </footer>
   );
 };

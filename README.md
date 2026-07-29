@@ -1,71 +1,97 @@
 <div align="center">
   <br />
-  <img src="public/assets/sahi-logo.png" alt="Sahi Studio" width="110" />
-
-  <h3 align="center">Sahi Studio — استودیو سَهی</h3>
+  <h3>Sahi Studio — استودیو سَهی</h3>
+  <p><em>Architecture &amp; Spatial Design · معماری و طراحی فضا</em></p>
 
   <div>
-    <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react.js" />
-    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-Vite-black?style=for-the-badge&logoColor=white&logo=vite&color=646CFF" alt="vite" />
+    <img src="https://img.shields.io/badge/-React_18-black?style=for-the-badge&logoColor=white&logo=react&color=1a1a1a" alt="react" />
+    <img src="https://img.shields.io/badge/-GSAP_ScrollTrigger-black?style=for-the-badge&logoColor=white&logo=greensock&color=1a1a1a" alt="gsap" />
+    <img src="https://img.shields.io/badge/-Lenis-black?style=for-the-badge&logoColor=white&color=1a1a1a" alt="lenis" />
+    <img src="https://img.shields.io/badge/-Vite_5-black?style=for-the-badge&logoColor=white&logo=vite&color=1a1a1a" alt="vite" />
   </div>
 
-  <p align="center">A bilingual (English / فارسی) 3D studio site with full RTL support.</p>
+  <p align="center">A cinematic, bilingual portfolio where every project is explained by a drawing that builds itself as you scroll.</p>
 </div>
 
 ## 📋 Table of Contents
 
 1. [Introduction](#introduction)
-2. [Tech Stack](#tech-stack)
-3. [Features](#features)
-4. [Quick Start](#quick-start)
-5. [Internationalisation](#internationalisation)
-6. [Project Structure](#project-structure)
-7. [Scripts](#scripts)
-8. [Deployment](#deployment)
-9. [Credits](#credits)
+2. [The idea](#idea)
+3. [Tech Stack](#tech-stack)
+4. [Features](#features)
+5. [Quick Start](#quick-start)
+6. [The drawings](#drawings)
+7. [Internationalisation](#i18n)
+8. [Project Structure](#structure)
+9. [Scripts](#scripts)
+10. [Accessibility & performance](#a11y)
+11. [Deployment](#deployment)
 
 ## <a name="introduction">🤖 Introduction</a>
 
-The website for **Sahi Studio**, a web and software studio. It pairs an interactive
-Three.js scene with a fully translated interface: every string is available in English
-and Persian, and switching language flips the whole document to RTL, swaps the type
-family to Vazirmatn, and remembers the choice for the next visit.
+The portfolio of **Sahi Studio**, an architecture practice in Tehran. It is built
+around one conviction: a building is best explained by the drawing that produced it,
+not by a photograph of the finished object.
 
-The 3D foundation is based on [adrianhajdin/threejs-portfolio](https://github.com/adrianhajdin/threejs-portfolio)
-(see [Credits](#credits)), rebuilt around a translation layer, studio branding and content
-of its own.
+So the site has no photographs. Each project is presented as a technical drawing —
+a plan, a section, an exploded axonometric, a concept diagram — that draws itself
+stroke by stroke, in the order an architect would draw it, as the visitor scrolls
+past the written argument for the building.
+
+## <a name="idea">✏️ The idea</a>
+
+Every drawing is a real SVG with its strokes grouped into four layers that mirror
+how a sheet is actually produced:
+
+```
+.sk-grid      setting-out grid, column bubbles      ← drawn first
+.sk-walls     structure and poché
+.sk-openings  doors, glazing, stairs, fittings
+.sk-dims      dimensions, section marks, notes      ← drawn last
+```
+
+`DrawnSketch` measures each path, dashes it with its own length, then animates
+`stroke-dashoffset` from that length to zero, staggered by layer and tied to scroll
+position. The result is that the visitor draws the plan themselves by scrolling, and
+the annotation only arrives once the geometry it describes exists.
+
+That is the whole thesis of the site made mechanical: **you watch the thinking happen
+before you see the conclusion.**
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
 - **React 18** + **Vite 5**
-- **Three.js** via **React Three Fiber** and **Drei**
-- **Tailwind CSS 3** (with the built-in `ltr:` / `rtl:` variants)
-- **GSAP** for section animations
-- **EmailJS** for the contact form
-- **react-globe.gl** for the interactive globe
-- **jsdom** + **esbuild** for the headless smoke test
+- **GSAP** + **ScrollTrigger** — scrubbed draw-on, pinned sections, staggered reveals
+- **Lenis** — momentum scrolling, driven from GSAP's ticker so pins never drift
+- **Tailwind CSS 3** (utility layer) with a hand-written design-token stylesheet
+- **jsdom** + **esbuild** — headless test suite, no browser required
+
+No 3D, no image assets, no icon fonts. The entire visual identity is vector line work
+and type, which is why the whole site is **~330 kB** (114 kB gzipped).
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Bilingual by default** — English and Persian ship together; one click swaps every
-string on the page, including project descriptions, testimonials and form placeholders.
+👉 **Scroll-drawn architectural sketches** — four full technical drawings (773 individual
+strokes) that build themselves in correct drawing order, scrubbed by scroll.
 
-👉 **Real RTL, not mirrored CSS** — the switch sets `<html dir>`, and layout uses
-Tailwind's logical `ltr:` / `rtl:` variants so spacing, arrows and alerts flip correctly.
+👉 **Pinned project plates** — on desktop the drawing sticks while the reasoning scrolls
+past it, so argument and geometry are read together.
 
-👉 **Persian typography** — Vazirmatn loads for Persian with adjusted line height, while
-latin-only content (email addresses, form input) stays LTR inside RTL text.
+👉 **A pinned process stage** — one drawing frame that swaps its contents as the four
+stages of the studio's method scroll through, with a progress rule that fills as you read.
 
-👉 **Language memory** — the choice persists in `localStorage`; first-time visitors are
-matched against their browser language.
+👉 **Line-by-line masked type reveals** — headings rise out of their own baseline. Split on
+words, not characters, so Persian letter-joining stays intact.
 
-👉 **Interactive 3D hero** — a hacker-room scene that reacts to cursor movement, plus a
-3D project viewer and animated developer model.
+👉 **Manifesto that brightens as you read it** — each line lifts from 16% to full opacity as
+it crosses the middle of the viewport.
 
-👉 **Tested without a browser** — `npm test` checks translation parity, asset references
-and renders the real React tree in jsdom to assert the language switch end to end.
+👉 **Fully bilingual, genuinely RTL** — English and Persian, with `<html dir>` flipping,
+logical CSS properties throughout, Vazirmatn for Persian, and latin-only content
+(emails, sheet codes) held LTR inside RTL text.
+
+👉 **Respects `prefers-reduced-motion`** — smooth scrolling is disabled and every
+animation degrades to its final state.
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -82,8 +108,7 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ### Contact form (optional)
 
-The contact form uses [EmailJS](https://www.emailjs.com). Create a `.env` file in the
-project root:
+The enquiry form uses [EmailJS](https://www.emailjs.com). Copy `.env.example` to `.env`:
 
 ```env
 VITE_APP_EMAILJS_SERVICE_ID=your_service_id
@@ -91,93 +116,114 @@ VITE_APP_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_APP_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-Without these the site runs fine — only form submission is disabled.
+Without these the site runs fine — only submission is disabled.
 
-## <a name="internationalisation">🌍 Internationalisation</a>
+## <a name="drawings">📐 The drawings</a>
 
-All copy lives in `src/i18n/translations/`. Components never hardcode text; they read it
-through the `useLanguage()` hook:
+| Component | Drawing | Used for |
+| --- | --- | --- |
+| `SketchPlan` | Ground floor plan, 1:100 — poché walls, door swings, stair, courtyard, dimensions, section mark, north point | Courtyard House |
+| `SketchSection` | Long section, 1:100 — ground line, slabs, columns, figures for scale, daylight study | Stone Library |
+| `SketchAxo` | Exploded axonometric — roof, programme and ground pulled apart with leader annotations | Terraced Offices |
+| `SketchConcept` | Concept diagram — site boundary, wind, sun path, desire line, and the single move | Desert Pavilion, hero, process |
+
+To review a drawing on its own without running the site:
+
+```bash
+npm run sketches      # writes standalone SVGs to .sketch-preview/
+```
+
+### Adding a project
+
+1. Write the copy in **both** `src/i18n/translations/en.js` and `fa.js` under `work.items`.
+2. Add an entry to `projectAssets` in `src/constants/index.js` naming its sketch
+   component, sheet number and scale.
+
+To draw a new sketch, copy an existing one and keep the four `sk-*` layer groups —
+`DrawnSketch` needs them to know the drawing order. Use `<text>` for annotation; text
+cannot be dashed, so it is faded in after the geometry automatically.
+
+## <a name="i18n">🌍 Internationalisation</a>
+
+All prose lives in `src/i18n/translations/`. Components never hardcode text:
 
 ```jsx
 import { useLanguage } from '../i18n/index.js';
 
 const Section = () => {
   const { t, isRTL, language, toggleLanguage } = useLanguage();
-
-  return <h2>{t.projects.heading}</h2>;
+  return <h2>{t.work.heading}</h2>;
 };
 ```
 
-### Editing content
+The two translation files must share an identical key structure — `npm run check`
+fails if a key is missing, extra or empty in either. Asset and layout data stays in
+`src/constants/index.js` and is merged with the translated copy at render time.
 
-Change the studio's copy in **both** `translations/en.js` and `translations/fa.js` — the
-two files must share the same key structure. `npm run check` fails the build if a key is
-missing, extra or empty in one of them.
+**Adding a language:** add `translations/<code>.js`, register it in `src/i18n/config.js`,
+and extend `getDirection()` if it is RTL.
 
-Assets, colours and layout values stay in `src/constants/index.js` and are merged with
-the translated text at render time, so a project's video and logo are defined once and
-described in every language.
-
-### Adding a third language
-
-1. Add `src/i18n/translations/<code>.js` with the same keys as `en.js`.
-2. Register it in `src/i18n/config.js` (`translations` and `LANGUAGES`).
-3. If the language is RTL, extend `getDirection()` in the same file.
-
-`LanguageToggle` currently flips between two languages; with three or more, swap it for a
-dropdown driven by the `LANGUAGES` array.
-
-## <a name="project-structure">🗂️ Project Structure</a>
+## <a name="structure">🗂️ Project Structure</a>
 
 ```
-public/
-  assets/            images, icons, studio logo
-  models/            .glb / .fbx 3D models and animations
-  textures/          project videos and surface textures
 scripts/
-  check-i18n.mjs     translation parity + asset reference check
-  smoke-test.mjs     renders the app in jsdom and drives the language switch
-  stub-loader.mjs    esbuild JSX transform + WebGL stubs for the test
+  check-i18n.mjs       translation parity + asset reference check
+  smoke-test.mjs       renders the app in jsdom, drives the language switch
+  stub-loader.mjs      esbuild JSX transform + GSAP/Lenis stubs
+  render-sketches.mjs  exports drawings as standalone SVG
 src/
-  components/        reusable UI and 3D components
-  constants/         language independent data (assets, layout math)
-  hooks/             useAlert
-  i18n/
-    config.js        language registry and resolution
-    LanguageContext.js
-    LanguageProvider.jsx
-    translations/    en.js, fa.js
-  sections/          Navbar, Hero, About, Projects, Clients, Experience, Contact, Footer
+  components/
+    sketches/          the four architectural drawings
+    DrawnSketch.jsx    scroll-scrubbed stroke-by-stroke draw-on
+    RevealText.jsx     masked line-by-line type reveal
+    FadeIn.jsx         quiet entrance for supporting blocks
+    GrainOverlay.jsx   fixed paper grain
+  hooks/
+    useSmoothScroll.js Lenis wired into the GSAP ticker
+    useReducedMotion.js
+  i18n/                config, provider, en.js / fa.js
+  sections/            Navbar, Hero, Manifesto, Work, Process, Studio, Contact, Footer
+  index.css            design tokens + all component styles
 ```
 
 ## <a name="scripts">📜 Scripts</a>
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the Vite dev server |
+| `npm run dev` | Vite dev server |
 | `npm run build` | Production build into `dist/` |
-| `npm run preview` | Serve the production build locally |
-| `npm run lint` | ESLint across the project |
-| `npm run check` | Verify translation parity and public asset references |
-| `npm test` | `check` plus the jsdom smoke test of the language switch |
+| `npm run preview` | Serve the production build |
+| `npm run lint` | ESLint across app and scripts |
+| `npm run check` | Translation parity + asset references |
+| `npm test` | `check` plus the jsdom smoke test (39 assertions) |
+| `npm run sketches` | Export the drawings as standalone SVGs |
+
+## <a name="a11y">♿ Accessibility & performance</a>
+
+- Every animation checks `prefers-reduced-motion` and settles to its final state.
+- Drawings are `aria-hidden` — they are illustration, and the argument beside them
+  carries the meaning in text.
+- Type reveals split on words, never characters, so screen readers and Persian
+  letter-joining are unaffected.
+- No web-font FOIT: system fallbacks are declared ahead of the loaded families.
+- 330 kB total JS (114 kB gzipped), no images, no 3D runtime.
 
 ## <a name="deployment">🚀 Deployment</a>
 
-The build output is a static site in `dist/`, deployable to Vercel, Netlify, GitHub Pages
-or any static host.
+Static output in `dist/` — deployable to Vercel, Netlify, GitHub Pages or any static host.
 
 ```bash
 npm run build
 npm run preview   # verify locally first
 ```
 
-On Vercel or Netlify: build command `npm run build`, publish directory `dist`. Remember to
-add the `VITE_APP_EMAILJS_*` variables in the host's environment settings if you use the
-contact form.
+Build command `npm run build`, publish directory `dist`. Add the `VITE_APP_EMAILJS_*`
+variables in your host's environment settings if you use the enquiry form.
 
-## <a name="credits">🙏 Credits</a>
+---
 
-The 3D scene, models and base layout come from the excellent
-[**threejs-portfolio**](https://github.com/adrianhajdin/threejs-portfolio) tutorial project
-by [Adrian Hajdin / JavaScript Mastery](https://www.youtube.com/@javascriptmastery). The
-bilingual layer, RTL support, studio branding, content and test suite were added on top.
+<div align="center">
+  <sub>The 3D scaffolding this project started from came from
+  <a href="https://github.com/adrianhajdin/threejs-portfolio">adrianhajdin/threejs-portfolio</a>.
+  Nothing of it remains: the drawings, motion system, content and architecture are the studio's own.</sub>
+</div>

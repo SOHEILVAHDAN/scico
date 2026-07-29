@@ -1,28 +1,39 @@
-import Hero from './sections/Hero.jsx';
-import About from './sections/About.jsx';
-import Footer from './sections/Footer.jsx';
 import Navbar from './sections/Navbar.jsx';
+import Hero from './sections/Hero.jsx';
+import Manifesto from './sections/Manifesto.jsx';
+import Work from './sections/Work.jsx';
+import Process from './sections/Process.jsx';
+import Studio from './sections/Studio.jsx';
 import Contact from './sections/Contact.jsx';
-import Clients from './sections/Clients.jsx';
-import Projects from './sections/Projects.jsx';
-import WorkExperience from './sections/Experience.jsx';
+import Footer from './sections/Footer.jsx';
+import GrainOverlay from './components/GrainOverlay.jsx';
 import { LanguageProvider } from './i18n/index.js';
+import useSmoothScroll from './hooks/useSmoothScroll.js';
 
-const App = () => {
+const Shell = () => {
+  useSmoothScroll();
+
   return (
-    <LanguageProvider>
-      <main className="max-w-7xl mx-auto relative">
-        <Navbar />
+    <>
+      <GrainOverlay />
+      <Navbar />
+      <main className="page">
         <Hero />
-        <About />
-        <Projects />
-        <Clients />
-        <WorkExperience />
+        <Manifesto />
+        <Work />
+        <Process />
+        <Studio />
         <Contact />
-        <Footer />
       </main>
-    </LanguageProvider>
+      <Footer />
+    </>
   );
 };
+
+const App = () => (
+  <LanguageProvider>
+    <Shell />
+  </LanguageProvider>
+);
 
 export default App;

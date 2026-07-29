@@ -75,7 +75,7 @@ const collect = (dir) => {
 collect(join(root, 'src'));
 sourceFiles.push(join(root, 'index.html'));
 
-const assetRef = /['"(](\/(?:assets|models|textures)\/[A-Za-z0-9._/-]+)['")]/g;
+const assetRef = /['"(](\/assets\/[A-Za-z0-9._/-]+)['")]/g;
 const referenced = new Set();
 
 for (const file of sourceFiles) {

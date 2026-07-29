@@ -2,61 +2,50 @@
  * Headless smoke test: mounts the real React tree in jsdom, flips the language
  * switch and asserts the copy, <html dir>, and localStorage persistence.
  *
- * WebGL <Canvas> subtrees are stubbed out — this verifies the DOM layer only.
- * Usage: npm run test:smoke
+ * GSAP/ScrollTrigger and Lenis are stubbed — this verifies the DOM layer and
+ * the i18n wiring, not the animation timings.
+ *
+ * Usage: npm run test
  */
 import { JSDOM } from 'jsdom';
 import { register } from 'node:module';
 
-
 /* --- jsdom globals must exist before React DOM is imported --- */
 const dom = new JSDOM('<!doctype html><html><head></head><body><div id="root"></div></body></html>', {
-  url: 'https://sahistudio.test/',
+  url: 'https://sahi.archi/',
   pretendToBeVisual: true,
 });
 
 globalThis.window = dom.window;
 globalThis.document = dom.window.document;
 // Node 22 defines `navigator` as a getter-only global, so redefine it outright.
-Object.defineProperty(globalThis, 'navigator', {
-  value: dom.window.navigator,
-  configurable: true,
-  writable: true,
-});
+Object.defineProperty(globalThis, 'navigator', { value: dom.window.navigator, configurable: true, writable: true });
 globalThis.HTMLElement = dom.window.HTMLElement;
 globalThis.Element = dom.window.Element;
+globalThis.SVGElement = dom.window.SVGElement;
 globalThis.Node = dom.window.Node;
 globalThis.MutationObserver = dom.window.MutationObserver;
 globalThis.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 0);
 globalThis.cancelAnimationFrame = clearTimeout;
 globalThis.matchMedia =
   dom.window.matchMedia ||
-  ((query) => ({ matches: false, media: query, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} }));
+  ((query) => ({
+    matches: false,
+    media: query,
+    addListener() {},
+    removeListener() {},
+    addEventListener() {},
+    removeEventListener() {},
+  }));
 dom.window.matchMedia = globalThis.matchMedia;
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
-register('./stub-loader.mjs', import.meta.url);
-
-/*
- * react-dom does not know r3f's scene primitives (<skinnedMesh>, <meshMatcapMaterial>, …)
- * and complains about their casing and props. That is expected here: the smoke test only
- * asserts the surrounding HTML, so those specific warnings are filtered out.
- */
-const R3F_NOISE = [
-  'incorrect casing',
-  'unrecognized in this browser',
-  'Invalid value for prop',
-  'Invalid values for props',
-  'non-boolean attribute',
-  'React does not recognize the',
-  'is using incorrect casing',
-];
-const originalError = console.error;
-console.error = (...args) => {
-  const first = typeof args[0] === 'string' ? args[0] : '';
-  if (R3F_NOISE.some((pattern) => first.includes(pattern))) return;
-  originalError(...args);
+// jsdom has no layout engine, so SVG geometry APIs need stubbing.
+dom.window.SVGElement.prototype.getTotalLength = function getTotalLength() {
+  return 100;
 };
+
+register('./stub-loader.mjs', import.meta.url);
 
 const { default: React } = await import('react');
 const { createRoot } = await import('react-dom/client');
@@ -80,18 +69,34 @@ await act(async () => {
   root.render(React.createElement(App));
 });
 
-const html = () => container.innerHTML;
+const body = () => document.body.innerHTML;
 const htmlEl = document.documentElement;
 
 console.log('\nEnglish (default)');
-check('renders the English hero tagline', html().includes('We Build Fast, Scalable Web Products'));
-check('renders the studio name in the navbar', html().includes('Sahi'));
-check('renders English nav links', html().includes('>Contact<'));
-check('renders a translated project title', html().includes('Nova'));
+check('renders the hero statement', body().includes('is an argument'));
+check('renders the studio name', body().includes('Sahi'));
+check('renders the nav', body().includes('>Process<'));
+check('renders a project title', body().includes('Courtyard House'));
+check('renders a project thesis', body().includes('six-lane road'));
+check('renders the process steps', body().includes('Reading the site'));
+check('renders the studio credentials', body().includes('Architects'));
+check('renders an award', body().includes('Memar Award'));
 check('<html lang> is "en"', htmlEl.lang === 'en', `got "${htmlEl.lang}"`);
 check('<html dir> is "ltr"', htmlEl.dir === 'ltr', `got "${htmlEl.dir}"`);
 check('document title is branded', document.title.includes('Sahi Studio'), `got "${document.title}"`);
-check('no leftover upstream branding', !html().includes('Adrian') && !html().includes('jsmastery'));
+check('no leftover upstream branding', !body().includes('Adrian') && !body().includes('jsmastery'));
+
+console.log('\nArchitectural drawings');
+const svgs = document.querySelectorAll('.sketch-frame svg, .hero-sketch svg, .process-frame_layer svg');
+check('sketches are rendered as inline SVG', svgs.length >= 6, `found ${svgs.length}`);
+
+const allPaths = document.querySelectorAll('svg path, svg line, svg circle');
+check('drawings contain many strokes to animate', allPaths.length > 200, `found ${allPaths.length}`);
+
+const layers = ['.sk-grid', '.sk-walls', '.sk-openings', '.sk-dims'];
+layers.forEach((layer) => {
+  check(`drawing layer ${layer} is present`, document.querySelectorAll(layer).length > 0);
+});
 
 /* --- flip the language switch --- */
 const toggle = container.querySelector('.lang-toggle');
@@ -102,16 +107,23 @@ await act(async () => {
 });
 
 console.log('\nPersian (after toggle)');
-check('renders the Persian hero tagline', html().includes('ساخت محصولات وب سریع و مقیاس‌پذیر'));
-check('renders the Persian studio name', html().includes('سَهی'));
-check('renders Persian nav links', html().includes('نمونه‌کارها'));
-check('renders a translated Persian project title', html().includes('نوا'));
+check('renders the Persian hero statement', body().includes('یک استدلال است'));
+check('renders the Persian studio name', body().includes('سَهی'));
+check('renders Persian nav links', body().includes('فرآیند'));
+check('renders a Persian project title', body().includes('خانه‌ی حیاط‌دار'));
+check('renders Persian process copy', body().includes('خواندن سایت'));
 check('<html lang> is "fa"', htmlEl.lang === 'fa', `got "${htmlEl.lang}"`);
 check('<html dir> flips to "rtl"', htmlEl.dir === 'rtl', `got "${htmlEl.dir}"`);
 check('lang-fa class applied for the Persian font', htmlEl.classList.contains('lang-fa'));
 check('Persian document title', document.title.includes('استودیو سَهی'), `got "${document.title}"`);
 check('choice persisted to localStorage', window.localStorage.getItem('sahi-studio-lang') === 'fa');
-check('email stays LTR-safe', html().includes('hello@sahistudio.com'));
+check('email stays LTR-safe', body().includes('studio@sahi.archi'));
+check('drawings survive the language switch', document.querySelectorAll('svg path').length > 100);
+check('Persian numerals used in figures', body().includes('۴۸'));
+check('Persian award list', body().includes('جایزه معمار'));
+check('Persian address', body().includes('زعفرانیه'));
+check('drawing sheet codes stay latin', body().includes('A-101'));
+check('email input forced LTR', Boolean(container.querySelector('input[type="email"][dir="ltr"]')));
 
 /* --- and back again --- */
 await act(async () => {
@@ -119,7 +131,7 @@ await act(async () => {
 });
 
 console.log('\nBack to English');
-check('hero copy switches back', html().includes('We Build Fast, Scalable Web Products'));
+check('hero copy switches back', body().includes('is an argument'));
 check('<html dir> back to "ltr"', htmlEl.dir === 'ltr', `got "${htmlEl.dir}"`);
 check('lang-fa class removed', !htmlEl.classList.contains('lang-fa'));
 

@@ -1,65 +1,74 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { navLinks } from '../constants/index.js';
 import { useLanguage } from '../i18n/index.js';
 import LanguageToggle from '../components/LanguageToggle.jsx';
 
-const NavItems = ({ onClick = () => {} }) => {
-  const { t } = useLanguage();
-
-  return (
-    <ul className="nav-ul">
-      {navLinks.map((item) => (
-        <li key={item.id} className="nav-li">
-          <a href={item.href} className="nav-li_a" onClick={onClick}>
-            {t.nav[item.key]}
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
+/**
+ * Thin rule at the top of the page with a scroll-progress line under it.
+ * Hides on scroll down, returns on scroll up, so the drawings are never
+ * competing with chrome.
+ */
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
   const { t } = useLanguage();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      setHidden(y > 240 && y > lastY.current);
+      lastY.current = y;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center py-5 mx-auto c-space">
-          <a href="/" className="flex items-center gap-2.5 group">
-            <img src="/assets/sahi-logo.png" alt="" aria-hidden="true" className="w-8 h-8 rounded-md object-cover" />
-            <span className="text-neutral-400 font-bold text-xl group-hover:text-white transition-colors">
-              {t.meta.short}
-            </span>
-          </a>
+    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${hidden && !isOpen ? 'is-hidden' : ''}`}>
+      <div className="nav-inner">
+        <a href="#index" className="nav-brand" onClick={closeMenu}>
+          <span className="nav-brand_mark" aria-hidden="true" />
+          <span className="nav-brand_name">{t.meta.short}</span>
+          <span className="nav-brand_role">{t.meta.tagline}</span>
+        </a>
 
-          <div className="flex items-center gap-4">
-            <LanguageToggle />
+        <nav className="nav-links" aria-label="Primary">
+          {navLinks.map((item) => (
+            <a key={item.id} href={item.href} className="nav-link">
+              {t.nav[item.key]}
+            </a>
+          ))}
+        </nav>
 
-            <button
-              onClick={toggleMenu}
-              className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex"
-              aria-label={t.nav.toggleMenu}
-              aria-expanded={isOpen}>
-              <img src={isOpen ? '/assets/close.svg' : '/assets/menu.svg'} alt="" className="w-6 h-6" />
-            </button>
+        <div className="nav-actions">
+          <LanguageToggle />
 
-            <nav className="sm:flex hidden">
-              <NavItems />
-            </nav>
-          </div>
+          <button
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+            className="nav-burger"
+            aria-label={t.nav.toggleMenu}
+            aria-expanded={isOpen}>
+            <span className={`nav-burger_bar ${isOpen ? 'is-open-top' : ''}`} />
+            <span className={`nav-burger_bar ${isOpen ? 'is-open-bottom' : ''}`} />
+          </button>
         </div>
       </div>
 
-      <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
-        <nav className="p-5">
-          <NavItems onClick={closeMenu} />
-        </nav>
+      <div className={`nav-sheet ${isOpen ? 'is-open' : ''}`}>
+        {navLinks.map((item) => (
+          <a key={item.id} href={item.href} className="nav-sheet_link" onClick={closeMenu}>
+            <span className="nav-sheet_index">{String(item.id).padStart(2, '0')}</span>
+            {t.nav[item.key]}
+          </a>
+        ))}
       </div>
     </header>
   );

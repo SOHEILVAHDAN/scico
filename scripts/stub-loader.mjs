@@ -2,130 +2,107 @@
  * Node ESM loader used by the smoke test. It does two things:
  *
  *  1. transpiles .jsx sources on the fly with esbuild, and
- *  2. replaces the WebGL / GLTF layer (three, r3f, drei, globe, gsap) with
- *     inert stubs so the React DOM tree can render and be asserted in jsdom.
+ *  2. replaces the animation layer (GSAP, ScrollTrigger, Lenis) with inert
+ *     stubs so the React DOM tree can render and be asserted in jsdom.
  */
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { transform } from 'esbuild';
 
-const STUB_SPECIFIERS = new Set([
-  '@react-three/fiber',
-  '@react-three/drei',
-  'react-globe.gl',
-  'three',
-  'three-stdlib',
-  'gsap',
-  '@gsap/react',
-  'leva',
-  'maath',
-  'maath/easing',
-  '@emailjs/browser',
-]);
+const STUB_SPECIFIERS = new Set(['gsap', '@gsap/react', 'lenis', '@emailjs/browser']);
 
 const isStubbed = (specifier) =>
   STUB_SPECIFIERS.has(specifier) || [...STUB_SPECIFIERS].some((s) => specifier.startsWith(`${s}/`));
 
 const STUB_SOURCE = `
-import React from 'react';
-
 const noop = () => {};
-const proxyTarget = function () {};
 
-/** Any named import resolves to something harmless, callable and writable. */
-const makeProxy = (name) => {
-  const own = new Map();
-
-  return new Proxy(proxyTarget, {
-    get(target, prop) {
-      if (prop === 'then') return undefined;
-      if (own.has(prop)) return own.get(prop);
-      if (prop === Symbol.toPrimitive || prop === 'toString') return () => name;
-      return makeProxy(String(prop));
-    },
-    set(target, prop, value) {
-      own.set(prop, value);
-      return true;
-    },
-    has() {
-      return true;
-    },
-    getOwnPropertyDescriptor(target, prop) {
-      return { configurable: true, enumerable: true, writable: true, value: own.get(prop) };
-    },
-    apply() {
-      return makeProxy(name);
-    },
-    construct() {
-      return makeProxy(name);
-    },
+/** A chainable no-op that stands in for a GSAP timeline. */
+const makeTimeline = () => {
+  const tl = {};
+  ['to', 'from', 'fromTo', 'set', 'add', 'call', 'kill', 'pause', 'play', 'progress', 'reverse'].forEach((m) => {
+    tl[m] = () => tl;
   });
+  return tl;
 };
 
-/** Components render their children (or nothing) instead of a WebGL context. */
-const StubComponent = ({ children }) => React.createElement(React.Fragment, null, children ?? null);
-
-/** Wrap a hook so extras like \`useGLTF.preload()\` are callable too. */
-const withStaticMethods = (fn) =>
-  new Proxy(fn, {
-    get(target, prop) {
-      if (prop in target) return target[prop];
-      return () => makeProxy(String(prop));
-    },
-  });
-
-const hooks = {
-  useFrame: noop,
-  useThree: () => ({ camera: makeProxy('camera'), size: { width: 1024, height: 768 }, viewport: {} }),
-  useGLTF: () => ({ nodes: makeProxy('nodes'), materials: makeProxy('materials'), animations: [], scene: makeProxy('scene') }),
-  useFBX: () => ({ animations: [makeProxy('clip')] }),
-  useAnimations: () => ({ actions: makeProxy('actions') }),
-  useVideoTexture: () => makeProxy('texture'),
-  useTexture: () => makeProxy('texture'),
-  useProgress: () => ({ progress: 0 }),
-  useGraph: () => ({ nodes: makeProxy('nodes'), materials: makeProxy('materials') }),
-  useGSAP: (fn) => { try { fn?.(); } catch { /* animation targets do not exist in jsdom */ } },
-  useCursor: noop,
-  useScroll: () => ({ offset: 0 }),
-};
-
-/** Capitalised names that are utility namespaces, not React components. */
-const NAMESPACES = new Set(['SkeletonUtils', 'MathUtils', 'Vector3', 'Euler', 'Color', 'Clock']);
-
-const handler = {
-  get(target, prop) {
-    if (prop === '__esModule') return true;
-    if (prop === 'default') return StubComponent;
-    if (prop in hooks) return withStaticMethods(hooks[prop]);
-    if (prop === 'send') return () => Promise.resolve({ status: 200 });
-    if (typeof prop === 'string' && NAMESPACES.has(prop)) return makeProxy(prop);
-    if (typeof prop === 'string' && /^[A-Z]/.test(prop)) return StubComponent;
-    return makeProxy(String(prop));
+const utils = {
+  toArray: (target) => {
+    if (Array.isArray(target)) return target;
+    if (typeof target === 'string') {
+      return typeof document !== 'undefined' ? Array.from(document.querySelectorAll(target)) : [];
+    }
+    if (target && typeof target.length === 'number') return Array.from(target);
+    return target ? [target] : [];
   },
 };
 
-const api = new Proxy({}, handler);
+const gsap = {
+  registerPlugin: noop,
+  timeline: makeTimeline,
+  to: makeTimeline,
+  from: makeTimeline,
+  fromTo: makeTimeline,
+  set: noop,
+  utils,
+  ticker: { add: noop, remove: noop, lagSmoothing: noop },
+  config: noop,
+  defaults: noop,
+};
 
-export default StubComponent;
-export const {
-  Canvas, PerspectiveCamera, OrbitControls, Center, Html, Float, useFrame, useThree, useGLTF, useFBX,
-  useAnimations, useVideoTexture, useTexture, useProgress, useGraph, useGSAP, Leva, SkeletonUtils,
-} = api;
-export { api as gsap };
-export const easing = makeProxy('easing');
+export const ScrollTrigger = {
+  create: () => ({ kill: noop }),
+  update: noop,
+  refresh: noop,
+  killAll: noop,
+  getAll: () => [],
+  registerPlugin: noop,
+};
+
+/** useGSAP runs its callback once so any imperative setup still executes. */
+export const useGSAP = (fn) => {
+  try {
+    fn?.({ selector: utils.toArray });
+  } catch {
+    /* animation targets may not exist in jsdom */
+  }
+};
+
 export const send = () => Promise.resolve({ status: 200 });
+
+class Lenis {
+  constructor() {
+    this.raf = noop;
+    this.on = noop;
+    this.destroy = noop;
+    this.scrollTo = noop;
+  }
+}
+
+export { gsap, Lenis };
+
+/*
+ * gsap and lenis are both default exports in the real packages, so the default
+ * is chosen per specifier: the loader appends ?name= to the stub URL.
+ */
+const requested = decodeURIComponent(new URL(import.meta.url).searchParams.get('name') || '');
+export default requested === 'lenis' ? Lenis : gsap;
 `;
 
 /**
  * Stubs are addressed with a real file URL plus a marker query, so Node's
- * package-scope lookup still resolves `react` from inside the stub source.
+ * package-scope lookup still resolves relative imports from the stub source.
  */
-const STUB_MARKER = '?webgl-stub=1';
+const STUB_MARKER = '?anim-stub=1';
 const STUB_BASE = new URL('./stub-loader.mjs', import.meta.url).href;
 
 export async function resolve(specifier, context, nextResolve) {
   if (isStubbed(specifier)) {
-    return { url: `${STUB_BASE}${STUB_MARKER}&name=${encodeURIComponent(specifier)}`, shortCircuit: true, format: 'module' };
+    return {
+      url: `${STUB_BASE}${STUB_MARKER}&name=${encodeURIComponent(specifier)}`,
+      shortCircuit: true,
+      format: 'module',
+    };
   }
   return nextResolve(specifier, context);
 }
