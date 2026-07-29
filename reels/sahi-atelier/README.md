@@ -93,6 +93,35 @@ light. **Swap them for the real project photography before publishing**: drop
 files with the same names into `assets/` and re-run `render.py`. Nothing else
 needs to change.
 
+## Cinematic web page
+
+`build_html.py` bakes the same story into **`sahi-atelier.html`** — one
+self-contained file (~2.3 MB) with every image, font, the logo and all nine
+narration clips inlined as base64. No server, no build step, no external
+requests: open it from disk, a USB stick or an email attachment and it works
+offline.
+
+```bash
+python build_html.py     # -> sahi-atelier.html
+```
+
+What it does:
+
+- **Scroll-driven chapters** — each full-bleed plate parallaxes against its
+  text, which reveals on a staggered ease as the section enters the viewport.
+- **The slit of light** returns as the transition: an amber beam wipes down
+  the centre of every chapter edge, plus a full interlude panel for the
+  "not a door — an invitation" line.
+- **The logo draws itself on**, stroke by stroke, using `getTotalLength()` and
+  animated `stroke-dashoffset` — the web equivalent of the reel's end card.
+- **Optional narration**: the sound toggle plays the Persian voiceover for
+  whichever chapter you are actually reading, cross-fading as you scroll.
+- Fonts are subset to the glyphs used (7 faces, ~90 KB total) with Arabic
+  `init/medi/fina/rlig` retained so Persian shapes and joins correctly, and
+  ZWNJ preserved for compounds like «آتلیه‌ی» and «می‌شوند».
+- Respects `prefers-reduced-motion`, has a print stylesheet, and is keyboard
+  navigable (arrow keys jump chapter to chapter).
+
 ## Brand mark
 
 `logo.py` redraws the SAHI Studio mark as vector-style artwork from
@@ -115,11 +144,13 @@ the end card arrives so the two never compete.
 assets/     10 vertical source frames
 fonts/      Vazirmatn (Persian) + Cormorant Garamond (Latin)
 audio/      raw Persian VO (mp3) + trim/ (normalised wav)
+build_html.py  bakes the self-contained cinematic web page
 logo.py     the SAHI Studio mark, drawn from coordinates
 brand/      logo exports (light / dark / transparent)
 render.py   picture: Ken Burns, grade, grain, captions, slit wipes
 score.py    music bed + VO mix
 stills.py   dump graded frames from the timeline
 CAPTION.md  Persian + English captions and posting notes
+sahi-atelier.html  the standalone cinematic page
 build/      output (git-ignored)
 ```
