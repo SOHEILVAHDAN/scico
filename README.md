@@ -38,6 +38,11 @@ a plan, a section, an exploded axonometric, a concept diagram — that draws its
 stroke by stroke, in the order an architect would draw it, as the visitor scrolls
 past the written argument for the building.
 
+<div align="center">
+  <img src="docs/drawings.png" alt="The four architectural drawings: floor plan, long section, exploded axonometric and concept diagram" width="100%" />
+  <p><sub>The four drawings, each of which builds itself stroke by stroke as you scroll.</sub></p>
+</div>
+
 ## <a name="idea">✏️ The idea</a>
 
 Every drawing is a real SVG with its strokes grouped into four layers that mirror
