@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پورتفولیو سه بعدی Three.js: بوم کسب‌وکار بتن فتوکاتالیست</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Three.js & GSAP CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-glass: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --accent-green: #10b981;
+            --accent-green-bright: #34d399;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-family: 'Vazirmatn', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+        }
+
+        /* 3D WebGL Canvas */
+        #threeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* UI Glassmorphism Layer */
+        .ui-layer {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+        }
+
+        .interactive {
+            pointer-events: auto;
+        }
+
+        /* Header HUD */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-ui {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-ui:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        /* 3D Scene Controls Drawer */
+        .scene-nav-bar {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.8rem;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            padding: 0.6rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .scene-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .scene-btn.active, .scene-btn:hover {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: #000;
+            font-weight: 800;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Floating 3D Info Card */
+        .floating-info-card {
+            position: absolute;
+            top: 6rem;
+            right: 2rem;
+            width: 380px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 1.8rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-green-bright);
+            margin-bottom: 0.3rem;
+        }
+
+        .card-header span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .card-body {
+            font-size: 0.92rem;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .card-body ul {
+            list-style: none;
+            padding-right: 1.2rem;
+            margin-top: 0.6rem;
+        }
+
+        .card-body ul li {
+            margin-bottom: 0.4rem;
+            position: relative;
+        }
+
+        .card-body ul li::before {
+            content: "✦";
+            position: absolute;
+            right: -1.2rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Modal Overlay for Full BMC */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--accent-green);
+            border-radius: 28px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .bmc-matrix-3d {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .bmc-matrix-3d { grid-template-columns: 1fr; }
+            .floating-info-card { width: calc(100% - 4rem); right: 2rem; }
+        }
+
+        .bmc-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 1.25rem;
+        }
+
+        .bmc-block h4 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .bmc-block ul {
+            list-style: none;
+            padding-right: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .bmc-block ul li {
+            margin-bottom: 0.4rem;
+            position: relative;
+        }
+
+        .bmc-block ul li::before {
+            content: "•";
+            position: absolute;
+            right: -0.8rem;
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Canvas -->
+    <canvas id="threeCanvas"></canvas>
+
+    <!-- UI Layer -->
+    <div class="ui-layer">
+        
+        <!-- Header HUD -->
+        <header class="interactive">
+            <div class="brand-logo">
+                <span>PHOTOCATALYTIC 3D CANVAS</span>
+                <span class="brand-badge">THREE.JS</span>
+            </div>
+            <div class="nav-controls">
+                <button class="btn-ui" onclick="openFullBMC()">
+                    📊 مشاهده بوم کسب‌وکار کامل
+                </button>
+            </div>
+        </header>
+
+        <!-- Floating 3D Info Card -->
+        <div class="floating-info-card interactive" id="infoCard">
+            <div class="card-header">
+                <h3 id="cardTitle">۱. نمای بتن فتوکاتالیست (Hero Facade)</h3>
+                <span id="cardSubtitle">تکنولوژی پاکسازی خودکار هوا و نما با $TiO_2$</span>
+            </div>
+            <div class="card-body" id="cardBody">
+                <p>
+                    در صحنه سه بعدی، نمای ساختمان از پنل‌های بتن فتوکاتالیست ساخته شده است. تحت تابش نور خورشید، ذرات دود سمی ($NO_x$) معلق در هوا پس از برخورد به سطح بتن، فوراً به اکسیژن و نیترات‌های بی‌خطر تبدیل می‌شوند.
+                </p>
+                <ul>
+                    <li>حذف ۷۰٪ آلاینده‌های هوا در حریم ساختمان</li>
+                    <li>ماندگاری دائمی رنگ سفید نما بدون نیاز به شستشو</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3D Viewport Controls -->
+        <div class="scene-nav-bar interactive">
+            <button class="scene-btn active" onclick="switch3DView(1)">🏢 ۱. نمای سه بعدی ساختمانی</button>
+            <button class="scene-btn" onclick="switch3DView(2)">🔬 ۲. زوم مولکولی $TiO_2$</button>
+            <button class="scene-btn" onclick="switch3DView(3)">🏙️ ۳. شبکه شهری و آلودگی</button>
+            <button class="scene-btn" onclick="switch3DView(4)">🌱 ۴. آسمان پاک و رشد سبز</button>
+        </div>
+
+    </div>
+
+    <!-- Full BMC Modal Overlay -->
+    <div class="modal-overlay" id="bmcModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeFullBMC()">✕</button>
+            <h2 style="font-size: 1.8rem; color: var(--accent-green-bright);">بوم کسب‌وکار استارتاپ بتن فتوکاتالیست</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem;">مدل ۹ گانه تجاری‌سازی نمای فتوکاتالیست و قطعات پیش‌ساخته شهری</p>
+
+            <div class="bmc-matrix-3d">
+                <div class="bmc-block">
+                    <h4>👥 ۱. بخش‌های مشتریان</h4>
+                    <ul>
+                        <li>توسعه‌دهندگان املاک و برج‌های لوکس</li>
+                        <li>دفاتر معماری و طراحان نما</li>
+                        <li>شهرداری‌ها و سازمان‌های مدیریت شهری</li>
+                    </ul>
+                </div>
+                <div class="bmc-block">
+                    <h4>💎 ۲. ارزش‌های پیشنهادی</h4>
+                    <ul>
+                        <li>حذف خودکار دوده و هزینه شستشوی نما</li>
+                        <li>پاکسازی فعال هوای اطراف ساختمان ($NO_x$)</li>
+                        <li>کسب امتیاز عالی گواهی ساختمان سبز LEED</li>
+                    </ul>
+                </div>
+                <div class="bmc-block">
+                    <h4>📢 ۳. کانال‌های توزیع</h4>
+                    <ul>
+                        <li>ارتباط مستقیم B2B با دفاتر معماری</li>
+                        <li>شووروم‌ها و نمونه‌کارهای ۳D</li>
+                        <li>مناقصات عمومی و شهرداری‌ها</li>
+                    </ul>
+                </div>
+                <div class="bmc-block">
+                    <h4>🤝 ۴. روابط با مشتریان</h4>
+                    <ul>
+                        <li>مشاوره مهندسی قالب‌سازی و اختلاط</li>
+                        <li>ضمانت‌نامه ماندگاری خاصیت خودتمیزشوندگی</li>
+                        <li>ارائه پایش زیست‌محیطی دوره ای</li>
+                    </ul>
+                </div>
+                <div class="bmc-block">
+                    <h4>💰 ۵. جریان‌های درآمدی</h4>
+                    <ul>
+                        <li>فروش پنل‌های پیش‌ساخته نما</li>
+                        <li>فروش افزودنی فتوکاتالیست به کارخانجات</li>
+                        <li>خدمات قالب‌سازی اختصاصی ۳D</li>
+                    </ul>
+                </div>
+                <div class="bmc-block">
+                    <h4>🧪 ۶. منابع کلیدی</h4>
+                    <ul>
+                        <li>فرمولاسیون اختصاصی نانو $TiO_2$</li>
+                        <li>کارگاه پیش‌ساخته و قالب‌های ۳D</li>
+                        <li>تاییدیه‌های زیست‌محیطی و آزمایشگاهی</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js 3D Physics Script -->
+    <script>
+        // Three.js Scene Setup
+        const canvas = document.getElementById('threeCanvas');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x030712, 0.02);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 3, 12);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        // Orbit Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 + 0.1;
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x1e293b, 1.5);
+        scene.add(ambientLight);
+
+        // Sun / UV Light Beam
+        const sunLight = new THREE.DirectionalLight(0x38bdf8, 3.0);
+        sunLight.position.set(10, 15, 10);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        scene.add(sunLight);
+
+        const sunGlow = new THREE.PointLight(0x10b981, 2, 20);
+        sunGlow.position.set(0, 5, 2);
+        scene.add(sunGlow);
+
+        // 3D Objects: Hero Photocatalytic Concrete Building Facade
+        const facadeGroup = new THREE.Group();
+
+        // Concrete Wall Mesh with Geometric Displacement Pattern
+        const wallGeo = new THREE.BoxGeometry(8, 10, 0.8, 32, 32, 1);
+        const wallMat = new THREE.MeshStandardMaterial({
+            color: 0xf8fafc,
+            roughness: 0.3,
+            metalness: 0.1,
+            wireframe: false
+        });
+        const wallMesh = new THREE.Mesh(wallGeo, wallMat);
+        wallMesh.castShadow = true;
+        wallMesh.receiveShadow = true;
+        facadeGroup.add(wallMesh);
+
+        // Decorative 3D Panels on Facade
+        for (let i = -3; i <= 3; i += 2) {
+            for (let j = -4; j <= 4; j += 2) {
+                const pGeo = new THREE.BoxGeometry(1.6, 1.6, 0.3);
+                const pMat = new THREE.MeshStandardMaterial({
+                    color: 0x34d399,
+                    emissive: 0x059669,
+                    emissiveIntensity: 0.2,
+                    roughness: 0.2
+                });
+                const panel = new THREE.Mesh(pGeo, pMat);
+                panel.position.set(i * 1.1, j * 1.1, 0.4);
+                facadeGroup.add(panel);
+            }
+        }
+
+        facadeGroup.position.set(0, 2, 0);
+        scene.add(facadeGroup);
+
+        // 3D Particles: Smog Particles (Red/Grey) and Clean Oxygen Particles (Cyan/Green)
+        const smogCount = 200;
+        const smogGeo = new THREE.BufferGeometry();
+        const smogPos = new Float32Array(smogCount * 3);
+        const smogColors = new Float32Array(smogCount * 3);
+
+        for (let i = 0; i < smogCount; i++) {
+            smogPos[i * 3] = (Math.random() - 0.5) * 20;
+            smogPos[i * 3 + 1] = Math.random() * 12;
+            smogPos[i * 3 + 2] = Math.random() * 15 - 5;
+
+            // Smog Red/Grey
+            smogColors[i * 3] = 0.9;
+            smogColors[i * 3 + 1] = 0.2;
+            smogColors[i * 3 + 2] = 0.2;
+        }
+
+        smogGeo.setAttribute('position', new THREE.BufferAttribute(smogPos, 3));
+        smogGeo.setAttribute('color', new THREE.BufferAttribute(smogColors, 3));
+
+        const smogMat = new THREE.PointsMaterial({
+            size: 0.25,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const smogParticles = new THREE.Points(smogGeo, smogMat);
+        scene.add(smogParticles);
+
+        // Particle Physics Update Loop
+        function animateParticles() {
+            const pos = smogParticles.geometry.attributes.position.array;
+            const cols = smogParticles.geometry.attributes.color.array;
+
+            for (let i = 0; i < smogCount; i++) {
+                pos[i * 3 + 1] -= 0.02; // Drift downwards/drift around
+                if (pos[i * 3 + 1] < 0) pos[i * 3 + 1] = 12;
+
+                // Distance to 3D Facade
+                let dx = pos[i * 3] - facadeGroup.position.x;
+                let dy = pos[i * 3 + 1] - facadeGroup.position.y;
+                let dz = pos[i * 3 + 2] - facadeGroup.position.z;
+                let dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+                // Near Facade -> Transform to Clean Green/Cyan Particles!
+                if (dist < 4) {
+                    cols[i * 3] = 0.2;     // R
+                    cols[i * 3 + 1] = 0.9; // G
+                    cols[i * 3 + 2] = 0.6; // B
+                } else {
+                    cols[i * 3] = 0.9;
+                    cols[i * 3 + 1] = 0.2;
+                    cols[i * 3 + 2] = 0.2;
+                }
+            }
+
+            smogParticles.geometry.attributes.position.needsUpdate = true;
+            smogParticles.geometry.attributes.color.needsUpdate = true;
+        }
+
+        // Render Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            facadeGroup.rotation.y += 0.003;
+            animateParticles();
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // 3D View Switcher with Smooth Camera Animations (GSAP)
+        const viewData = {
+            1: {
+                camPos: { x: 0, y: 3, z: 12 },
+                title: "۱. نمای بتن فتوکاتالیست (Hero Facade)",
+                subtitle: "تکنولوژی پاکسازی خودکار هوا و نما با TiO₂",
+                body: "<p>در صحنه سه بعدی، نمای اصلی از پنل‌های هندسی بتن فتوکاتالیست تشکیل شده است. ذرات سرخ‌رنگ آلودگی پس از نزدیک شدن به سطح بتن، فوراً خنثی شده و به رنگ سبز/فیروزه‌ای پاکسازی تبدیل می‌شوند.</p><ul><li>حذف ۷۰٪ آلاینده‌های خطرناک در حریم ساختمان</li><li>ماندگاری دائمی رنگ سفید و زیبایی نما</li></ul>"
+            },
+            2: {
+                camPos: { x: 0, y: 2, z: 4 },
+                title: "۲. زوم مولکولی نانو TiO₂",
+                subtitle: "واکنش کاتالیستی تحت تابش نور ماورای بنفش",
+                body: "<p>با نزدیک شدن به سطح ۳D بتن، ذرات نانو دی‌اکسید تیتانیوم تحت تابش خورشید، رادیکال‌های آزاد هیدروکسیل (•OH) تولید کرده که آلودگی و دوده چرب را اکسید و نابود می‌کنند.</p><ul><li>ارزش پیشنهادی اصلی: حذف هزینه شستشوی نما</li><li>خاصیت ضد باکتری و خودتمیزشونده</li></ul>"
+            },
+            3: {
+                camPos: { x: 12, y: 8, z: 15 },
+                title: "۳. شبکه شهری و کنترل آلودگی",
+                subtitle: "بازار هدف: شهرداری‌ها و توسعه‌دهندگان بزرگ",
+                body: "<p>استفاده از این بتن در پیاده‌روها، سنگ‌فرش‌ها و دیوارهای صوتی اتوبان‌های شهری می‌تواند تا ۵۰٪ از آلودگی هوای کل شهر را در نقاط پرترافیک کاهش دهد.</p><ul><li>بخش مشتریان: شهرداری‌ها و سازمان راه‌داری</li><li>کانال فروش: مناقصات عمومی و قراردادهای B2G</li></ul>"
+            },
+            4: {
+                camPos: { x: -6, y: 10, z: 8 },
+                title: "۴. آسمان پاک و رشد سبز (Net-Zero)",
+                subtitle: "مدل درآمدی و توسعه پایدار (ESG)",
+                body: "<p>این محصول نه‌تنها یک مصالح ساختمانی، بلکه یک دارایی ارزشمند برای دریافت اعتبارات کربنی و گواهی ساختمان سبز (LEED) است.</p><ul><li>جریان درآمدی: فروش پنل، افزودنی و لایسنس</li><li>حاشیه سود بالا در بخش املاک لوکس</li></ul>"
+            }
+        };
+
+        function switch3DView(viewId) {
+            const data = viewData[viewId];
+            if (!data) return;
+
+            // Animate Camera Position with GSAP
+            gsap.to(camera.position, {
+                x: data.camPos.x,
+                y: data.camPos.y,
+                z: data.camPos.z,
+                duration: 2,
+                ease: "power3.inOut"
+            });
+
+            // Update Active Nav Button
+            const btns = document.querySelectorAll('.scene-btn');
+            btns.forEach((b, idx) => {
+                if (idx + 1 === viewId) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            // Update Card Info
+            document.getElementById('cardTitle').innerText = data.title;
+            document.getElementById('cardSubtitle').innerText = data.subtitle;
+            document.getElementById('cardBody').innerHTML = data.body;
+        }
+
+        // Full BMC Modal Controls
+        function openFullBMC() {
+            document.getElementById('bmcModal').classList.add('active');
+        }
+
+        function closeFullBMC() {
+            document.getElementById('bmcModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
