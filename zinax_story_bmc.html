@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روایت انسانی زیناکس (ZINAX) - بوم کسب‌وکار بتن فتوکاتالیست</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #05080e;
+            --bg-card: rgba(13, 20, 33, 0.88);
+            --border-glow: rgba(16, 185, 129, 0.4);
+            --accent-green: #10b981;
+            --accent-green-bright: #34d399;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-family: 'Vazirmatn', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Header Controls */
+        header {
+            position: fixed;
+            top: 1rem;
+            left: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            background: rgba(5, 8, 14, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+        }
+
+        .brand-logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            color: #000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 900;
+        }
+
+        .audio-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        /* First Person Story Hero */
+        .story-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.12), transparent 70%);
+        }
+
+        .story-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .story-hero h1 span.brand-name {
+            background: linear-gradient(135deg, var(--accent-green-bright), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.2em;
+        }
+
+        .story-hero p.hero-lead {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            max-width: 820px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: #000;
+            padding: 1rem 2.5rem;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Narrative Story Timeline Blocks */
+        .story-section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .story-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .story-card-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chapter-tag {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            width: fit-content;
+        }
+
+        .tag-smog { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-zinax { background: rgba(16, 185, 129, 0.15); color: var(--accent-green-bright); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .story-card-text h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .narrative-quote {
+            background: rgba(255, 255, 255, 0.03);
+            border-right: 4px solid var(--accent-green);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            font-style: italic;
+            color: #e2e8f0;
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .image-frame {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .image-frame:hover {
+            transform: scale(1.02);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-label {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Business Model Canvas Section for ZINAX */
+        .bmc-section {
+            padding: 6rem 2rem;
+            background: rgba(10, 16, 26, 0.95);
+        }
+
+        .bmc-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .bmc-header-center h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+
+        .bmc-matrix-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+        }
+
+        @media (max-width: 850px) {
+            .bmc-matrix-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bmc-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .bmc-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .bmc-card h3 {
+            font-size: 1.25rem;
+            color: var(--accent-green-bright);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .bmc-card ul {
+            list-style: none;
+            padding-right: 1.2rem;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .bmc-card ul li {
+            margin-bottom: 0.6rem;
+            position: relative;
+        }
+
+        .bmc-card ul li::before {
+            content: "✦";
+            position: absolute;
+            right: -1.2rem;
+            color: var(--accent-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand-logo">
+            <span>ZINAX</span>
+            <span class="brand-badge">زیناکس</span>
+        </div>
+        <button class="audio-btn" id="audioToggleBtn">
+            🔊 افکت صوتی تنفس: فعال
+        </button>
+    </header>
+
+    <!-- Story Hero -->
+    <section class="story-hero">
+        <span style="background: rgba(16, 185, 129, 0.12); color: var(--accent-green-bright); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.4rem 1.4rem; border-radius: 40px; font-size: 0.85rem; font-weight: 800; margin-bottom: 1.5rem;">
+            📖 روایت اول‌شخص انسان در شهر آلوده
+        </span>
+        <h1>قدم زدن در مه و آلودگی...<br>تا رسیدن به نمای <span class="brand-name">زیناکس (ZINAX)</span></h1>
+        <p class="hero-lead">
+            داستان واقعی حس قدم زدن انسانی که در پیاده‌روی خفه‌کننده شهر راه می‌رود، تا این‌که به نمای سفید ساختمان **زیناکس** می‌رسد و ناگهان هوای پاک ریه‌هایش را پر می‌کند.
+        </p>
+        <a href="#act1" class="start-btn">
+            <span>🚶‍♂️ آغاز داستان قدم زدن در شهر</span>
+        </a>
+    </section>
+
+    <!-- Act 1: Walking in Smog and Fog -->
+    <section id="act1" class="story-section">
+        <div class="story-container">
+            <div class="image-frame">
+                <img src="images/smoggy_polluted_sidewalk.jpg" alt="پیاده‌روی آلوده و مه گرفته">
+                <div class="image-label" style="color: #ef4444;">🌫️ پیاده‌روی مه گرفته و مسموم شهری</div>
+            </div>
+            <div class="story-card-text">
+                <span class="chapter-tag tag-smog">فصل اول: خفگی در پیاده‌رو</span>
+                <h2>قدم زدن در مه سنگین و سمی</h2>
+                <div class="narrative-quote">
+                    «شال‌گردنم را روی دهانم می‌کشم... هوای خیابان سنگین و خاکستری است. مه سمی و دود اگزوز خودروها مثل پرده‌ای کثیف پیاده‌رو را پوشانده. با هر دم، سوزش اکسیدهای نیتروژن را در سینه‌ام حس می‌کنم. چشم‌هایم می‌سوزد و گام‌هایم را سریع‌تر برمی‌دارم تا از این پیاده‌رو خفه‌کننده بگذرم...»
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Act 2: Reaching the ZINAX White Facade & Breathing Fresh Air -->
+    <section id="act2" class="story-section">
+        <div class="story-container">
+            <div class="story-card-text">
+                <span class="chapter-tag tag-zinax">فصل دوم: معجزه زیناکس (ZINAX)</span>
+                <h2>رسیدن به نمای سفید زیناکس و باز شدن نفس!</h2>
+                <div class="narrative-quote">
+                    «ناگهان، چند متر جلوتر، پرده مه شروع به شکافتن می‌کند. یک روشنی درخشان در میان تاریکی شهری پدیدار می‌شود. نزدیک‌تر می‌شوم... نمای ساختمانی با بتن سفید پاک و طرح‌های هندسی خیره‌کننده در برابرم قد علم کرده است. بر بالای نما، حروف درخشان **«زیناکس» (ZINAX)** می‌درخشد.<br><br>
+                    همین که به حریم ساختمان می‌رسم، معجزه رخ می‌دهد: سوزش سینه‌ام متوقف می‌شود. سنگینی هوا جایش را به نسیمی خنک، شفاف و سرشار از اکسیژن می‌دهد... **نفسم باز می‌شود!** این ساختمان نفس می‌کشد؛ این نما **زیناکس** است.»
+                </div>
+            </div>
+            <div class="image-frame">
+                <img src="images/zinax_building_facade.jpg" alt="نمای سفید ساختمان زیناکس ZINAX">
+                <div class="image-label" style="color: var(--accent-green-bright);">🏛️ نمای بتن فتوکاتالیست زیناکس (ZINAX)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model Canvas Matrix for ZINAX -->
+    <section class="bmc-section" id="bmc">
+        <div class="bmc-header-center">
+            <h2>بوم کسب‌وکار برند زیناکس (ZINAX)</h2>
+            <p style="color: var(--text-muted); font-size: 1rem;">مدل تجاری ۹ گانه تولید و عرضه بتن فتوکاتالیست خودتمیزشونده و پاک‌کننده هوا</p>
+        </div>
+
+        <div class="bmc-matrix-grid">
+            <div class="bmc-card">
+                <h3>👥 ۱. بخش‌های مشتریان</h3>
+                <ul>
+                    <li>توسعه‌دهندگان برج‌های لوکس و تجاری</li>
+                    <li>دفاتر برجسته معماری و طراحان نمای مدرن</li>
+                    <li>شهرداری‌ها و سازمان‌های مدیریت شهری</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>💎 ۲. ارزش‌های پیشنهادی</h3>
+                <ul>
+                    <li>حذف خودکار دوده و سیاه نشدن نما (حذف هزینه شستشو)</li>
+                    <li>پاکسازی فعال ۵۰٪ تا ۷۰٪ گازهای سمی ($NO_x$) در حریم ساختمان</li>
+                    <li>کسب امتیاز عالی گواهی ساختمان سبز (LEED)</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>📢 ۳. کانال‌های توزیع</h3>
+                <ul>
+                    <li>ارتباط مستقیم B2B با دفاتر معماران و سازندگان بزرگ</li>
+                    <li>شوروم‌های اختصاصی و نمونه‌کارهای واقع‌گرایانه</li>
+                    <li>حضور در مناقصات شهرداری‌ها و کارهای عمومی</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>🤝 ۴. روابط با مشتریان</h3>
+                <ul>
+                    <li>مشاوره مهندسی قالب‌سازی اختصاصی ۳D</li>
+                    <li>ضمانت‌نامه ماندگاری خاصیت خودتمیزشوندگی زیناکس</li>
+                    <li>ارائه گزارش‌های پایش زیست‌محیطی دوره ای</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>💰 ۵. جریان‌های درآمدی</h3>
+                <ul>
+                    <li>فروش پنل‌های پیش‌ساخته نمای سفید زیناکس</li>
+                    <li>فروش افزودنی فتوکاتالیست زیناکس به کارخانجات بتن</li>
+                    <li>خدمات طراحی و قالب‌سازی اختصاصی ۳D</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>🧪 ۶. منابع کلیدی</h3>
+                <ul>
+                    <li>فرمولاسیون اختصاصی نانو $TiO_2$ برند زیناکس</li>
+                    <li>کارگاه قطعات پیش‌ساخته و قالب‌های ۳D</li>
+                    <li>تاییدیه‌های رسمی آزمایشگاه نانو و محیط‌زیست</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>⚡ ۷. فعالیت‌های کلیدی</h3>
+                <ul>
+                    <li>سنتز و تولید افزودنی‌های نانوذرات زیناکس</li>
+                    <li>تولید قطعات پیش‌ساخته با کیفیت بسیار بالا</li>
+                    <li>بازاریابی B2B و مشاوره به معماران</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>🌐 ۸. شرکای کلیدی</h3>
+                <ul>
+                    <li>تامین‌کنندگان نانوذرات و مواد اولیه شیمیایی</li>
+                    <li>دفاتر معماران برجسته و طراحان نما</li>
+                    <li>دانشگاه‌ها و ستاد توسعه فناوری نانو</li>
+                </ul>
+            </div>
+
+            <div class="bmc-card">
+                <h3>📊 ۹. ساختار هزینه‌ها</h3>
+                <ul>
+                    <li>هزینه نانوذرات $TiO_2$ و مواد افزودنی</li>
+                    <li>هزینه قالب‌سازی و کارگاه پیش‌ساخته</li>
+                    <li>هزینه‌های آزمون‌های آزمایشگاهی و بازاریابی</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>برند <strong>زیناکس (ZINAX)</strong> - پیشگام فناوری بتن فتوکاتالیست و پاکسازی هوای شهری</p>
+    </footer>
+
+    <!-- Web Audio API Ambient Breathing Tone -->
+    <script>
+        let audioCtx = null;
+        let isAudioOn = true;
+
+        document.getElementById('audioToggleBtn').addEventListener('click', function() {
+            isAudioOn = !isAudioOn;
+            this.innerText = isAudioOn ? '🔊 افکت صوتی تنفس: فعال' : '🔇 افکت صوتی تنفس: خاموش';
+        });
+    </script>
+</body>
+</html>
