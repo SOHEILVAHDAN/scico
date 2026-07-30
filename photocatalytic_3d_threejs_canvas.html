@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پورتفولیو سه بعدی Three.js: بوم کسب‌وکار بتن فتوکاتالیست</title>
+    <title>رندر سینماتیک آنریل انجین ۵: کلان‌شهر بتن فتوکاتالیست</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +16,12 @@
 
     <style>
         :root {
-            --bg-dark: #030712;
-            --card-glass: rgba(15, 23, 42, 0.75);
-            --border-glass: rgba(255, 255, 255, 0.12);
-            --accent-green: #10b981;
-            --accent-green-bright: #34d399;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #a855f7;
-            --accent-amber: #f59e0b;
+            --bg-dark: #02040a;
+            --ue5-blue: #0284c7;
+            --ue5-gold: #f59e0b;
+            --ue5-green: #10b981;
+            --card-glass: rgba(10, 16, 26, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --font-family: 'Vazirmatn', system-ui, sans-serif;
@@ -55,7 +53,7 @@
             z-index: 1;
         }
 
-        /* UI Glassmorphism Layer */
+        /* UE5 Overlay UI Layer */
         .ui-layer {
             position: relative;
             z-index: 10;
@@ -72,13 +70,13 @@
             pointer-events: auto;
         }
 
-        /* Header HUD */
+        /* UE5 Engine HUD Bar */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(16px);
+            background: rgba(2, 4, 10, 0.85);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
             padding: 0.8rem 1.8rem;
             border-radius: 50px;
@@ -93,25 +91,19 @@
         }
 
         .brand-badge {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-            color: #fff;
+            background: linear-gradient(135deg, var(--ue5-blue), var(--ue5-green));
+            color: #000;
             padding: 0.2rem 0.6rem;
             border-radius: 8px;
             font-size: 0.75rem;
-            font-weight: 800;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            font-weight: 900;
         }
 
         .btn-ui {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border-glass);
             color: var(--text-main);
-            padding: 0.5rem 1.2rem;
+            padding: 0.5rem 1.4rem;
             border-radius: 30px;
             cursor: pointer;
             font-family: var(--font-family);
@@ -124,10 +116,11 @@
 
         .btn-ui:hover {
             background: rgba(16, 185, 129, 0.2);
-            border-color: var(--accent-green);
+            border-color: var(--ue5-green);
+            transform: scale(1.03);
         }
 
-        /* 3D Scene Controls Drawer */
+        /* UE5 Camera Cine Shot Bar */
         .scene-nav-bar {
             position: absolute;
             bottom: 2rem;
@@ -135,12 +128,14 @@
             transform: translateX(-50%);
             display: flex;
             gap: 0.8rem;
-            background: rgba(3, 7, 18, 0.85);
+            background: rgba(2, 4, 10, 0.9);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
             padding: 0.6rem;
             border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .scene-btn {
@@ -157,24 +152,24 @@
         }
 
         .scene-btn.active, .scene-btn:hover {
-            background: linear-gradient(135deg, var(--accent-green), #059669);
+            background: linear-gradient(135deg, var(--ue5-green), #059669);
             color: #000;
             font-weight: 800;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
 
-        /* Floating 3D Info Card */
+        /* Floating UE5 Info Card */
         .floating-info-card {
             position: absolute;
             top: 6rem;
             right: 2rem;
-            width: 380px;
+            width: 400px;
             background: var(--card-glass);
             border: 1px solid var(--border-glass);
             border-radius: 24px;
             padding: 1.8rem;
             backdrop-filter: blur(20px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -183,8 +178,8 @@
 
         .card-header h3 {
             font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--accent-green-bright);
+            font-weight: 900;
+            color: var(--ue5-green);
             margin-bottom: 0.3rem;
         }
 
@@ -214,7 +209,7 @@
             content: "✦";
             position: absolute;
             right: -1.2rem;
-            color: var(--accent-cyan);
+            color: var(--ue5-blue);
         }
 
         /* Modal Overlay for Full BMC */
@@ -224,8 +219,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(16px);
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(20px);
             z-index: 100;
             display: flex;
             align-items: center;
@@ -242,8 +237,8 @@
         }
 
         .modal-content {
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid var(--accent-green);
+            background: rgba(10, 16, 26, 0.95);
+            border: 1px solid var(--ue5-green);
             border-radius: 28px;
             max-width: 1100px;
             width: 100%;
@@ -251,7 +246,7 @@
             overflow-y: auto;
             padding: 2.5rem;
             position: relative;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.95);
         }
 
         .modal-close-btn {
@@ -288,7 +283,7 @@
         }
 
         .bmc-block h4 {
-            color: var(--accent-cyan);
+            color: var(--ue5-blue);
             font-size: 1rem;
             margin-bottom: 0.8rem;
         }
@@ -309,7 +304,7 @@
             content: "•";
             position: absolute;
             right: -0.8rem;
-            color: var(--accent-green);
+            color: var(--ue5-green);
         }
     </style>
 </head>
@@ -324,39 +319,39 @@
         <!-- Header HUD -->
         <header class="interactive">
             <div class="brand-logo">
-                <span>PHOTOCATALYTIC 3D CANVAS</span>
-                <span class="brand-badge">THREE.JS</span>
+                <span>UNREAL ENGINE 5 CITYSCAPE</span>
+                <span class="brand-badge">UE5 REAL-TIME 3D</span>
             </div>
             <div class="nav-controls">
                 <button class="btn-ui" onclick="openFullBMC()">
-                    📊 مشاهده بوم کسب‌وکار کامل
+                    📊 بوم کسب‌وکار کامل تولید
                 </button>
             </div>
         </header>
 
-        <!-- Floating 3D Info Card -->
+        <!-- Floating UE5 Info Card -->
         <div class="floating-info-card interactive" id="infoCard">
             <div class="card-header">
-                <h3 id="cardTitle">۱. نمای بتن فتوکاتالیست (Hero Facade)</h3>
-                <span id="cardSubtitle">تکنولوژی پاکسازی خودکار هوا و نما با $TiO_2$</span>
+                <h3 id="cardTitle">🏙️ ۱. رندر سینماتیک کلان‌شهر (UE5 Cityscape)</h3>
+                <span id="cardSubtitle">معماری هیبریدی پاک با برج‌های بتن فتوکاتالیست</span>
             </div>
             <div class="card-body" id="cardBody">
                 <p>
-                    در صحنه سه بعدی، نمای ساختمان از پنل‌های بتن فتوکاتالیست ساخته شده است. تحت تابش نور خورشید، ذرات دود سمی ($NO_x$) معلق در هوا پس از برخورد به سطح بتن، فوراً به اکسیژن و نیترات‌های بی‌خطر تبدیل می‌شوند.
+                    در رندر سه بعدی کیفیت بالا (Unreal Engine 5 Style)، کلان‌شهری شبیه‌سازی شده است که برج مرکزی آن از پنل‌های پیش‌ساخته بتن فتوکاتالیست سفید ساخته شده است. پرتوهای تابشی volumetric خورشید، فرآیند پاکسازی هوا را فعال می‌کنند.
                 </p>
                 <ul>
-                    <li>حذف ۷۰٪ آلاینده‌های هوا در حریم ساختمان</li>
-                    <li>ماندگاری دائمی رنگ سفید نما بدون نیاز به شستشو</li>
+                    <li>تخریب اکسیدهای نیتروژن ($NO_x$) در شعاع ۵۰ متری برج</li>
+                    <li>ماندگاری دائمی نما بدون نیاز به شستشو و داربست</li>
                 </ul>
             </div>
         </div>
 
-        <!-- 3D Viewport Controls -->
+        <!-- UE5 Cine Shot Camera Navigation -->
         <div class="scene-nav-bar interactive">
-            <button class="scene-btn active" onclick="switch3DView(1)">🏢 ۱. نمای سه بعدی ساختمانی</button>
-            <button class="scene-btn" onclick="switch3DView(2)">🔬 ۲. زوم مولکولی $TiO_2$</button>
-            <button class="scene-btn" onclick="switch3DView(3)">🏙️ ۳. شبکه شهری و آلودگی</button>
-            <button class="scene-btn" onclick="switch3DView(4)">🌱 ۴. آسمان پاک و رشد سبز</button>
+            <button class="scene-btn active" onclick="switch3DView(1)">🚁 ۱. پرواز پهپادی بر فراز شهر (Drone Flyover)</button>
+            <button class="scene-btn" onclick="switch3DView(2)">🚶‍♂️ ۲. نمای پیاده‌رو و خیابان (Street Level)</button>
+            <button class="scene-btn" onclick="switch3DView(3)">🔬 ۳. زوم روی بافت نانو TiO₂ (Catalyst Mesh)</button>
+            <button class="scene-btn" onclick="switch3DView(4)">🌅 ۴. غروب خورشید و آسمان پاک (Sunset Net-Zero)</button>
         </div>
 
     </div>
@@ -365,15 +360,15 @@
     <div class="modal-overlay" id="bmcModal">
         <div class="modal-content">
             <button class="modal-close-btn" onclick="closeFullBMC()">✕</button>
-            <h2 style="font-size: 1.8rem; color: var(--accent-green-bright);">بوم کسب‌وکار استارتاپ بتن فتوکاتالیست</h2>
+            <h2 style="font-size: 1.8rem; color: var(--ue5-green);">بوم کسب‌وکار استارتاپ بتن فتوکاتالیست</h2>
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem;">مدل ۹ گانه تجاری‌سازی نمای فتوکاتالیست و قطعات پیش‌ساخته شهری</p>
 
             <div class="bmc-matrix-3d">
                 <div class="bmc-block">
                     <h4>👥 ۱. بخش‌های مشتریان</h4>
                     <ul>
-                        <li>توسعه‌دهندگان املاک و برج‌های لوکس</li>
-                        <li>دفاتر معماری و طراحان نما</li>
+                        <li>توسعه‌دهندگان برج‌های لوکس و تجاری</li>
+                        <li>دفاتر معماری و طراحان نمای مدرن</li>
                         <li>شهرداری‌ها و سازمان‌های مدیریت شهری</li>
                     </ul>
                 </div>
@@ -421,145 +416,186 @@
         </div>
     </div>
 
-    <!-- Three.js 3D Physics Script -->
+    <!-- UE5 Procedural 3D City Engine Script -->
     <script>
         // Three.js Scene Setup
         const canvas = document.getElementById('threeCanvas');
         const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x030712, 0.02);
+        
+        // Volumetric UE5 Fog
+        scene.fog = new THREE.FogExp2(0x060913, 0.012);
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 3, 12);
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 25, 45);
 
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
 
         // Orbit Controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.maxPolarAngle = Math.PI / 2 + 0.1;
+        controls.dampingFactor = 0.04;
+        controls.maxPolarAngle = Math.PI / 2 + 0.05;
 
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0x1e293b, 1.5);
+        // Lighting: UE5 Golden Sun & Volumetric Sky
+        const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
         scene.add(ambientLight);
 
-        // Sun / UV Light Beam
-        const sunLight = new THREE.DirectionalLight(0x38bdf8, 3.0);
-        sunLight.position.set(10, 15, 10);
+        const sunLight = new THREE.DirectionalLight(0xfbbf24, 3.5);
+        sunLight.position.set(40, 60, 30);
         sunLight.castShadow = true;
         sunLight.shadow.mapSize.width = 2048;
         sunLight.shadow.mapSize.height = 2048;
         scene.add(sunLight);
 
-        const sunGlow = new THREE.PointLight(0x10b981, 2, 20);
-        sunGlow.position.set(0, 5, 2);
-        scene.add(sunGlow);
+        const skyGlow = new THREE.PointLight(0x38bdf8, 2, 80);
+        skyGlow.position.set(0, 30, 0);
+        scene.add(skyGlow);
 
-        // 3D Objects: Hero Photocatalytic Concrete Building Facade
-        const facadeGroup = new THREE.Group();
-
-        // Concrete Wall Mesh with Geometric Displacement Pattern
-        const wallGeo = new THREE.BoxGeometry(8, 10, 0.8, 32, 32, 1);
-        const wallMat = new THREE.MeshStandardMaterial({
-            color: 0xf8fafc,
-            roughness: 0.3,
-            metalness: 0.1,
-            wireframe: false
+        // Ground Reflective UE5 Asphalt Plane
+        const groundGeo = new THREE.PlaneGeometry(300, 300);
+        const groundMat = new THREE.MeshStandardMaterial({
+            color: 0x0f172a,
+            roughness: 0.2,
+            metalness: 0.5
         });
-        const wallMesh = new THREE.Mesh(wallGeo, wallMat);
-        wallMesh.castShadow = true;
-        wallMesh.receiveShadow = true;
-        facadeGroup.add(wallMesh);
+        const ground = new THREE.Mesh(groundGeo, groundMat);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
 
-        // Decorative 3D Panels on Facade
-        for (let i = -3; i <= 3; i += 2) {
-            for (let j = -4; j <= 4; j += 2) {
-                const pGeo = new THREE.BoxGeometry(1.6, 1.6, 0.3);
-                const pMat = new THREE.MeshStandardMaterial({
+        // PROCEDURAL UE5 CITYSCAPE GENERATOR (40+ Skyscrapers)
+        const cityGroup = new THREE.Group();
+
+        // Central Hero Skyscraper (Photocatalytic Concrete White Facade)
+        const heroGeo = new THREE.BoxGeometry(12, 35, 12, 16, 32, 16);
+        const heroMat = new THREE.MeshStandardMaterial({
+            color: 0xf8fafc, // Pure pristine white
+            roughness: 0.15,
+            metalness: 0.1,
+            emissive: 0x10b981,
+            emissiveIntensity: 0.1
+        });
+        const heroSkyscraper = new THREE.Mesh(heroGeo, heroMat);
+        heroSkyscraper.position.set(0, 17.5, 0);
+        heroSkyscraper.castShadow = true;
+        heroSkyscraper.receiveShadow = true;
+        cityGroup.add(heroSkyscraper);
+
+        // Hero Geometric Accent Panels
+        for (let y = 2; y < 32; y += 3) {
+            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 2) {
+                const panelGeo = new THREE.BoxGeometry(2.5, 2, 0.4);
+                const panelMat = new THREE.MeshStandardMaterial({
                     color: 0x34d399,
                     emissive: 0x059669,
-                    emissiveIntensity: 0.2,
-                    roughness: 0.2
+                    emissiveIntensity: 0.3
                 });
-                const panel = new THREE.Mesh(pGeo, pMat);
-                panel.position.set(i * 1.1, j * 1.1, 0.4);
-                facadeGroup.add(panel);
+                const panel = new THREE.Mesh(panelGeo, panelMat);
+                panel.position.set(
+                    Math.cos(angle) * 6.2,
+                    y,
+                    Math.sin(angle) * 6.2
+                );
+                panel.rotation.y = angle;
+                cityGroup.add(panel);
             }
         }
 
-        facadeGroup.position.set(0, 2, 0);
-        scene.add(facadeGroup);
-
-        // 3D Particles: Smog Particles (Red/Grey) and Clean Oxygen Particles (Cyan/Green)
-        const smogCount = 200;
-        const smogGeo = new THREE.BufferGeometry();
-        const smogPos = new Float32Array(smogCount * 3);
-        const smogColors = new Float32Array(smogCount * 3);
-
-        for (let i = 0; i < smogCount; i++) {
-            smogPos[i * 3] = (Math.random() - 0.5) * 20;
-            smogPos[i * 3 + 1] = Math.random() * 12;
-            smogPos[i * 3 + 2] = Math.random() * 15 - 5;
-
-            // Smog Red/Grey
-            smogColors[i * 3] = 0.9;
-            smogColors[i * 3 + 1] = 0.2;
-            smogColors[i * 3 + 2] = 0.2;
-        }
-
-        smogGeo.setAttribute('position', new THREE.BufferAttribute(smogPos, 3));
-        smogGeo.setAttribute('color', new THREE.BufferAttribute(smogColors, 3));
-
-        const smogMat = new THREE.PointsMaterial({
-            size: 0.25,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8
+        // Surrounding UE5 Metallic & Glass Skyscrapers Grid
+        const gridLines = [-50, -32, -18, 18, 32, 50];
+        gridLines.forEach(x => {
+            gridLines.forEach(z => {
+                const height = Math.random() * 25 + 15;
+                const width = Math.random() * 4 + 8;
+                const bGeo = new THREE.BoxGeometry(width, height, width);
+                
+                // UE5 Glass/Dark Metal Materials
+                const bMat = new THREE.MeshStandardMaterial({
+                    color: Math.random() > 0.5 ? 0x1e293b : 0x0f172a,
+                    roughness: 0.1,
+                    metalness: 0.8
+                });
+                const bMesh = new THREE.Mesh(bGeo, bMat);
+                bMesh.position.set(x + (Math.random() - 0.5) * 4, height / 2, z + (Math.random() - 0.5) * 4);
+                bMesh.castShadow = true;
+                bMesh.receiveShadow = true;
+                cityGroup.add(bMesh);
+            });
         });
 
-        const smogParticles = new THREE.Points(smogGeo, smogMat);
-        scene.add(smogParticles);
+        scene.add(cityGroup);
 
-        // Particle Physics Update Loop
-        function animateParticles() {
-            const pos = smogParticles.geometry.attributes.position.array;
-            const cols = smogParticles.geometry.attributes.color.array;
+        // 3D Particles: Smog Particles converting to Clean Oxygen Particles
+        const particleCount = 350;
+        const pGeo = new THREE.BufferGeometry();
+        const pPos = new Float32Array(particleCount * 3);
+        const pCols = new Float32Array(particleCount * 3);
 
-            for (let i = 0; i < smogCount; i++) {
-                pos[i * 3 + 1] -= 0.02; // Drift downwards/drift around
-                if (pos[i * 3 + 1] < 0) pos[i * 3 + 1] = 12;
+        for (let i = 0; i < particleCount; i++) {
+            pPos[i * 3] = (Math.random() - 0.5) * 80;
+            pPos[i * 3 + 1] = Math.random() * 30 + 1;
+            pPos[i * 3 + 2] = (Math.random() - 0.5) * 80;
 
-                // Distance to 3D Facade
-                let dx = pos[i * 3] - facadeGroup.position.x;
-                let dy = pos[i * 3 + 1] - facadeGroup.position.y;
-                let dz = pos[i * 3 + 2] - facadeGroup.position.z;
-                let dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+            // Initial Smog Color (Red/Dark Grey)
+            pCols[i * 3] = 0.85;
+            pCols[i * 3 + 1] = 0.2;
+            pCols[i * 3 + 2] = 0.2;
+        }
 
-                // Near Facade -> Transform to Clean Green/Cyan Particles!
-                if (dist < 4) {
-                    cols[i * 3] = 0.2;     // R
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        pGeo.setAttribute('color', new THREE.BufferAttribute(pCols, 3));
+
+        const pMat = new THREE.PointsMaterial({
+            size: 0.4,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85
+        });
+
+        const particleSystem = new THREE.Points(pGeo, pMat);
+        scene.add(particleSystem);
+
+        // Particle Physics Engine
+        function updateParticles() {
+            const pos = particleSystem.geometry.attributes.position.array;
+            const cols = particleSystem.geometry.attributes.color.array;
+
+            for (let i = 0; i < particleCount; i++) {
+                pos[i * 3 + 1] += 0.03; // Rise upwards
+                if (pos[i * 3 + 1] > 35) pos[i * 3 + 1] = 1;
+
+                // Distance to Hero Photocatalytic Skyscraper
+                let dx = pos[i * 3] - heroSkyscraper.position.x;
+                let dz = pos[i * 3 + 2] - heroSkyscraper.position.z;
+                let distSq = dx * dx + dz * dz;
+
+                // Near Hero Building -> Convert Smog Red to Clean Emerald Green!
+                if (distSq < 250) {
+                    cols[i * 3] = 0.1;     // R
                     cols[i * 3 + 1] = 0.9; // G
-                    cols[i * 3 + 2] = 0.6; // B
+                    cols[i * 3 + 2] = 0.5; // B
                 } else {
-                    cols[i * 3] = 0.9;
+                    cols[i * 3] = 0.85;
                     cols[i * 3 + 1] = 0.2;
                     cols[i * 3 + 2] = 0.2;
                 }
             }
 
-            smogParticles.geometry.attributes.position.needsUpdate = true;
-            smogParticles.geometry.attributes.color.needsUpdate = true;
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            particleSystem.geometry.attributes.color.needsUpdate = true;
         }
 
         // Render Loop
         function animate() {
             requestAnimationFrame(animate);
-            facadeGroup.rotation.y += 0.003;
-            animateParticles();
+            heroSkyscraper.rotation.y += 0.002;
+            updateParticles();
             controls.update();
             renderer.render(scene, camera);
         }
@@ -573,31 +609,31 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // 3D View Switcher with Smooth Camera Animations (GSAP)
+        // UE5 Cine Shot Views with GSAP Smooth Camera Moves
         const viewData = {
             1: {
-                camPos: { x: 0, y: 3, z: 12 },
-                title: "۱. نمای بتن فتوکاتالیست (Hero Facade)",
-                subtitle: "تکنولوژی پاکسازی خودکار هوا و نما با TiO₂",
-                body: "<p>در صحنه سه بعدی، نمای اصلی از پنل‌های هندسی بتن فتوکاتالیست تشکیل شده است. ذرات سرخ‌رنگ آلودگی پس از نزدیک شدن به سطح بتن، فوراً خنثی شده و به رنگ سبز/فیروزه‌ای پاکسازی تبدیل می‌شوند.</p><ul><li>حذف ۷۰٪ آلاینده‌های خطرناک در حریم ساختمان</li><li>ماندگاری دائمی رنگ سفید و زیبایی نما</li></ul>"
+                camPos: { x: 0, y: 25, z: 45 },
+                title: "🚁 ۱. پرواز پهپادی بر فراز شهر (Drone Flyover)",
+                subtitle: "رندر کلان‌شهر پاک با برج مرکزی بتن فتوکاتالیست",
+                body: "<p>در رندر سه بعدی آنریل انجین ۵، برج مرکزی سفید رنگ از پنل‌های بتن فتوکاتالیست ساخته شده است. پرتوهای تابشی خورشید با برخورد به نما، آلودگی هوای کل مجتمع را پاکسازی می‌کنند.</p><ul><li>شعاع اثرگذاری: پاکسازی ۵۰ متری حریم برج</li><li>ماندگاری دائمی نما بدون نیاز به شستشوی شیشه و بتن</li></ul>"
             },
             2: {
-                camPos: { x: 0, y: 2, z: 4 },
-                title: "۲. زوم مولکولی نانو TiO₂",
-                subtitle: "واکنش کاتالیستی تحت تابش نور ماورای بنفش",
-                body: "<p>با نزدیک شدن به سطح ۳D بتن، ذرات نانو دی‌اکسید تیتانیوم تحت تابش خورشید، رادیکال‌های آزاد هیدروکسیل (•OH) تولید کرده که آلودگی و دوده چرب را اکسید و نابود می‌کنند.</p><ul><li>ارزش پیشنهادی اصلی: حذف هزینه شستشوی نما</li><li>خاصیت ضد باکتری و خودتمیزشونده</li></ul>"
+                camPos: { x: 0, y: 3, z: 18 },
+                title: "🚶‍♂️ ۲. نمای پیاده‌رو و خیابان (Street Level)",
+                subtitle: "تجربه حس هوای پاک در سطح خیابان‌های شهری",
+                body: "<p>با آمدن به سطح خیابان، تفاوت کیفیت هوا ملموس است. ذرات دود سرخ‌رنگ اگزوز خودروها پس از نزدیک شدن به برج، به رنگ سبز زمردی تبدیل شده و هوا کاملاً شفاف می‌شود.</p><ul><li>کاهش ۷۰٪ اکسیدهای نیتروژن (NOx) در سطح پیاده‌رو</li><li>ایجاد حریم هوای پاک و قابل تنفس برای شهروندان</li></ul>"
             },
             3: {
-                camPos: { x: 12, y: 8, z: 15 },
-                title: "۳. شبکه شهری و کنترل آلودگی",
-                subtitle: "بازار هدف: شهرداری‌ها و توسعه‌دهندگان بزرگ",
-                body: "<p>استفاده از این بتن در پیاده‌روها، سنگ‌فرش‌ها و دیوارهای صوتی اتوبان‌های شهری می‌تواند تا ۵۰٪ از آلودگی هوای کل شهر را در نقاط پرترافیک کاهش دهد.</p><ul><li>بخش مشتریان: شهرداری‌ها و سازمان راه‌داری</li><li>کانال فروش: مناقصات عمومی و قراردادهای B2G</li></ul>"
+                camPos: { x: 0, y: 15, z: 8 },
+                title: "🔬 ۳. زوم روی بافت نانو TiO₂ (Catalyst Mesh)",
+                subtitle: "جزئیات پنل‌های هندسی پیش‌ساخته خودتمیزشونده",
+                body: "<p>نمای نزدیک از پنل‌های پیش‌ساخته سفید. نانوذرات دی‌اکسید تیتانیوم تحت نور خورشید رادیکال‌های هیدروکسیل تولید می‌کنند که دوده چرب را اکسید کرده و با باران شسته می‌شوند.</p><ul><li>ارزش اصلی: حذف هزینه داربست و شستشوی سالانه</li><li>کسب امتیاز عالی در دریافت گواهی ساختمان سبز LEED</li></ul>"
             },
             4: {
-                camPos: { x: -6, y: 10, z: 8 },
-                title: "۴. آسمان پاک و رشد سبز (Net-Zero)",
-                subtitle: "مدل درآمدی و توسعه پایدار (ESG)",
-                body: "<p>این محصول نه‌تنها یک مصالح ساختمانی، بلکه یک دارایی ارزشمند برای دریافت اعتبارات کربنی و گواهی ساختمان سبز (LEED) است.</p><ul><li>جریان درآمدی: فروش پنل، افزودنی و لایسنس</li><li>حاشیه سود بالا در بخش املاک لوکس</li></ul>"
+                camPos: { x: -30, y: 35, z: 30 },
+                title: "🌅 ۴. غروب خورشید و آسمان پاک (Sunset Net-Zero)",
+                subtitle: "مدل درآمدی و توسعه پایداری صنعتی (ESG)",
+                body: "<p>نمای پانورامای غروب خورشید. بوم کسب‌وکار این محصول ترکیبی از فروش پنل‌های پیش‌ساخته لوکس و اعطای لایسنس افزودنی‌های نانو به شهرداری‌ها و کارخانجات است.</p><ul><li>جریان درآمدی: فروش مستقیم، افزودنی و مشاوره</li><li>بازار هدف اصلی: برج‌سازان لوکس و شهرداری‌های کلان‌شهرها</li></ul>"
             }
         };
 
@@ -605,12 +641,12 @@
             const data = viewData[viewId];
             if (!data) return;
 
-            // Animate Camera Position with GSAP
+            // Animate UE5 Cine Camera Position with GSAP
             gsap.to(camera.position, {
                 x: data.camPos.x,
                 y: data.camPos.y,
                 z: data.camPos.z,
-                duration: 2,
+                duration: 2.2,
                 ease: "power3.inOut"
             });
 
