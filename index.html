@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#11110f" />
+  <meta name="description" content="A cinematic architectural case study for Atria House." />
+  <title>Atria House — Architectural Narrative</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Deliberately restrained loading screen: the project mark resolves before the narrative. -->
+  <div class="loader" aria-hidden="true"><span>AT</span><i></i><small>Loading the sequence</small></div>
+  <div class="noise"></div><div class="cursor-dot"></div>
+  <div class="progress"><span></span></div>
+
+  <header class="site-header"><a class="wordmark" href="#top">ATELIER <b>NULL</b></a><button class="menu" aria-label="Open navigation">Index <span>↗</span></button></header>
+
+  <main id="top">
+    <section class="hero panel" aria-labelledby="project-title">
+      <!-- Replace assets/video/project-film.mp4 with the supplied walkthrough, retaining the poster as a resilient fallback. -->
+      <video class="hero-video" autoplay muted loop playsinline poster="assets/images/hero-fallback.jpg">
+        <source src="assets/video/project-film.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
+      <div class="hero-copy"><p class="eyebrow">Architectural narrative / 01—24</p><h1 id="project-title">Atria<br><em>House</em></h1><p class="hero-sub">A measured sanctuary where shade, stone, and sky establish a slower rhythm of living.</p></div>
+      <div class="hero-foot"><span>Scroll to enter</span><span class="scroll-line"></span><span>48° 51' N / Concept study</span></div>
+    </section>
+
+    <section class="intro section section--wide"><p class="eyebrow reveal">The premise</p><div class="split"><h2 class="display reveal">Architecture begins with the <em>space between.</em></h2><div class="body reveal"><p>Rather than treating the building as an object on a site, Atria House is conceived as a sequence of calibrated thresholds: from exposed arrival, to filtered shade, to the stillness of a planted inner court.</p><p class="muted">This case study is an interpretive reading of the supplied film. Spatial, climatic, and technical observations are presented as design rationale—not as verified construction documentation.</p></div></div></section>
+
+    <section class="challenge section"><div class="number">01</div><div class="chapter-head"><p class="eyebrow">The challenge</p><h2 class="display">Make privacy feel<br>like <em>generosity.</em></h2></div><div class="challenge-grid"><p>How can a home open itself to landscape without surrendering calm? The response is not a sealed perimeter but a layered edge: solid where the sun and street demand it; porous where garden, breeze, and daily life can meet.</p><ul><li><span>01</span> Shelter from hard western light</li><li><span>02</span> Create a legible private heart</li><li><span>03</span> Allow social life to expand outdoors</li></ul></div></section>
+
+    <section class="context section dark-section"><div class="number">02</div><p class="eyebrow">Reading the ground</p><h2 class="display context-title">A building tuned<br>to <em>exposure.</em></h2><div class="climate-orbit" aria-label="Site analysis diagram"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><span class="sun">SUN</span><span class="north">N ↑</span><span class="plot">COURT<br>HOUSE</span><i class="wind wind-1">↗ cooling air</i><i class="wind wind-2">late sun →</i></div><div class="context-notes"><article><b>Light</b><p>Deep roof lines and vertical fins imply a strategy of admitting low winter sun while tempering the more aggressive afternoon exposure.</p></article><article><b>Ground</b><p>The low, horizontal silhouette suggests the project is allowed to belong to its terrain, using the courtyard as a protected microclimate.</p></article><article><b>Life</b><p>Public rooms gather along the planted void; quieter rooms recede to its edge. Circulation becomes a daily promenade rather than a corridor.</p></article></div></section>
+
+    <section class="concept section"><div class="number">03</div><p class="eyebrow">Design concept / The sheltered horizon</p><div class="concept-top"><h2 class="display">Carve a place<br>for the <em>sky.</em></h2><p>The formal language begins with a single, grounded bar. It is split, eroded, and gathered around a void—turning mass into a climate instrument and a shared room without a ceiling.</p></div><div class="evolution" aria-label="Animated form generation"><div class="evo-step"><span>01 / Anchor</span><div class="shape anchor"></div><p>A compact datum settles the programme.</p></div><div class="evo-step"><span>02 / Open</span><div class="shape open"></div><p>A cut admits garden and air.</p></div><div class="evo-step"><span>03 / Shade</span><div class="shape shade"></div><p>A hovering plane makes threshold.</p></div><div class="evo-step"><span>04 / Inhabit</span><div class="shape final"></div><p>Rooms turn toward a shared centre.</p></div></div></section>
+
+    <section class="image-break panel"><img src="assets/images/gallery-01.jpg" loading="lazy" alt="Aerial view of the courtyard composition" /><div class="image-caption"><span>01 — The courtyard is the project’s social and climatic engine.</span><span>View / aerial</span></div></section>
+
+    <section class="evolution-section section"><div class="number">04</div><p class="eyebrow">From intention to volume</p><h2 class="display">A sequence, not<br>a singular <em>gesture.</em></h2><div class="timeline"><button class="timeline-item is-active" data-stage="sketch"><b>01</b><span>Trace</span><small>The first line establishes a protected horizon.</small></button><button class="timeline-item" data-stage="massing"><b>02</b><span>Mass</span><small>Volumes step back to hold the court.</small></button><button class="timeline-item" data-stage="carve"><b>03</b><span>Carve</span><small>Voids pull light and movement inward.</small></button><button class="timeline-item" data-stage="flow"><b>04</b><span>Flow</span><small>Daily circulation loops through shade.</small></button></div><div class="drawing-wrap"><svg id="planDrawing" viewBox="0 0 800 380" role="img" aria-label="Interactive conceptual plan diagram"><path class="draw base" d="M100 287V94h195v55h200V80h210v207H485v-57H295v57Z"/><path class="draw sketch" d="M85 310 170 59m-35 262 150-277m35 261 165-220m-10 218 185-255"/><path class="draw massing" d="M100 287V94h195v55h200V80h210v207M485 287v-57H295v57"/><path class="draw carve" d="M295 149v81h190v-81M330 174h120v31H330z"/><path class="draw flow" d="M160 190h410m-35-30 35 30-35 30M365 105v170m-25-35 25 35 25-35"/><text x="313" y="200">COURT</text></svg><p id="stageText">The plan begins as a precise line between shelter and openness.</p></div></section>
+
+    <section class="materials section dark-section"><div class="number">05</div><p class="eyebrow">Material story</p><h2 class="display">Matter gives light<br>its <em>temperature.</em></h2><div class="material-grid"><article class="material stone"><span>01</span><h3>Mineral skin</h3><p>Honed pale stone gives the exterior weight and a changing register under raking light. Its thermal mass helps steady the interior climate.</p></article><article class="material bronze"><span>02</span><h3>Filtered metal</h3><p>Bronzed screens modulate glare and privacy at the most exposed edges, making a tactile intermediary between room and landscape.</p></article><article class="material concrete"><span>03</span><h3>Quiet structure</h3><p>Board-marked concrete is held in shadow for the long spans and deep reveals—a durable, legible frame for the softer finishes.</p></article></div></section>
+
+    <section class="light section"><div class="light-copy"><p class="eyebrow">Light strategy</p><h2 class="display">The day is<br>the <em>ornament.</em></h2><p>Light is not washed evenly across the plan. It is edited: a bright arrival, a compressed shaded passage, then a diffused interior that keeps the courtyard present as a changing field of weather.</p></div><div class="sun-study"><div class="sun-disc"></div><div class="slats"></div><span>09:18</span><span>13:42</span><span>18:06</span></div></section>
+
+    <section class="experience section section--wide"><p class="eyebrow">Spatial promenade</p><div class="experience-grid"><h2 class="display">Arrival becomes<br><em>release.</em></h2><ol><li><span>01</span><div><b>Approach</b><p>A low mineral edge lowers the visual noise of arrival and prolongs anticipation.</p></div></li><li><span>02</span><div><b>Threshold</b><p>The entry compresses beneath a deep canopy; eyes adjust from brightness to shade.</p></div></li><li><span>03</span><div><b>Courtyard</b><p>At the centre, water, planting, and open sky reset the body’s sense of scale.</p></div></li><li><span>04</span><div><b>Retreat</b><p>Private rooms return to quieter, filtered views—connected, but never exposed.</p></div></li></ol></div></section>
+
+    <section class="gallery section"><div class="gallery-top"><p class="eyebrow">Atmosphere / selected frames</p><p>Drag or scroll</p></div><div class="gallery-track"><figure><img src="assets/images/gallery-02.jpg" loading="lazy" alt="Daylight in a curved gallery room" /><figcaption>Diffuse light / interior</figcaption></figure><figure><img src="assets/images/gallery-03.jpg" loading="lazy" alt="Stone fins and water detail" /><figcaption>Shadow as material / facade</figcaption></figure><figure><img src="assets/images/gallery-01.jpg" loading="lazy" alt="Courtyard aerial view" /><figcaption>Gathered around air / court</figcaption></figure></div></section>
+
+    <section class="systems section dark-section"><div class="number">06</div><p class="eyebrow">Performance & making</p><div class="systems-grid"><h2 class="display">Less machinery.<br>More <em>intelligence.</em></h2><div><article><b>Passive first</b><p>Cross-ventilation can be enabled by the court-facing openings and sheltered outer apertures. Overhangs, screen depth, and planted evaporation moderate peak heat before mechanical systems are needed.</p></article><article><b>Structure as order</b><p>A rational concrete frame or shear-wall spine can carry the long roof plane. Repetitive screens and stone rainscreen modules make the expressive edge buildable and maintainable.</p></article><article><b>Resource loop</b><p>Controlled daylight reduces lighting demand; shade and thermal mass flatten daily temperature swings. Roof runoff is plausibly directed toward the courtyard landscape and water element.</p></article></div></div></section>
+
+    <section class="final panel"><video class="final-video" controls playsinline poster="assets/images/hero-fallback.jpg"><source src="assets/video/project-film.mp4" type="video/mp4" /></video><div class="final-overlay"><p class="eyebrow">Final reveal / project film</p><button class="play" aria-label="Play project film">▶</button><h2 class="display">A home that<br>holds the <em>horizon.</em></h2></div></section>
+
+    <footer><p class="eyebrow">Atria House / Narrative study</p><h2 class="display">Built from restraint,<br>defined by <em>light.</em></h2><p class="footer-note">An interpretive architectural reading created from the available visual sequence. Replace the local film at <code>assets/video/project-film.mp4</code> to complete the cinematic presentation.</p><div><span>© 2026 Atelier Null</span><a href="#top">Back to top ↑</a></div></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script><script src="script.js"></script>
+</body>
+</html>
