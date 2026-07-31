@@ -3,208 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خانه شماره ۶ — استودیو سَهی | شیراز ۱۴۰۴</title>
-
-<!-- Fonts -->
+<title>和 WÁ — آپارتمان ذن | ۱۲۰ متر</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
 <style>
-/* ============================================
-   خانه شماره ۶ — Cinematic Portfolio
-   Dark Luxury Architectural Theme
-   ============================================ */
-
 :root {
-  --bg: #0a0806;
-  --bg2: #110e0b;
-  --bg3: #1a1510;
-  --text: #f0ebe3;
-  --text2: #a09585;
-  --text3: #6a5f55;
-  --gold: #c8a868;
-  --gold2: #a08550;
-  --gold3: #7a6540;
-  --walnut: #3a2215;
-  --travertine: #d5c9b8;
+  --bg: #0c0a08;
+  --bg2: #14110d;
+  --bg3: #1c1712;
+  --text: #ede6da;
+  --text2: #a89a88;
+  --text3: #6e6358;
+  --gold: #c9a76c;
+  --gold2: #a68750;
   --ease: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
 body {
   font-family: 'Vazirmatn', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  line-height: 1.7;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
 }
-
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--gold); color: var(--bg); }
-
-/* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--gold3); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--gold2); }
 
-/* ===== LOADER ===== */
+/* LOADER */
 #loader {
   position: fixed; inset: 0; z-index: 9999;
   background: var(--bg);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 2.5rem;
-  transition: opacity 0.8s ease 0.2s, visibility 0.8s ease 0.2s;
+  gap: 2rem;
+  transition: opacity 0.8s ease 0.3s, visibility 0.8s ease 0.3s;
 }
 #loader.hide { opacity: 0; visibility: hidden; }
-
-.loader-line {
+.l-kanji {
+  font-size: 4rem; font-weight: 100;
+  color: var(--gold);
+  opacity: 0;
+  animation: fadeUp 1s ease 0.3s forwards;
+}
+.l-line {
   width: 1px; height: 0;
   background: var(--gold);
-  animation: lineGrow 1.5s var(--ease) forwards;
+  animation: grow 1.5s var(--ease) forwards;
 }
-@keyframes lineGrow { to { height: 80px; } }
-
-.loader-text {
+@keyframes grow { to { height: 60px; } }
+.l-text {
   font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.6em; text-transform: uppercase;
-  color: var(--gold); opacity: 0;
-  animation: fadeIn 1s ease 0.5s forwards;
+  letter-spacing: 0.5em;
+  color: var(--text3);
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
 }
-.loader-num {
-  font-size: 5rem; font-weight: 100;
-  color: var(--text); opacity: 0;
-  font-variant-numeric: tabular-nums;
-  animation: fadeIn 0.8s ease 0.8s forwards;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeIn { to { opacity: 1; } }
 
-/* ===== PROGRESS ===== */
-#progress {
+/* PROGRESS */
+#prog {
   position: fixed; top: 0; right: 0;
   width: 2px; height: 0%;
-  background: linear-gradient(to bottom, var(--gold), var(--gold3));
+  background: linear-gradient(to bottom, var(--gold), var(--gold2));
   z-index: 1000;
-  transition: height 0.15s linear;
 }
 
-/* ===== NAV ===== */
+/* NAV */
 nav {
   position: fixed; top: 0; right: 0; left: 0;
   z-index: 900;
-  padding: 1.8rem 4rem;
+  padding: 1.5rem 3rem;
   display: flex; justify-content: space-between; align-items: center;
   transition: all 0.5s var(--ease);
 }
-nav.scrolled {
-  padding: 1rem 4rem;
-  background: rgba(10,8,6,0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(200,168,104,0.06);
+nav.on {
+  padding: 1rem 3rem;
+  background: rgba(12,10,8,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,167,108,0.08);
 }
-.nav-logo {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.45em;
+.n-logo {
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.35em;
   color: var(--text); opacity: 0.9;
 }
-.nav-menu { display: flex; gap: 2.5rem; list-style: none; }
-.nav-menu a {
-  font-size: 0.58rem; font-weight: 400;
-  letter-spacing: 0.18em; text-transform: uppercase;
+.n-menu { display: flex; gap: 2rem; list-style: none; }
+.n-menu a {
+  font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.15em;
   color: var(--text2);
   transition: color 0.3s;
-  position: relative;
 }
-.nav-menu a::after {
-  content: ''; position: absolute;
-  bottom: -3px; right: 0; width: 0; height: 1px;
-  background: var(--gold);
-  transition: width 0.4s var(--ease);
-}
-.nav-menu a:hover { color: var(--text); }
-.nav-menu a:hover::after { width: 100%; }
+.n-menu a:hover { color: var(--gold); }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero {
   position: relative;
   height: 100vh; min-height: 700px;
   overflow: hidden;
   display: flex; align-items: flex-end;
-  padding: 0 4rem 6rem;
+  padding: 0 3rem 6rem;
 }
 .hero-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  transform: scale(1.2);
-  filter: brightness(0.3) contrast(1.2) saturate(0.85);
-  will-change: transform;
-  transition: transform 4s var(--ease);
+  transform: scale(1.15);
+  filter: brightness(0.4) contrast(1.15);
+  transition: transform 3.5s var(--ease);
 }
-.hero.loaded .hero-img { transform: scale(1); }
+.hero.on .hero-img { transform: scale(1); }
 .hero::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10,8,6,0.4) 0%,
-    rgba(10,8,6,0.1) 30%,
-    rgba(10,8,6,0.6) 70%,
-    var(--bg) 100%
-  );
+  background: linear-gradient(to bottom, rgba(12,10,8,0.3) 0%, rgba(12,10,8,0.1) 30%, rgba(12,10,8,0.7) 75%, var(--bg) 100%);
   pointer-events: none;
 }
-.hero-content {
-  position: relative; z-index: 10;
-  max-width: 900px;
-}
-.hero-eyebrow {
+.hero-c { position: relative; z-index: 10; max-width: 850px; }
+.hero-ey {
   font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.5em; text-transform: uppercase;
+  letter-spacing: 0.5em;
   color: var(--gold);
   margin-bottom: 1.5rem;
   opacity: 0; transform: translateY(20px);
 }
 .hero h1 {
-  font-size: clamp(3rem, 10vw, 9rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   font-weight: 100; line-height: 0.9;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
   opacity: 0; transform: translateY(40px);
 }
+.hero h1 small {
+  display: block;
+  font-size: 0.2em; font-weight: 300;
+  color: var(--text2);
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+}
 .hero-sub {
-  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-  font-weight: 300; line-height: 1.9;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  font-weight: 300; line-height: 2;
   color: var(--text2);
   max-width: 550px;
-  opacity: 0; transform: translateY(30px);
+  opacity: 0; transform: translateY(25px);
 }
-.hero-tags {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-  margin-top: 2.5rem;
+.hero-meta {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-top: 3rem;
   opacity: 0; transform: translateY(20px);
 }
-.hero-tag {
-  font-size: 0.58rem; font-weight: 400;
-  letter-spacing: 0.12em;
-  color: var(--gold2);
-  padding: 0.4rem 1rem;
-  border: 1px solid rgba(200,168,104,0.2);
+.hero-meta div {
+  display: flex; flex-direction: column; gap: 0.2rem;
+}
+.hero-meta small {
+  font-size: 0.55rem; font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+.hero-meta b {
+  font-size: 0.9rem; font-weight: 400;
+  color: var(--gold);
 }
 .hero-scroll {
-  position: absolute; bottom: 2.5rem; left: 50%;
+  position: absolute; bottom: 2rem; left: 50%;
   transform: translateX(-50%); z-index: 10;
   display: flex; flex-direction: column;
-  align-items: center; gap: 0.6rem;
+  align-items: center; gap: 0.5rem;
   opacity: 0;
 }
 .hero-scroll span {
@@ -212,38 +187,37 @@ nav.scrolled {
   color: var(--text3);
   writing-mode: vertical-rl;
 }
-.scroll-bar {
-  width: 1px; height: 50px;
+.s-bar {
+  width: 1px; height: 40px;
   background: linear-gradient(to bottom, var(--gold), transparent);
   animation: pulse 2.5s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%,100% { opacity: 0.3; height: 30px; }
-  50% { opacity: 0.8; height: 55px; }
+  0%,100% { opacity: 0.3; height: 25px; }
+  50% { opacity: 0.8; height: 50px; }
 }
 
-/* ===== SECTIONS ===== */
+/* SECTION */
 .s {
   position: relative;
-  padding: 10rem 4rem;
+  padding: 10rem 3rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 .s-tag {
-  font-size: 0.58rem; font-weight: 500;
-  letter-spacing: 0.5em; text-transform: uppercase;
+  font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.45em;
   color: var(--gold);
   margin-bottom: 2.5rem;
   display: flex; align-items: center; gap: 1.2rem;
 }
 .s-tag::before {
-  content: ''; width: 35px; height: 1px;
+  content: ''; width: 30px; height: 1px;
   background: var(--gold); opacity: 0.4;
 }
 .s-title {
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 200; line-height: 1.2;
-  letter-spacing: -0.01em;
   margin-bottom: 2rem;
 }
 .s-text {
@@ -254,10 +228,26 @@ nav.scrolled {
 }
 .s-text strong { color: var(--gold); font-weight: 400; }
 
-/* ===== FULL-BLEED ===== */
+/* SPLIT */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+.split-img { overflow: hidden; }
+.split-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s var(--ease);
+}
+.split-img:hover img { transform: scale(1.03); }
+
+/* FULL BLEED */
 .fb {
   position: relative;
-  height: 85vh; min-height: 500px;
+  height: 80vh; min-height: 500px;
   overflow: hidden;
 }
 .fb-img {
@@ -268,122 +258,86 @@ nav.scrolled {
 }
 .fb::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--bg) 0%, transparent 12%,
-    transparent 88%, var(--bg) 100%
-  );
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
 }
-.fb-quote {
+.fb-q {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   z-index: 10; padding: 2rem;
 }
-.fb-quote p {
-  font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+.fb-q p {
+  font-size: clamp(1.3rem, 3vw, 2rem);
   font-weight: 200; text-align: center;
-  line-height: 1.8;
+  line-height: 1.9;
   color: var(--text);
   text-shadow: 0 4px 40px rgba(0,0,0,0.7);
   max-width: 700px;
 }
 
-/* ===== GRID CARDS ===== */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  margin-top: 4rem;
-}
-.card {
-  padding: 2.5rem;
-  border: 1px solid rgba(200,168,104,0.06);
-  background: rgba(255,250,240,0.012);
-  transition: all 0.5s var(--ease);
-}
-.card:hover {
-  border-color: rgba(200,168,104,0.15);
-  background: rgba(255,250,240,0.025);
-  transform: translateY(-4px);
-}
-.card h3 {
-  font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.2rem;
-}
-.card p {
-  font-size: 0.88rem; font-weight: 300;
-  line-height: 2; color: var(--text2);
-}
-
-/* ===== CHAPTERS ===== */
-.ch {
+/* SPACES */
+.sp {
   position: relative;
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   overflow: hidden;
 }
-.ch:nth-child(even) { direction: ltr; }
-.ch:nth-child(even) .ch-body { direction: rtl; }
-
-.ch-visual {
+.sp:nth-child(even) { direction: ltr; }
+.sp:nth-child(even) .sp-body { direction: rtl; }
+.sp-vis {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
 }
-.ch-visual img {
+.sp-vis img {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 1.5s var(--ease);
 }
-.ch:hover .ch-visual img { transform: scale(1.04); }
-.ch-visual::after {
+.sp:hover .sp-vis img { transform: scale(1.04); }
+.sp-vis::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to left, var(--bg) 0%, transparent 30%);
-  pointer-events: none;
 }
-.ch:nth-child(even) .ch-visual::after {
+.sp:nth-child(even) .sp-vis::after {
   background: linear-gradient(to right, var(--bg) 0%, transparent 30%);
 }
-
-.ch-body {
+.sp-body {
   display: flex; flex-direction: column;
   justify-content: center;
   padding: 5rem;
   position: relative; z-index: 10;
 }
-.ch-num {
-  font-size: 7rem; font-weight: 100;
-  color: var(--gold); opacity: 0.15;
+.sp-num {
+  font-size: 6rem; font-weight: 100;
+  color: var(--gold); opacity: 0.2;
   line-height: 1; margin-bottom: 0.3rem;
 }
-.ch h2 {
+.sp h2 {
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: 200; line-height: 1.2;
   margin-bottom: 0.4rem;
 }
-.ch-sub {
+.sp-sub {
   font-size: 0.82rem; font-weight: 400;
   color: var(--gold);
   letter-spacing: 0.08em;
   margin-bottom: 2rem;
 }
-.ch-desc {
+.sp-desc {
   font-size: 0.95rem; font-weight: 300;
   line-height: 2.2;
   color: var(--text2);
   margin-bottom: 2rem;
   max-width: 480px;
 }
-.ch-idea {
+.sp-idea {
   padding: 1.2rem 1.5rem;
   border-right: 2px solid var(--gold);
-  background: rgba(200,168,104,0.03);
+  background: rgba(201,167,108,0.03);
   margin-bottom: 2.5rem;
 }
-.ch-idea span {
+.sp-idea span {
   display: block;
   font-size: 0.58rem; font-weight: 500;
   letter-spacing: 0.25em;
@@ -391,63 +345,58 @@ nav.scrolled {
   text-transform: uppercase;
   margin-bottom: 0.4rem;
 }
-.ch-idea p {
+.sp-idea p {
   font-size: 0.9rem; font-weight: 400;
   font-style: italic;
-  color: var(--text);
 }
-.ch-specs {
+.sp-specs {
   display: flex; gap: 2rem; flex-wrap: wrap;
   padding-top: 2rem;
-  border-top: 1px solid rgba(200,168,104,0.06);
+  border-top: 1px solid rgba(201,167,108,0.08);
 }
-.ch-spec {
+.sp-spec {
   display: flex; flex-direction: column; gap: 0.2rem;
 }
-.ch-spec small {
+.sp-spec small {
   font-size: 0.55rem; font-weight: 500;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
   color: var(--text3);
+  text-transform: uppercase;
 }
-.ch-spec b {
+.sp-spec b {
   font-size: 0.85rem; font-weight: 400;
-  color: var(--text);
 }
 
-/* ===== MATERIALS ===== */
+/* MATERIALS */
 .mats {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   margin-top: 4rem;
 }
 .mat { text-align: center; }
-.mat-orb {
+.mat-img {
   width: 100%; aspect-ratio: 1;
-  border-radius: 50%;
+  overflow: hidden;
   margin-bottom: 1.2rem;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-  transition: transform 0.5s var(--ease);
 }
-.mat:hover .mat-orb { transform: scale(1.08); }
-.mo-w { background: linear-gradient(135deg, #2a180d, #5a3822, #3a2215); }
-.mo-r { background: repeating-conic-gradient(#c4a878 0% 25%, #a88a5c 0% 50%) 0 0 / 12px 12px; }
-.mo-t { background: linear-gradient(135deg, #d5c9b8, #e8ddd0, #c4b8a4); }
-.mo-l { background: linear-gradient(180deg, #ede6da, #e2d9cc, #f0e9dd); }
-.mo-b { background: linear-gradient(135deg, #9a7d5a, #d4ad7c, #c8a868); }
-.mo-g { background: linear-gradient(135deg, #2e4430, #4a6b4a, #3d5a3e); }
+.mat-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+  filter: brightness(0.9) contrast(1.05);
+}
+.mat:hover .mat-img img { transform: scale(1.05); }
 .mat-name {
-  font-size: 0.78rem; font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.2rem;
+  font-size: 0.85rem; font-weight: 400;
+  margin-bottom: 0.3rem;
 }
 .mat-role {
-  font-size: 0.62rem; font-weight: 300;
-  color: var(--text3);
+  font-size: 0.7rem; font-weight: 300;
+  color: var(--text2);
 }
 
-/* ===== LIGHT LAYERS ===== */
+/* LIGHT */
 .layers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -456,7 +405,7 @@ nav.scrolled {
 }
 .layer {
   padding: 2.5rem 2rem;
-  border: 1px solid rgba(200,168,104,0.06);
+  border: 1px solid rgba(201,167,108,0.08);
   text-align: center;
   position: relative;
   transition: all 0.5s var(--ease);
@@ -468,12 +417,12 @@ nav.scrolled {
   background: var(--gold); opacity: 0.4;
 }
 .layer:hover {
-  border-color: rgba(200,168,104,0.15);
+  border-color: rgba(201,167,108,0.2);
   transform: translateY(-4px);
 }
 .layer-n {
   font-size: 2.5rem; font-weight: 100;
-  color: var(--gold); opacity: 0.25;
+  color: var(--gold); opacity: 0.3;
   margin-bottom: 1rem;
 }
 .layer h3 {
@@ -482,7 +431,8 @@ nav.scrolled {
 }
 .layer p {
   font-size: 0.85rem; font-weight: 300;
-  line-height: 2; color: var(--text2);
+  line-height: 2;
+  color: var(--text2);
 }
 .layer-k {
   margin-top: 1.5rem;
@@ -491,11 +441,11 @@ nav.scrolled {
   color: var(--gold);
 }
 
-/* ===== LAB ===== */
+/* LAB */
 .lab {
   margin-top: 5rem;
   padding: 3rem;
-  border: 1px solid rgba(200,168,104,0.08);
+  border: 1px solid rgba(201,167,108,0.08);
   background: var(--bg2);
 }
 .lab-title {
@@ -504,13 +454,13 @@ nav.scrolled {
   color: var(--gold);
   margin-bottom: 2rem;
 }
-.lab-preview {
+.lab-prev {
   position: relative;
   width: 100%; aspect-ratio: 16/7;
   overflow: hidden;
   margin-bottom: 2.5rem;
 }
-.lab-preview img {
+.lab-prev img {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: filter 0.5s var(--ease);
@@ -520,131 +470,48 @@ nav.scrolled {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
-.lab-field label {
+.lab-f label {
   display: block;
   font-size: 0.58rem; font-weight: 500;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
   color: var(--text3);
+  text-transform: uppercase;
   margin-bottom: 0.8rem;
 }
-.lab-field input[type="range"] {
+.lab-f input[type="range"] {
   width: 100%; height: 3px;
   -webkit-appearance: none;
-  background: rgba(200,168,104,0.12);
-  border-radius: 2px;
+  background: rgba(201,167,108,0.15);
   outline: none;
 }
-.lab-field input[type="range"]::-webkit-slider-thumb {
+.lab-f input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--gold);
   cursor: pointer;
-  box-shadow: 0 0 12px rgba(200,168,104,0.3);
+  box-shadow: 0 0 12px rgba(201,167,108,0.3);
 }
-.lab-val {
+.lab-v {
   font-size: 0.85rem; font-weight: 400;
-  color: var(--text);
   margin-top: 0.6rem;
   font-variant-numeric: tabular-nums;
 }
-.lab-mats {
-  display: flex; gap: 0.8rem; flex-wrap: wrap;
-  margin-top: 2rem;
+
+/* FLOOR PLAN */
+.fp-img {
+  margin-top: 3rem;
+  overflow: hidden;
 }
-.lab-btn {
-  font-size: 0.62rem; font-weight: 400;
-  padding: 0.5rem 1rem;
-  border: 1px solid rgba(200,168,104,0.18);
-  color: var(--text2);
-  cursor: pointer;
-  transition: all 0.3s;
-  background: transparent;
-  font-family: inherit;
-}
-.lab-btn.active, .lab-btn:hover {
-  background: var(--gold);
-  color: var(--bg);
-  border-color: var(--gold);
+.fp-img img {
+  width: 100%;
+  filter: brightness(0.95) contrast(1.05);
 }
 
-/* ===== TIMELINE ===== */
-.tl {
-  margin-top: 4rem;
-  padding-right: 3rem;
-  position: relative;
-}
-.tl::before {
-  content: ''; position: absolute;
-  top: 0; right: 0;
-  width: 1px; height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  opacity: 0.2;
-}
-.tl-step {
-  position: relative;
-  padding: 2.5rem 3rem 2.5rem 0;
-}
-.tl-step::before {
-  content: ''; position: absolute;
-  top: 3rem; right: -4px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 15px rgba(200,168,104,0.4);
-}
-.tl-step h4 {
-  font-size: 1rem; font-weight: 400;
-  margin-bottom: 0.8rem;
-}
-.tl-step p {
-  font-size: 0.85rem; font-weight: 300;
-  line-height: 2;
-  color: var(--text2);
-  max-width: 500px;
-}
-
-/* ===== SUSTAIN ===== */
-.sg {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
-}
-.sc {
-  padding: 2rem;
-  border: 1px solid rgba(200,168,104,0.05);
-  background: rgba(200,168,104,0.01);
-  display: flex; gap: 1.5rem;
-  transition: all 0.5s var(--ease);
-}
-.sc:hover {
-  border-color: rgba(200,168,104,0.12);
-  transform: translateY(-3px);
-}
-.sc-icon {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: rgba(200,168,104,0.06);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 1.1rem;
-}
-.sc h4 {
-  font-size: 0.9rem; font-weight: 400;
-  margin-bottom: 0.5rem;
-}
-.sc p {
-  font-size: 0.8rem; font-weight: 300;
-  line-height: 1.9;
-  color: var(--text2);
-}
-
-/* ===== SKETCHES ===== */
+/* SKETCHES */
 .sk {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-top: 4rem;
 }
@@ -667,10 +534,10 @@ nav.scrolled {
   padding: 1.2rem 1.5rem;
   font-size: 0.75rem; font-weight: 400;
   color: var(--text2);
-  border-top: 1px solid rgba(200,168,104,0.06);
+  border-top: 1px solid rgba(201,167,108,0.08);
 }
 
-/* ===== CONCLUSION ===== */
+/* CONCLUSION */
 .conc {
   min-height: 80vh;
   display: flex; align-items: center; justify-content: center;
@@ -688,81 +555,77 @@ nav.scrolled {
   font-size: 0.62rem; font-weight: 400;
   letter-spacing: 0.3em;
   color: var(--text3);
-  text-transform: uppercase;
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer {
-  padding: 4rem;
-  border-top: 1px solid rgba(200,168,104,0.05);
+  padding: 4rem 3rem;
+  border-top: 1px solid rgba(201,167,108,0.06);
   display: flex; justify-content: space-between;
   align-items: center; flex-wrap: wrap; gap: 2rem;
 }
 .f-logo {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.45em;
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.4em;
   color: var(--gold);
 }
 .f-info {
   font-size: 0.7rem; font-weight: 300;
   color: var(--text3);
-  text-align: center;
 }
 .f-copy {
   font-size: 0.6rem; font-weight: 300;
   color: var(--text3); opacity: 0.5;
 }
 
-/* ===== REVEAL ===== */
-[data-reveal] {
+/* REVEAL */
+[data-r] {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 1s var(--ease), transform 1s var(--ease);
 }
-[data-reveal].visible {
+[data-r].on {
   opacity: 1;
   transform: translateY(0);
 }
-[data-reveal="img"] {
+[data-r="img"] {
   clip-path: inset(100% 0 0 0);
   transition: clip-path 1.4s var(--ease-out);
 }
-[data-reveal="img"].visible {
+[data-r="img"].on {
   clip-path: inset(0% 0 0 0);
 }
-[data-delay="1"] { transition-delay: 0.1s; }
-[data-delay="2"] { transition-delay: 0.2s; }
-[data-delay="3"] { transition-delay: 0.3s; }
-[data-delay="4"] { transition-delay: 0.4s; }
-[data-delay="5"] { transition-delay: 0.5s; }
-[data-delay="6"] { transition-delay: 0.6s; }
+[data-d="1"] { transition-delay: 0.1s; }
+[data-d="2"] { transition-delay: 0.2s; }
+[data-d="3"] { transition-delay: 0.3s; }
+[data-d="4"] { transition-delay: 0.4s; }
+[data-d="5"] { transition-delay: 0.5s; }
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-  .s { padding: 7rem 3rem; }
-  .hero { padding: 0 3rem 5rem; }
-  .ch { grid-template-columns: 1fr; }
-  .ch:nth-child(even) { direction: rtl; }
-  .ch-visual { min-height: 50vh; }
-  .ch-visual::after {
+  .s { padding: 7rem 2rem; }
+  .hero { padding: 0 2rem 5rem; }
+  .split { grid-template-columns: 1fr; gap: 3rem; }
+  .sp { grid-template-columns: 1fr; }
+  .sp:nth-child(even) { direction: rtl; }
+  .sp-vis { min-height: 50vh; }
+  .sp-vis::after {
     background: linear-gradient(to top, var(--bg) 0%, transparent 40%) !important;
   }
-  .ch-body { padding: 3rem; }
-  .cards { grid-template-columns: 1fr; }
-  .mats { grid-template-columns: repeat(3, 1fr); }
+  .sp-body { padding: 3rem 2rem; }
+  .mats { grid-template-columns: repeat(2, 1fr); }
   .layers { grid-template-columns: 1fr; }
   .lab-grid { grid-template-columns: 1fr; }
-  .sg { grid-template-columns: 1fr; }
-  .sk { grid-template-columns: 1fr; max-width: 500px; }
+  .sk { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .s { padding: 5rem 1.5rem; }
   .hero { padding: 0 1.5rem 4rem; }
-  .nav-menu { display: none; }
+  .n-menu { display: none; }
   nav { padding: 1rem 1.5rem; }
-  .ch-body { padding: 2rem 1.5rem; }
-  .ch-num { font-size: 4rem; }
-  .mats { grid-template-columns: repeat(2, 1fr); }
+  .sp-body { padding: 2rem 1.5rem; }
+  .sp-num { font-size: 4rem; }
+  .mats { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   .lab { padding: 2rem 1.5rem; }
   footer { padding: 3rem 1.5rem; flex-direction: column; text-align: center; }
 }
@@ -772,22 +635,20 @@ footer {
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="loader-line"></div>
-  <div class="loader-text">SAHI STUDIO</div>
-  <div class="loader-num">06</div>
+  <div class="l-kanji">和</div>
+  <div class="l-line"></div>
+  <div class="l-text">WÁ APARTMENT</div>
 </div>
 
 <!-- PROGRESS -->
-<div id="progress"></div>
+<div id="prog"></div>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">SAHI STUDIO — SHIRAZ</div>
-  <ul class="nav-menu">
+  <div class="n-logo">和 WÁ — ZEN APARTMENT</div>
+  <ul class="n-menu">
     <li><a href="#brief">داستان</a></li>
-    <li><a href="#context">بافت</a></li>
-    <li><a href="#concept">ایده</a></li>
-    <li><a href="#chapters">فصل‌ها</a></li>
+    <li><a href="#spaces">فضاها</a></li>
     <li><a href="#materials">متریال</a></li>
     <li><a href="#light">نور</a></li>
     <li><a href="#sketches">اسکیس</a></li>
@@ -796,246 +657,202 @@ footer {
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <img class="hero-img" src="images/hero.jpg" alt="خانه شماره ۶">
-  <div class="hero-content">
-    <p class="hero-eyebrow">SAHI STUDIO PRESENTS — SHIRAZ 1404</p>
-    <h1>خانه شماره ۶</h1>
+  <img class="hero-img" src="images/hero.jpg" alt="آپارتمان ذن">
+  <div class="hero-c">
+    <p class="hero-ey">JAPANESE MINIMAL × PERSIAN MOTIFS</p>
+    <h1>
+      وَا
+      <small>آپارتمان ذن — ۱۲۰ متر مربع</small>
+    </h1>
     <p class="hero-sub">
-      روایتی سینمایی از یک خانه؛ شش فصل، شش ایده.
-      جایی که چوب تیره، حصیر و نورِ پنهان، سکوت را قابل زندگی می‌کنند.
+      تلفیق سکوت ژاپنی با گرمای ایرانی. فضایی که در آن شوجی‌ها نقوش هندسی ایرانی را قاب می‌کنند
+      و نور گرم ۲۷۰۰ کلوین، مرز میان دو فرهنگ را محو می‌کند.
     </p>
-    <div class="hero-tags">
-      <span class="hero-tag">طراحی داخلی</span>
-      <span class="hero-tag">شیراز</span>
-      <span class="hero-tag">۱۴۰۴</span>
-      <span class="hero-tag">مینیمال گرم شرقی</span>
+    <div class="hero-meta">
+      <div><small>مساحت</small><b>۱۲۰ m²</b></div>
+      <div><small>اتاق خواب</small><b>۱ عدد</b></div>
+      <div><small>سبک</small><b>مینیمال ژاپنی × ایرانی</b></div>
+      <div><small>نور</small><b>2700K</b></div>
     </div>
   </div>
   <div class="hero-scroll">
     <span>اسکرول</span>
-    <div class="scroll-bar"></div>
+    <div class="s-bar"></div>
   </div>
 </section>
 
 <!-- BRIEF -->
 <section class="s" id="brief">
-  <div class="s-tag" data-reveal>THE BRIEF</div>
-  <h2 class="s-title" data-reveal data-delay="1">چالش طراحی</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    کارفرما خانه‌ای خواست که <strong>«شب‌ها آرام و روزها روشن»</strong> باشد —
-    دو خواسته‌ی به‌ظاهر متناقض در اقلیم گرم و خشک شیراز، جایی که آفتاب بعدازظهر بی‌رحمانه می‌تابد
-    و شب‌ها سکوت مطلق حکمفرماست.
+  <div class="s-tag" data-r>THE BRIEF</div>
+  <h2 class="s-title" data-r data-d="1">چالش: دو فرهنگ، یک خانه</h2>
+  <p class="s-text" data-r data-d="2">
+    کارفرما خواستار آپارتمانی بود که <strong>آرامش ژاپنی</strong> را با <strong>گرمای ایرانی</strong> پیوند دهد —
+    فضایی ۱۲۰ متری با یک اتاق خواب، پذیرایی بزرگ، آشپزخانه باز و حمامی الهام‌گرفته از اوفورو.
   </p>
-  <p class="s-text" data-reveal data-delay="3" style="margin-top:1.5rem;">
-    ما به جای افزودن، <strong>کم کردیم</strong>: پالتی از شش متریال،
-    یک دمای نور ثابت، و شش لحظه‌ای که خانه را روایت می‌کنند.
+  <p class="s-text" data-r data-d="3" style="margin-top:1.5rem;">
+    چالش اصلی: چگونه <strong>نقوش هندسی ایرانی</strong> را بدون شلوغی در فضای مینیمال ژاپنی جا دهیم؟
+    پاسخ در «کم‌گویی» بود: نقوش فقط روی شوجی‌ها، در جزئیات سرامیک و در یک دیوار تاکیدی ظاهر شدند.
   </p>
-</section>
-
-<!-- CONTEXT -->
-<section class="s" id="context">
-  <div class="s-tag" data-reveal>CONTEXT ANALYSIS</div>
-  <h2 class="s-title" data-reveal data-delay="1">بافت و زمینه</h2>
-  <div class="cards">
-    <div class="card" data-reveal>
-      <h3>اقلیم</h3>
-      <p>شیراز، نیمه‌خشک با تابستان‌های داغ (تا ۴۰°C) و زمستان‌های ملایم. آفتاب تند بعدازظهر نیاز به فیلتر نوری دارد.</p>
+  
+  <div class="split">
+    <div data-r="img">
+      <img src="images/sketch1.jpg" alt="نقشه" loading="lazy">
     </div>
-    <div class="card" data-reveal data-delay="1">
-      <h3>سایت</h3>
-      <p>آپارتمان طبقه میانی در بافت مسکونی شیراز. نورگیر جنوبی با حیاط کوچک داخلی. سقف ۳.۲ متر.</p>
-    </div>
-    <div class="card" data-reveal data-delay="2">
-      <h3>جهت‌گیری</h3>
-      <p>بازشوهای اصلی رو به حیاط جنوبی. صفحات حصیری در جبهه غربی به‌عنوان فیلتر نور عمل می‌کنند.</p>
-    </div>
-    <div class="card" data-reveal data-delay="3">
-      <h3>محدودیت‌ها</h3>
-      <p>عدم امکان تغییر نما. نورگیر محدود در سرویس‌ها. ارتفاع سقف غیرمعمول فرصت ایجاد پلتفرم داد.</p>
+    <div>
+      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2rem;" data-r data-d="1">
+        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">برنامه فضاها</h4>
+        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
+          پذیرایی + ناهارخوری: ۴۵ m² · آشپزخانه: ۱۵ m² · اتاق خواب: ۲۰ m² · حمام: ۱۰ m² · ورودی (گنکان): ۸ m² · سیرکولاسیون: ۲۲ m²
+        </p>
+      </div>
+      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2rem;" data-r data-d="2">
+        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">ایده مرکزی</h4>
+        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
+          «ما» (間) — فضای خالی ژاپنی — به‌عنوان بوم. نقوش ایرانی به‌عنوان «نقطه» — کم اما پرمعنا.
+        </p>
+      </div>
+      <div style="border-right:2px solid var(--gold); padding-right:2rem;" data-r data-d="3">
+        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">پالت</h4>
+        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
+          چوب خاکستر روشن، کرم، گردو، حصیر، سنگ طبیعی، سیاه مات، کاشی ایرانی (تاکیدی).
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FB 1 -->
 <div class="fb">
-  <img class="fb-img" src="images/shot3.jpg" alt="نور بی‌منبع" loading="lazy">
-  <div class="fb-quote">
-    <p>«ما به جای افزودن، کم کردیم.»</p>
+  <img class="fb-img" src="images/living.jpg" alt="پذیرایی" loading="lazy">
+  <div class="fb-q">
+    <p>«سکوت، زبان مشترک دو فرهنگ است.»</p>
   </div>
 </div>
 
-<!-- CONCEPT -->
-<section class="s" id="concept">
-  <div class="s-tag" data-reveal>DESIGN CONCEPT</div>
-  <h2 class="s-title" data-reveal data-delay="1">ایده معماری</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    ایده مرکزی <strong>«سکوت قابل سکونت»</strong> است. فضایی که هیچ عنصر اضافه‌ای در آن فریاد نمی‌زند؛
-    هر متریال با صدای خودش حرف می‌زند و نور، نامرئی‌ترین معمار خانه است.
-  </p>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; margin-top:4rem;">
-    <div data-reveal="img">
-      <img src="images/shot6.jpg" alt="سبز بیرون از قاب" loading="lazy">
-    </div>
-    <div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2.5rem;" data-reveal data-delay="1">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">الهام</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">از تاق‌های خانه‌های قاجاری شیراز و فضای نیمه‌تاریک کاروانسراها. از سکوت باغ‌های ایرانی.</p>
-      </div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2.5rem;" data-reveal data-delay="2">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">تولید فرم</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">حجم‌های مکعبی ساده با حفره‌های منحنی. هر حفره ارجاعی به تاق‌های سنتی در مقیاس مبلمان.</p>
-      </div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem;" data-reveal data-delay="3">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">سلسله‌مراتب</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">آستانه → نشیمن → آشپزخانه → اتاق خواب → سرویس → حیاط. از فیلتر تا رها شدن.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- SPACES -->
+<div id="spaces">
 
-<!-- CHAPTERS -->
-<div id="chapters">
-
-  <!-- 01 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot1.jpg" alt="آستانه" loading="lazy">
+  <!-- 01 LIVING -->
+  <div class="sp">
+    <div class="sp-vis">
+      <img src="images/living.jpg" alt="پذیرایی" loading="lazy">
     </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۱</div>
-      <h2>آستانه</h2>
-      <p class="ch-sub">پرده‌ای از حصیر</p>
-      <p class="ch-desc">
-        خانه با یک فیلتر آغاز می‌شود، نه با یک در. صفحات کشویی حصیری، آفتاب تند بعدازظهر شیراز را می‌گیرند و آن را به دانه‌های ریز نور تبدیل می‌کنند.
+    <div class="sp-body">
+      <div class="sp-num">۰۱</div>
+      <h2>پذیرایی</h2>
+      <p class="sp-sub">فضای اصلی — ۴۵ متر مربع</p>
+      <p class="sp-desc">
+        فضای باز با کف تاتامی‌سبک، مبلمان کم‌ارتفاع روی زمین، و شوجی‌هایی که نقوش هندسی ایرانی را در خود دارند.
+        میز چای پایین، کوسن‌های کتان، و یک بونسای به‌عنوان نقطه تمرکز.
       </p>
-      <div class="ch-idea">
+      <div class="sp-idea">
         <span>ایده</span>
-        <p>نور را نبند، ترجمه‌اش کن.</p>
+        <p>زمین، مبلمان است.</p>
       </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>بازشو</small><b>۳ لنگه · ۲۸۰cm</b></div>
-        <div class="ch-spec"><small>عبور نور</small><b>۴۰٪</b></div>
-        <div class="ch-spec"><small>نور</small><b>2700K · 90 lx</b></div>
+      <div class="sp-specs">
+        <div class="sp-spec"><small>مساحت</small><b>۴۵ m²</b></div>
+        <div class="sp-spec"><small>ارتفاع</small><b>۲۸۰cm</b></div>
+        <div class="sp-spec"><small>نور</small><b>2700K · 100 lx</b></div>
       </div>
     </div>
   </div>
 
-  <!-- 02 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot2.jpg" alt="اتاق تاریک روشن" loading="lazy">
+  <!-- 02 KITCHEN -->
+  <div class="sp">
+    <div class="sp-vis">
+      <img src="images/kitchen.jpg" alt="آشپزخانه" loading="lazy">
     </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۲</div>
-      <h2>اتاق تاریک روشن</h2>
-      <p class="ch-sub">تخت پایین، دیوار گردو</p>
-      <p class="ch-desc">
-        کف اتاق پایین می‌آید تا سقف بلندتر حس شود. هدبرد یکپارچه از چوب گردوی تیره تا لبه سقف بالا می‌رود و اتاق را مثل یک جعبه‌ی صدا در خود می‌گیرد.
+    <div class="sp-body">
+      <div class="sp-num">۰۲</div>
+      <h2>آشپزخانه</h2>
+      <p class="sp-sub">مینیمال و کارآمد — ۱۵ متر مربع</p>
+      <p class="sp-desc">
+        کابینت‌های بدون دستگیره از چوب خاکستر روشن، سینک استیل یکپارچه، قفسه‌های باز با سرامیک‌های دست‌ساز ایرانی.
+        چراغ آویز واشی و باغچه کوچک سبزی روی پنجره.
       </p>
-      <div class="ch-idea">
+      <div class="sp-idea">
         <span>ایده</span>
-        <p>تاریکی زمینه است، روشنی اتفاق.</p>
+        <p>هر شیء، یک مراسم.</p>
       </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>سقف</small><b>۳۲۰cm</b></div>
-        <div class="ch-spec"><small>بازتاب</small><b>۱۲٪</b></div>
-        <div class="ch-spec"><small>نور</small><b>2400K · 40 lx</b></div>
+      <div class="sp-specs">
+        <div class="sp-spec"><small>مساحت</small><b>۱۵ m²</b></div>
+        <div class="sp-spec"><small>کانتر</small><b>سنگ طبیعی</b></div>
+        <div class="sp-spec"><small>نور</small><b>2700K · 180 lx</b></div>
       </div>
     </div>
   </div>
 
-  <!-- 03 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot3.jpg" alt="نور بی‌منبع" loading="lazy">
+  <!-- 03 BEDROOM -->
+  <div class="sp">
+    <div class="sp-vis">
+      <img src="images/bedroom.jpg" alt="اتاق خواب" loading="lazy">
     </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۳</div>
-      <h2>نور بی‌منبع</h2>
-      <p class="ch-sub">خطوط پنهان</p>
-      <p class="ch-desc">
-        هیچ لامپی دیده نمی‌شود. نور از شکاف‌های میان قفسه‌ها، از زیر لبه‌ها و از پشت طاقچه‌ها بیرون می‌زند و ماده را روشن می‌کند، نه چشم را.
+    <div class="sp-body">
+      <div class="sp-num">۰۳</div>
+      <h2>اتاق خواب</h2>
+      <p class="sp-sub">پلتفرم تاتامی — ۲۰ متر مربع</p>
+      <p class="sp-desc">
+        تخت کم‌ارتفاع روی پلتفرم تاتامی، رختخواب فوتون کتان، کمد با درهای شوجی.
+        دیوار تاکیدی از چوب سدر، پنجره کف‌تا-سقف رو به باغچه داخلی.
       </p>
-      <div class="ch-idea">
+      <div class="sp-idea">
         <span>ایده</span>
-        <p>چراغ را پنهان کن، سطح را روشن کن.</p>
+        <p>خواب، مراسم است.</p>
       </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>دما</small><b>2700K</b></div>
-        <div class="ch-spec"><small>CRI</small><b>+95</b></div>
-        <div class="ch-spec"><small>نور</small><b>120 lx</b></div>
+      <div class="sp-specs">
+        <div class="sp-spec"><small>مساحت</small><b>۲۰ m²</b></div>
+        <div class="sp-spec"><small>پلتفرم</small><b>۱۵cm</b></div>
+        <div class="sp-spec"><small>نور</small><b>2400K · 50 lx</b></div>
       </div>
     </div>
   </div>
 
-  <!-- 04 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot4.jpg" alt="طاقچه‌های منحنی" loading="lazy">
+  <!-- 04 BATHROOM -->
+  <div class="sp">
+    <div class="sp-vis">
+      <img src="images/bathroom.jpg" alt="حمام" loading="lazy">
     </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۴</div>
-      <h2>طاقچه‌های منحنی</h2>
-      <p class="ch-sub">آشپزخانه و مرمر</p>
-      <p class="ch-desc">
-        در دل بدنه‌ی تیره‌ی آشپزخانه، دو طاقچه با گوشه‌های نرم بریده شده‌اند؛ ارجاعی به تاق‌های خانه‌های قدیمی شیراز. مرمر روشن عمق را برمی‌گرداند.
+    <div class="sp-body">
+      <div class="sp-num">۰۴</div>
+      <h2>حمام</h2>
+      <p class="sp-sub">اوفورو × ایرانی — ۱۰ متر مربع</p>
+      <p class="sp-desc">
+        وان عمیق چوب هینوکی (اوفورو)، کف سنگی با قلوه‌سنگ، جداکننده بامبو.
+        یک دیوار با کاشی هندسی ایرانی به‌عنوان نقطه تاکیدی. دوش بارانی با شیرآلات مشکی مات.
       </p>
-      <div class="ch-idea">
+      <div class="sp-idea">
         <span>ایده</span>
-        <p>تزیین را حذف کن، جایش حفره بساز.</p>
+        <p>شست‌وشو، مدیتیشن است.</p>
       </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>شعاع</small><b>۳۸۰mm</b></div>
-        <div class="ch-spec"><small>جزیره</small><b>۳۲۰cm</b></div>
-        <div class="ch-spec"><small>نور</small><b>3000K · 200 lx</b></div>
+      <div class="sp-specs">
+        <div class="sp-spec"><small>مساحت</small><b>۱۰ m²</b></div>
+        <div class="sp-spec"><small>وان</small><b>هینوکی</b></div>
+        <div class="sp-spec"><small>نور</small><b>2700K · 120 lx</b></div>
       </div>
     </div>
   </div>
 
-  <!-- 05 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot5.jpg" alt="سنگ آب" loading="lazy">
+  <!-- 05 ENTRANCE -->
+  <div class="sp">
+    <div class="sp-vis">
+      <img src="images/entrance.jpg" alt="ورودی" loading="lazy">
     </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۵</div>
-      <h2>سنگِ آب</h2>
-      <p class="ch-sub">سرویس و لمس</p>
-      <p class="ch-desc">
-        روشویی یک کاسه‌ی سنگی یکپارچه است روی کانتر تراورتن؛ سطحی که دست باید آن را لمس کند تا باور شود. دیوار فلوت‌شده نور دو دیوارکوب را می‌شکند.
+    <div class="sp-body">
+      <div class="sp-num">۰۵</div>
+      <h2>گنکان</h2>
+      <p class="sp-sub">آستانه — ۸ متر مربع</p>
+      <p class="sp-desc">
+        ورودی فرورفته با کف سنگی و پله به کف چوبی. کفش‌کن چوب سدر، یک گلدان ایکی‌بانا در گلدان ایرانی.
+        نور مخفی از سقف. لحظه مکث میان بیرون و درون.
       </p>
-      <div class="ch-idea">
+      <div class="sp-idea">
         <span>ایده</span>
-        <p>جزئیاتی که دست می‌فهمد، نه دوربین.</p>
+        <p>ورود، مراسم است.</p>
       </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>فلوت</small><b>۲۸mm</b></div>
-        <div class="ch-spec"><small>کانتر</small><b>۸۸cm</b></div>
-        <div class="ch-spec"><small>نور</small><b>2700K · 150 lx</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 06 -->
-  <div class="ch">
-    <div class="ch-visual">
-      <img src="images/shot6.jpg" alt="سبز بیرون از قاب" loading="lazy">
-    </div>
-    <div class="ch-body">
-      <div class="ch-num">۰۶</div>
-      <h2>سبز، بیرون از قاب</h2>
-      <p class="ch-sub">حیاط و پایان روایت</p>
-      <p class="ch-desc">
-        هر فضای اصلی به یک برگ ختم می‌شود. پنجره‌های تمام‌قد حیاط کوچک را قاب می‌کنند تا سبز تنها رنگ سیر پالت باشد. خانه با نگاه به بیرون تمام می‌شود.
-      </p>
-      <div class="ch-idea">
-        <span>ایده</span>
-        <p>آخرین متریالِ خانه، باغ است.</p>
-      </div>
-      <div class="ch-specs">
-        <div class="ch-spec"><small>حیاط</small><b>۲۴ m²</b></div>
-        <div class="ch-spec"><small>آستانه</small><b>صفر</b></div>
-        <div class="ch-spec"><small>نور</small><b>4200K · 400 lx</b></div>
+      <div class="sp-specs">
+        <div class="sp-spec"><small>مساحت</small><b>۸ m²</b></div>
+        <div class="sp-spec"><small>اختلاف سطح</small><b>۱۰cm</b></div>
+        <div class="sp-spec"><small>نور</small><b>2700K · 80 lx</b></div>
       </div>
     </div>
   </div>
@@ -1044,215 +861,169 @@ footer {
 
 <!-- FB 2 -->
 <div class="fb">
-  <img class="fb-img" src="images/shot2.jpg" alt="اتاق تاریک روشن" loading="lazy">
-  <div class="fb-quote">
-    <p>«تاریکی زمینه است، روشنی اتفاق.»</p>
+  <img class="fb-img" src="images/bedroom.jpg" alt="اتاق خواب" loading="lazy">
+  <div class="fb-q">
+    <p>«خواب، مراسم است.»</p>
   </div>
 </div>
 
 <!-- MATERIALS -->
 <section class="s" id="materials">
-  <div class="s-tag" data-reveal>MATERIAL STORY</div>
-  <h2 class="s-title" data-reveal data-delay="1">چرا این متریال‌ها؟</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    رنگ از جنس متریال می‌آید، نه از قوطی رنگ. دانه چوب، بافت حصیر، رگه تراورتن —
-    هر سطح داستان خودش را دارد. <strong>هیچ سطحی صرفاً رنگ‌آمیزی نشده.</strong>
+  <div class="s-tag" data-r>MATERIAL STORY</div>
+  <h2 class="s-title" data-r data-d="1">پالت متریال</h2>
+  <p class="s-text" data-r data-d="2">
+    تلفیق متریال‌های طبیعی ژاپنی با لمسه‌های ایرانی. <strong>هر سطح داستانی دارد.</strong>
   </p>
   <div class="mats">
-    <div class="mat" data-reveal>
-      <div class="mat-orb mo-w"></div>
-      <div class="mat-name">گردوی دودی</div>
-      <div class="mat-role">بدنه‌ها، هدبرد</div>
+    <div class="mat" data-r>
+      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy"></div>
+      <div class="mat-name">چوب خاکستر</div>
+      <div class="mat-role">کابینت، کف</div>
     </div>
-    <div class="mat" data-reveal data-delay="1">
-      <div class="mat-orb mo-r"></div>
-      <div class="mat-name">حصیر وین</div>
-      <div class="mat-role">صفحات کشویی</div>
+    <div class="mat" data-r data-d="1">
+      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 25% center;"></div>
+      <div class="mat-name">سدر ژاپنی</div>
+      <div class="mat-role">دیوار، گنکان</div>
     </div>
-    <div class="mat" data-reveal data-delay="2">
-      <div class="mat-orb mo-t"></div>
-      <div class="mat-name">تراورتن</div>
-      <div class="mat-role">کانتر، کف</div>
+    <div class="mat" data-r data-d="2">
+      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 50% center;"></div>
+      <div class="mat-name">کتان کرم</div>
+      <div class="mat-role">کوسن، پرده</div>
     </div>
-    <div class="mat" data-reveal data-delay="3">
-      <div class="mat-orb mo-l"></div>
-      <div class="mat-name">کتان طبیعی</div>
-      <div class="mat-role">پرده، روتختی</div>
-    </div>
-    <div class="mat" data-reveal data-delay="4">
-      <div class="mat-orb mo-b"></div>
-      <div class="mat-name">برنج مات</div>
-      <div class="mat-role">دستگیره، شیر</div>
-    </div>
-    <div class="mat" data-reveal data-delay="5">
-      <div class="mat-orb mo-g"></div>
-      <div class="mat-name">سبز باغ</div>
-      <div class="mat-role">حیاط، گیاه</div>
+    <div class="mat" data-r data-d="3">
+      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 75% center;"></div>
+      <div class="mat-name">کاشی ایرانی</div>
+      <div class="mat-role">حمام (تاکیدی)</div>
     </div>
   </div>
 </section>
 
 <!-- LIGHT -->
 <section class="s" id="light">
-  <div class="s-tag" data-reveal>LIGHT STRATEGY</div>
-  <h2 class="s-title" data-reveal data-delay="1">استراتژی نور</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    نور در خانه شماره ۶ <strong>سه لایه</strong> دارد و هرگز منبعش دیده نمی‌شود.
-    هدف: روشن‌کردن سطح، نه چشم.
+  <div class="s-tag" data-r>LIGHT STRATEGY</div>
+  <h2 class="s-title" data-r data-d="1">استراتژی نور گرم</h2>
+  <p class="s-text" data-r data-d="2">
+    تمام فضاها در <strong>۲۷۰۰ کلوین</strong> — گرم‌تر از استاندارد، برای ایجاد حس صمیمیت ایرانی در فضای ژاپنی.
+    نور همیشه مخفی است: از پشت شوجی، زیر پلتفرم، داخل قفسه.
   </p>
   <div class="layers">
-    <div class="layer" data-reveal>
+    <div class="layer" data-r>
       <div class="layer-n">۱</div>
-      <h3>خطی پنهان</h3>
-      <p>نوار LED داخل شیار ۴۰mm، نور را روی سطح پخش می‌کند. برای روشنایی عمومی.</p>
-      <div class="layer-k">2700K — پس‌زمینه</div>
+      <h3>نور پس‌زمینه</h3>
+      <p>نوار LED مخفی در شکاف سقف و زیر پلتفرم‌ها. روشنایی عمومی فضا بدون دیده‌شدن منبع.</p>
+      <div class="layer-k">2700K — AMBIENT</div>
     </div>
-    <div class="layer" data-reveal data-delay="1">
+    <div class="layer" data-r data-d="1">
       <div class="layer-n">۲</div>
-      <h3>موضعی کار</h3>
-      <p>زیر کابینت، داخل طاقچه. فقط سطح کار روشن. CRI بالای ۹۵ برای وفاداری رنگ.</p>
-      <div class="layer-k">3000K — نور کار</div>
+      <h3>نور کار</h3>
+      <p>زیر کابینت آشپزخانه، روی میز چای، کنار آینه حمام. فقط سطح کار روشن.</p>
+      <div class="layer-k">2700K — TASK</div>
     </div>
-    <div class="layer" data-reveal data-delay="2">
+    <div class="layer" data-r data-d="2">
       <div class="layer-n">۳</div>
-      <h3>شمعی شبانه</h3>
-      <p>دیوارکوب‌های کم‌شدت. شدت ۵ درصد برای شب. فقط لبه‌ها و بافت‌ها.</p>
-      <div class="layer-k">2400K — آرامش</div>
+      <h3>نور شبانه</h3>
+      <p>چراغ‌های واشی و آباژورهای کم‌شدت. فقط بافت‌ها و لبه‌ها. برای مدیتیشن و خواب.</p>
+      <div class="layer-k">2400K — MOOD</div>
     </div>
   </div>
 
   <!-- LAB -->
-  <div class="lab" data-reveal>
+  <div class="lab" data-r>
     <div class="lab-title">LIGHT & MATERIAL LAB</div>
-    <div class="lab-preview">
-      <img class="lab-img" src="images/shot3.jpg" alt="آزمایشگاه نور" loading="lazy">
+    <div class="lab-prev">
+      <img class="lab-img" src="images/living.jpg" alt="آزمایشگاه نور" loading="lazy">
     </div>
     <div class="lab-grid">
-      <div class="lab-field">
+      <div class="lab-f">
         <label>شدت روشنایی</label>
         <input type="range" id="lb" min="30" max="150" value="100">
-        <div class="lab-val" id="lbv">100%</div>
+        <div class="lab-v" id="lbv">100%</div>
       </div>
-      <div class="lab-field">
+      <div class="lab-f">
         <label>دمای رنگ</label>
-        <input type="range" id="lt" min="0" max="100" value="30">
-        <div class="lab-val" id="ltv">3390K</div>
+        <input type="range" id="lt" min="0" max="100" value="25">
+        <div class="lab-v" id="ltv">3275K</div>
       </div>
-      <div class="lab-field">
+      <div class="lab-f">
         <label>کنتراست</label>
         <input type="range" id="lc" min="60" max="150" value="100">
-        <div class="lab-val" id="lcv">100%</div>
+        <div class="lab-v" id="lcv">100%</div>
       </div>
     </div>
-    <div class="lab-mats">
-      <button class="lab-btn active">گردوی دودی</button>
-      <button class="lab-btn">حصیر وین</button>
-      <button class="lab-btn">تراورتن</button>
-      <button class="lab-btn">کتان</button>
-      <button class="lab-btn">برنج</button>
-      <button class="lab-btn">سبز باغ</button>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section class="s" id="experience">
-  <div class="s-tag" data-reveal>SPATIAL EXPERIENCE</div>
-  <h2 class="s-title" data-reveal data-delay="1">تجربه فضایی</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    مسیر بازدیدکننده: <strong>یک سفر حسی</strong> از روشنایی به تاریکی و بازگشت به نور.
-  </p>
-  <div class="tl">
-    <div class="tl-step" data-reveal><h4>۱. ورود — آستانه</h4><p>از بیرون پرنور وارد فیلتر حصیری. نور به دانه‌های ریز تبدیل می‌شود. مکث. چشم عادت می‌کند.</p></div>
-    <div class="tl-step" data-reveal><h4>۲. نشیمن — نور بی‌منبع</h4><p>هیچ لامپی دیده نمی‌شود. نور از شکاف‌ها و لبه‌ها می‌آید. قفسه‌ها اشیاء را قاب می‌کنند.</p></div>
-    <div class="tl-step" data-reveal><h4>۳. آشپزخانه — حفره‌ها</h4><p>بدنه تیره با دو حفره منحنی روشن. ارجاع به تاق‌های قدیمی. مرمر عمق ایجاد می‌کند.</p></div>
-    <div class="tl-step" data-reveal><h4>۴. اتاق خواب — جعبه صدا</h4><p>کف پایین‌تر، سقف بلندتر. گردو از هر طرف. ملافه کتان تنها نقطه روشن.</p></div>
-    <div class="tl-step" data-reveal><h4>۵. سرویس — لمس</h4><p>دست روی تراورتن. فلوت‌ها سایه می‌اندازند. آب روی سنگ جاری می‌شود.</p></div>
-    <div class="tl-step" data-reveal><h4>۶. حیاط — پایان</h4><p>پنجره تمام‌قد باز. آستانه صفر. سبز تنها رنگ سیر. خانه با نگاه به بیرون تمام می‌شود.</p></div>
-  </div>
-</section>
-
-<!-- SUSTAINABILITY -->
-<section class="s" id="sustainability">
-  <div class="s-tag" data-reveal>SUSTAINABILITY</div>
-  <h2 class="s-title" data-reveal data-delay="1">پایداری</h2>
-  <div class="sg">
-    <div class="sc" data-reveal><div class="sc-icon">☀</div><div><h4>نور روز</h4><p>صفحات حصیری آفتاب تند را فیلتر و به نور ملایم تبدیل می‌کنند — کاهش ۶۰٪ نیاز به نور مصنوعی.</p></div></div>
-    <div class="sc" data-reveal data-delay="1"><div class="sc-icon">↔</div><div><h4>تهویه طبیعی</h4><p>بازشوهای تمام‌قد در دو جبهه، کوران عرضی ایجاد می‌کنند. حیاط دودکش حرارتی.</p></div></div>
-    <div class="sc" data-reveal data-delay="2"><div class="sc-icon">◈</div><div><h4>جرم حرارتی</h4><p>تراورتن و چوب ماسیو نوسان دما را کاهش می‌دهند.</p></div></div>
-    <div class="sc" data-reveal data-delay="3"><div class="sc-icon">♻</div><div><h4>متریال طبیعی</h4><p>تمام متریال‌ها طبیعی و قابل بازیافت. بدون MDF، PVC، رنگ شیمیایی.</p></div></div>
   </div>
 </section>
 
 <!-- FB 3 -->
 <div class="fb">
-  <img class="fb-img" src="images/shot6.jpg" alt="سبز بیرون از قاب" loading="lazy">
-  <div class="fb-quote">
-    <p>«آخرین متریالِ خانه، باغ است.»</p>
+  <img class="fb-img" src="images/bathroom.jpg" alt="حمام" loading="lazy">
+  <div class="fb-q">
+    <p>«شست‌وشو، مدیتیشن است.»</p>
   </div>
 </div>
 
 <!-- SKETCHES -->
 <section class="s" id="sketches">
-  <div class="s-tag" data-reveal>SKETCHES</div>
-  <h2 class="s-title" data-reveal data-delay="1">از خط تا خانه</h2>
-  <p class="s-text" data-reveal data-delay="2">
-    هر فصل با یک اسکیس دستی شروع شد؛ همان خطوطی که بعداً به چوب و سنگ ترجمه شدند.
+  <div class="s-tag" data-r>SKETCHES</div>
+  <h2 class="s-title" data-r data-d="1">از خط تا فضا</h2>
+  <p class="s-text" data-r data-d="2">
+    اسکیس‌های اولیه که نشان می‌دهند چگونه نقوش ایرانی در قاب‌های ژاپنی جا گرفتند.
   </p>
   <div class="sk">
-    <div class="sk-card" data-reveal>
+    <div class="sk-card" data-r>
       <img src="images/sketch1.jpg" alt="اسکیس ۰۱" loading="lazy">
-      <div class="sk-cap">اسکیس ۰۱ — اتاق خواب و صفحه حصیری</div>
+      <div class="sk-cap">اسکیس ۰۱ — پلان ۱۲۰ متری</div>
     </div>
-    <div class="sk-card" data-reveal data-delay="1">
+    <div class="sk-card" data-r data-d="1">
       <img src="images/sketch2.jpg" alt="اسکیس ۰۲" loading="lazy">
-      <div class="sk-cap">اسکیس ۰۲ — سرویس و سنگِ آب</div>
+      <div class="sk-cap">اسکیس ۰۲ — شوجی با نقوش ایرانی</div>
     </div>
-    <div class="sk-card" data-reveal data-delay="2">
-      <img src="images/sketch3.jpg" alt="اسکیس ۰۳" loading="lazy">
-      <div class="sk-cap">اسکیس ۰۳ — آشپزخانه و طاقچه‌ها</div>
-    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section class="s">
+  <div class="s-tag" data-r>DETAILS</div>
+  <h2 class="s-title" data-r data-d="1">جزئیات تلفیق</h2>
+  <p class="s-text" data-r data-d="2">
+    اشیاء کوچک که داستان دو فرهنگ را روایت می‌کنند: کاسه چای ایرانی با چوب‌زن ژاپنی،
+    مینیاتور ایرانی کنار شاخه شکوفه، صندل چوبی گِتا و قالیچه کوچک.
+  </p>
+  <div style="margin-top:3rem;" data-r="img">
+    <img src="images/details.jpg" alt="جزئیات" loading="lazy">
   </div>
 </section>
 
 <!-- CONCLUSION -->
 <section class="conc">
   <div class="conc-inner">
-    <p class="conc-q" data-reveal>
-      خانه شماره ۶ ثابت می‌کند که <strong>کم‌کردن، خودش یک عمل معماری است</strong>.
-      شش متریال، یک دمای نور، و شش لحظه‌ای که سکوت را قابل زندگی می‌کنند.
+    <p class="conc-q" data-r>
+      آپارتمان وَا ثابت می‌کند که <strong>مینیمالیسم می‌تواند گرم باشد</strong> —
+      اگر زبان مشترک دو فرهنگ، سکوت باشد.
     </p>
-    <p class="conc-m" data-reveal data-delay="1">استودیو سَهی — شیراز — ۱۴۰۴</p>
+    <p class="conc-m" data-r data-d="1">۱۲۰ متر مربع · مینیمال ژاپنی × موتیف ایرانی</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="f-logo">SAHI STUDIO</div>
-  <div class="f-info">شیراز — ایران — ۱۴۰۴<br>طراحی داخلی · مینیمال گرم شرقی</div>
-  <div class="f-copy">© استودیو سَهی</div>
+  <div class="f-logo">和 WÁ</div>
+  <div class="f-info">آپارتمان ذن · ۱۲۰ m²<br>مینیمال ژاپنی × ایرانی</div>
+  <div class="f-copy">طراحی معماری</div>
 </footer>
 
 <script>
-/* ============================================
-   خانه شماره ۶ — Cinematic Script
-   Vanilla JS — No Dependencies
-   ============================================ */
-
 // ===== LOADER =====
-const loader = document.getElementById('loader');
-const hero = document.querySelector('.hero');
 window.addEventListener('load', () => {
   setTimeout(() => {
-    loader.classList.add('hide');
-    hero.classList.add('loaded');
+    document.getElementById('loader').classList.add('hide');
+    document.querySelector('.hero').classList.add('on');
     animateHero();
   }, 1800);
 });
 
 // ===== HERO ANIMATION =====
 function animateHero() {
-  const els = ['.hero-eyebrow', '.hero h1', '.hero-sub', '.hero-tags', '.hero-scroll'];
+  const els = ['.hero-ey', '.hero h1', '.hero-sub', '.hero-meta', '.hero-scroll'];
   els.forEach((sel, i) => {
     const el = document.querySelector(sel);
     if (!el) return;
@@ -1264,46 +1035,39 @@ function animateHero() {
   });
 }
 
-// ===== PROGRESS BAR =====
-const progress = document.getElementById('progress');
+// ===== PROGRESS =====
+const prog = document.getElementById('prog');
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const height = document.documentElement.scrollHeight - window.innerHeight;
-  const percent = (scrolled / height) * 100;
-  progress.style.height = percent + '%';
+  prog.style.height = (scrolled / height * 100) + '%';
 });
 
-// ===== NAV SCROLL =====
+// ===== NAV =====
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
-  }
+  nav.classList.toggle('on', window.scrollY > 80);
 });
 
-// ===== REVEAL ON SCROLL =====
-const revealElements = document.querySelectorAll('[data-reveal]');
-const revealObserver = new IntersectionObserver((entries) => {
+// ===== REVEAL =====
+const reveals = document.querySelectorAll('[data-r]');
+const obs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
+      entry.target.classList.add('on');
+      obs.unobserve(entry.target);
     }
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-revealElements.forEach(el => revealObserver.observe(el));
+reveals.forEach(el => obs.observe(el));
 
 // ===== PARALLAX =====
-const fbImages = document.querySelectorAll('.fb-img');
+const fbImgs = document.querySelectorAll('.fb-img');
 window.addEventListener('scroll', () => {
-  fbImages.forEach(img => {
+  fbImgs.forEach(img => {
     const rect = img.closest('.fb').getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
-      const speed = 0.3;
-      const yPos = (rect.top - window.innerHeight) * speed;
+      const yPos = (rect.top - window.innerHeight) * 0.3;
       img.style.transform = `translateY(${yPos}px)`;
     }
   });
@@ -1317,48 +1081,28 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// ===== LIGHT LAB =====
+// ===== LAB =====
 const labImg = document.querySelector('.lab-img');
-const labBrightness = document.getElementById('lb');
-const labTemp = document.getElementById('lt');
-const labContrast = document.getElementById('lc');
-const labBrightnessVal = document.getElementById('lbv');
-const labTempVal = document.getElementById('ltv');
-const labContrastVal = document.getElementById('lcv');
+const lb = document.getElementById('lb');
+const lt = document.getElementById('lt');
+const lc = document.getElementById('lc');
+const lbv = document.getElementById('lbv');
+const ltv = document.getElementById('ltv');
+const lcv = document.getElementById('lcv');
 
 function updateLab() {
   if (!labImg) return;
-  const b = labBrightness.value;
-  const t = labTemp.value;
-  const c = labContrast.value;
-  
+  const b = lb.value, t = lt.value, c = lc.value;
   const sepia = Math.max(0, 50 - t) / 50;
   const hue = (t - 50) * 0.4;
   const kelvin = Math.round(2700 + (t / 100) * 2300);
-  
-  labImg.style.filter = `
-    brightness(${b / 100})
-    contrast(${c / 100})
-    sepia(${sepia * 0.5})
-    hue-rotate(${hue}deg)
-    saturate(${1 + sepia * 0.3})
-  `;
-  
-  labBrightnessVal.textContent = b + '%';
-  labContrastVal.textContent = c + '%';
-  labTempVal.textContent = kelvin + 'K';
+  labImg.style.filter = `brightness(${b/100}) contrast(${c/100}) sepia(${sepia*0.5}) hue-rotate(${hue}deg) saturate(${1+sepia*0.3})`;
+  lbv.textContent = b + '%';
+  lcv.textContent = c + '%';
+  ltv.textContent = kelvin + 'K';
 }
-
-[labBrightness, labTemp, labContrast].forEach(input => {
+[lb, lt, lc].forEach(input => {
   if (input) input.addEventListener('input', updateLab);
-});
-
-// ===== MATERIAL BUTTONS =====
-document.querySelectorAll('.lab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.lab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
 });
 
 // ===== SMOOTH SCROLL =====
@@ -1366,26 +1110,23 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// ===== CHAPTER HOVER EFFECT =====
-document.querySelectorAll('.ch').forEach(chapter => {
-  const img = chapter.querySelector('.ch-visual img');
-  chapter.addEventListener('mousemove', (e) => {
-    const rect = chapter.getBoundingClientRect();
+// ===== SPACE HOVER =====
+document.querySelectorAll('.sp').forEach(sp => {
+  const img = sp.querySelector('.sp-vis img');
+  sp.addEventListener('mousemove', (e) => {
+    const rect = sp.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    img.style.transform = `scale(1.04) translate(${x * -10}px, ${y * -10}px)`;
+    img.style.transform = `scale(1.04) translate(${x*-10}px, ${y*-10}px)`;
   });
-  chapter.addEventListener('mouseleave', () => {
+  sp.addEventListener('mouseleave', () => {
     img.style.transform = 'scale(1)';
   });
 });
-
 </script>
 </body>
 </html>
