@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE CITY THAT BREATHES — TEHRAN — Storyboard</title>
+<style>
+  :root { --bg:#0a0a0b; --fg:#f5f5f7; --muted:#86868b; --accent:#fff; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Helvetica,Arial,sans-serif; line-height:1.5}
+  header{padding:80px 5vw 40px; border-bottom:1px solid #222; position:sticky; top:0; background:rgba(10,10,11,0.9); backdrop-filter:blur(20px); z-index:10}
+  h1{font-size: clamp(28px,5vw,64px); font-weight:200; letter-spacing:-0.02em; line-height:0.95}
+  h1 strong{font-weight:600}
+  .subtitle{margin-top:20px; color:var(--muted); font-size:18px; max-width:800px}
+  .meta{display:flex; gap:30px; margin-top:20px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em}
+  .grid{padding:40px 5vw; display:grid; grid-template-columns:1fr; gap:120px; max-width:1600px; margin:0 auto}
+  .scene{display:grid; grid-template-columns:1.6fr 1fr; gap:40px; align-items:start}
+  @media(max-width:1000px){ .scene{grid-template-columns:1fr} }
+  .frame{position:relative; background:#111; border-radius:18px; overflow:hidden; aspect-ratio:16/9; box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+  .frame img{width:100%; height:100%; object-fit:cover; display:block; transition:transform 6s ease}
+  .frame:hover img{transform:scale(1.04)}
+  .frame:after{content:""; position:absolute; inset:0; border:1px solid rgba(255,255,255,0.08); border-radius:18px; pointer-events:none}
+  .letterbox{position:absolute; left:0; right:0; height:6%; background:black; z-index:2}
+  .letterbox.top{top:0} .letterbox.bottom{bottom:0}
+  .info{padding-top:10px}
+  .scene-num{font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#a1a1a6; margin-bottom:12px}
+  .scene-title{font-size:28px; font-weight:600; line-height:1.1; margin-bottom:14px}
+  .scene-desc{font-size:17px; color:#d2d2d7; font-weight:300; margin-bottom:20px}
+  .specs{font-size:13px; color:var(--muted); line-height:1.8; border-top:1px solid #222; padding-top:16px}
+  .specs b{color:#f5f5f7; font-weight:500}
+  .tag{display:inline-block; padding:4px 10px; border-radius:20px; background:#1c1c1f; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#a1a1a6; margin-right:6px; margin-bottom:6px}
+  .tag.dark{background:#2a1f1f; color:#ff9a9a}
+  .tag.hope{background:#1f2a1f; color:#9aff9a}
+  .tag.future{background:#1f242a; color:#9ac8ff}
+  video{width:100%; border-radius:18px; background:black}
+  .final{padding:80px 5vw; text-align:center; background:white; color:black}
+  .final h2{font-size: clamp(24px,4vw,48px); font-weight:200; line-height:1.2; max-width:900px; margin:0 auto}
+  .final p{margin-top:20px; color:#666}
+</style>
+</head>
+<body>
+<header>
+  <h1>THE CITY THAT <strong>BREATHES</strong> — TEHRAN</h1>
+  <div class="subtitle">Photorealistic cinematic short film · Apple keynote polish · Tesla launch energy · National Geographic realism · 8K HDR ray-traced · Mood Dark → Hope → Future</div>
+  <div class="meta">
+    <div>90s HERO · 62s ANIMATIC</div>
+    <div>ARRI ALEXA 65 · 2.39:1</div>
+    <div>PATENTED PHOTOCATALYTIC CONCRETE</div>
+  </div>
+</header>
+
+<div class="grid">
+
+  <!-- Video preview -->
+  <div class="scene" style="grid-template-columns:1fr">
+    <div>
+      <div class="scene-num">Animatic Preview — 720p</div>
+      <video controls poster="images/scene01_black_title.jpg" src="video/THE_CITY_THAT_BREATHES_TEHRAN_FINAL.mp4"></video>
+      <div style="margin-top:12px" class="specs">Files: <b>video/THE_CITY_THAT_BREATHES_TEHRAN_FINAL.mp4</b> (with voiceover) + <b>720p.mp4</b> (clean). Generated from 10 photoreal AI plates + 4 placeholders. Replace with real 8K plates for final.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene01_black_title.jpg" alt="Scene 1"></div>
+    <div class="info">
+      <div class="scene-num">Scene 01 — 0:00-0:04</div>
+      <div class="scene-title">Black — "Every breath matters."</div>
+      <div class="scene-desc">Pure black. Subtle 35mm grain. Text fades in thin white. Silence after Tehran traffic, horns, siren, coughing.</div>
+      <div><span class="tag dark">Dark</span><span class="tag">Locked</span><span class="tag">Silence</span></div>
+      <div class="specs"><b>Sound:</b> Dark ambient, traffic bed -12dB, single cough. No music.<br><b>Text:</b> Every breath matters. Hold 3s.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene02_aerial_tehran_smog.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 02 — 0:04-0:10</div>
+      <div class="scene-title">Aerial drone — Smog, Alborz invisible</div>
+      <div class="scene-desc">Real drone 120m over Tehran. Concrete towers, highway, brown haze. Alborz barely visible. Faint holographic labels float: NOx · SO₂ · VOC · CO₂ · PM2.5</div>
+      <div><span class="tag dark">Dark</span><span class="tag">Drone</span><span class="tag">Volumetric Haze</span></div>
+      <div class="specs"><b>Camera:</b> 12mm anamorphic, slow push-in, gimbal.<br><b>Grade:</b> Brown LUT, desat -20, 4000 nits haze.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene03_street_walk_tehran.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 03 — 0:10-0:15</div>
+      <div class="scene-title">First-person walk — Street level</div>
+      <div class="scene-desc">POV walk through real Tehran. Motorbikes pass close, masked pedestrians, grime-streaked concrete. Breathing grows heavier.</div>
+      <div><span class="tag dark">Dark</span><span class="tag">Handheld Gimbal</span><span class="tag">28mm</span></div>
+      <div class="specs"><b>Sound:</b> Binaural motorbikes L-R pan, heavy breathing.<br><b>Note:</b> No actor direction — capture real.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene04_white_wall.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 04 — 0:15-0:20</div>
+      <div class="scene-title">One bright white wall stands out</div>
+      <div class="scene-desc">Chaos foreground, but one 10m pristine white concrete wall glows in background. Slow dolly-in, focus rack from blur to clean surface. First hope beat.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">Dolly + Rack Focus</span><span class="tag">85mm</span></div>
+      <div class="specs"><b>Light:</b> Sun breakthrough ray-traced, bloom.<br><b>Sound:</b> Traffic fades -18dB, bird enters.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene05_particles_to_wall.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 05 — 0:20-0:25</div>
+      <div class="scene-title">Pollution drifts toward the wall</div>
+      <div class="scene-desc">2m from wall. Visible airborne particles drift in sunbeams toward surface. Volumetric light. Peaceful.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">Macro Slider</span><span class="tag">Volumetric</span></div>
+      <div class="specs"><b>VFX:</b> Practical fog, not sim.<br><b>Sound:</b> Sparrow, wind.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene06_time_freeze_nox.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 06 — 0:25-0:30</div>
+      <div class="scene-title">Time freezes — One NOx molecule</div>
+      <div class="scene-desc">Time freeze: cars, people, leaf frozen mid-air. Only ultra-detailed NOx molecule (N blue, O red, 134°) keeps drifting to wall.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">Time Freeze Array</span><span class="tag">Scientific Accurate</span></div>
+      <div class="specs"><b>Tech:</b> 15x RED array Bolt, 120fps.<br><b>Render:</b> MD molecule, spectral.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene07_macro_concrete.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 07 — 0:30-0:35</div>
+      <div class="scene-title">Seamless macro dive into concrete</div>
+      <div class="scene-desc">Camera dives into concrete: cement CSH crystals, black porous activated carbon, TiO2 nanoparticles sparkling with internal sunlight.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">Probe Lens</span><span class="tag">SEM Real</span></div>
+      <div class="specs"><b>Source:</b> Real thin section photogrammetry, Sharif University SEM.<br><b>Render:</b> Houdini VDB, mantra.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene08_photocatalyst_reaction.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 08 — 0:35-0:41</div>
+      <div class="scene-title">Photocatalyst activates — NOx breaks apart</div>
+      <div class="scene-desc">Photon hits TiO2, golden flash, reactive oxygen forms, NOx breaks into harmless nitrates. No text — pure elegant molecular cinema.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">Molecular Cinema</span><span class="tag">No Text</span></div>
+      <div class="specs"><b>Science:</b> TiO2 3.2eV, OH· radicals, Ca(NO3)2.<br><b>Sound:</b> Strings swell, crystalline bells.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene09_pore_network.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 09 — 0:41-0:46</div>
+      <div class="scene-title">Glide through carbon pore network</div>
+      <div class="scene-desc">FPV through activated carbon mesopores — organic alive cathedral, light traveling, continuously working absorbing VOCs.</div>
+      <div><span class="tag hope">Hope</span><span class="tag">FPV Through Pores</span><span class="tag">Organic</span></div>
+      <div class="specs"><b>Look:</b> Black, porous, alive.<br><b>Sound:</b> Breathing rhythm sync.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene10_rain_split.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 10 — 0:46-0:51</div>
+      <div class="scene-title">Rain washes clean — Split-screen proof</div>
+      <div class="scene-desc">Real Tehran rain. Left: dirty ordinary concrete water streaks dark. Right: our bright concrete sheets water clean, stays white. Hydrophilic, not bead.</div>
+      <div><span class="tag future">Future</span><span class="tag">Split Screen</span><span class="tag">1000fps</span></div>
+      <div class="specs"><b>Tech:</b> Phantom Flex4K, rain rig, side-by-side wall demo.<br><b>Sound:</b> Rain stereo, orchestral build.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene11_tehran_applications.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 11 — 0:51-0:57</div>
+      <div class="scene-title">Applied across real Tehran</div>
+      <div class="scene-desc">Montage match cuts: highway Jersey barriers, Modares bridge columns, facade panels, plazas, Niayesh tunnel. Same bright white. Unified city.</div>
+      <div><span class="tag future">Future</span><span class="tag">Montage</span><span class="tag">Tehran Locations</span></div>
+      <div class="specs"><b>Camera:</b> Mixed 24-35mm anamorphic, Agito slider.<br><b>Sound:</b> Percussion enters, uplift.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene12_drone_blue_sky.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 12 — 0:57-1:03</div>
+      <div class="scene-title">Drone ascends — Smog thins — Blue returns</div>
+      <div class="scene-desc">Same drone position as Scene 2, ascending 120→400m. Smog visibly thins in time-lapse, Alborz snow crystal clear, deep blue sky. Children play below without masks.</div>
+      <div><span class="tag future">Future</span><span class="tag">Vertical Ascent</span><span class="tag">Earned Blue</span></div>
+      <div class="specs"><b>Grade:</b> Shift Brown LUT → Tehran Blue Pantone 7455C.<br><b>Sound:</b> Full orchestra, children's laughter.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/scene13_earth_orbit.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Scene 13 — 1:03-1:09</div>
+      <div class="scene-title">Rise to orbit — Earth at night — Global network</div>
+      <div class="scene-desc">Continuous ascent from Tehran through atmosphere to ISS orbit. Earth night lights. Thin light filaments connect Tehran → Tokyo, Dubai, Paris, London, New York, São Paulo.</div>
+      <div><span class="tag future">Future</span><span class="tag">ISS / NASA</span><span class="tag">Atmosphere Rim</span></div>
+      <div class="specs"><b>VFX:</b> Blue Marble 8K + real ISS, volumetric rim in NukeX.<br><b>Sound:</b> Epic resolve, then quiet.</div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="frame"><div class="letterbox top"></div><div class="letterbox bottom"></div><img src="images/final_logo_patent.jpg"></div>
+    <div class="info">
+      <div class="scene-num">Final Scene — 1:09-1:15</div>
+      <div class="scene-title">White minimal — Patent — Tagline</div>
+      <div class="scene-desc">Pure white cyclorama, soft haze. Logo, "Registered Patent." Then: "We do not simply build concrete." pause "We build cities that breathe — starting with Tehran." Fade to black. One deep human breath.</div>
+      <div><span class="tag">White Void</span><span class="tag">Minimal Typography</span><span class="tag">Final Breath</span></div>
+      <div class="specs"><b>Typography:</b> SF Pro Thin 48pt, tracking +25, center.<br><b>Sound:</b> Orchestra cut → one deep breath U87 anechoic.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="final">
+  <h2>We do not simply build concrete.<br>We build cities that breathe —<br>starting with Tehran.</h2>
+  <p>Registered Patent · Photocatalytic Activated Carbon Concrete<br>Film package: 10 AI pre-viz photoreal plates + animatic + full script + tech specs · /film/</p>
+  <p style="margin-top:40px; font-size:12px; letter-spacing:0.2em; text-transform:uppercase">Apple Keynote Polish · Tesla Launch Energy · National Geographic Realism · 8K HDR</p>
+</div>
+
+</body>
+</html>
