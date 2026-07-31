@@ -3,1130 +3,384 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>和 WÁ — آپارتمان ذن | ۱۲۰ متر</title>
+<title>خانه مینیمال — طراحی داخلی</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0c0a08;
-  --bg2: #14110d;
-  --bg3: #1c1712;
-  --text: #ede6da;
-  --text2: #a89a88;
-  --text3: #6e6358;
-  --gold: #c9a76c;
-  --gold2: #a68750;
-  --ease: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'Vazirmatn', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  line-height: 1.8;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Vazirmatn', sans-serif;
+  background: #fafafa;
+  color: #2a2a2a;
+  line-height: 1.7;
 }
-img { display: block; max-width: 100%; height: auto; }
-a { color: inherit; text-decoration: none; }
-::selection { background: var(--gold); color: var(--bg); }
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--gold2); }
+img { max-width: 100%; height: auto; display: block; }
 
-/* LOADER */
-#loader {
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--bg);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 2rem;
-  transition: opacity 0.8s ease 0.3s, visibility 0.8s ease 0.3s;
-}
-#loader.hide { opacity: 0; visibility: hidden; }
-.l-kanji {
-  font-size: 4rem; font-weight: 100;
-  color: var(--gold);
-  opacity: 0;
-  animation: fadeUp 1s ease 0.3s forwards;
-}
-.l-line {
-  width: 1px; height: 0;
-  background: var(--gold);
-  animation: grow 1.5s var(--ease) forwards;
-}
-@keyframes grow { to { height: 60px; } }
-.l-text {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.5em;
-  color: var(--text3);
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.6s forwards;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* PROGRESS */
-#prog {
-  position: fixed; top: 0; right: 0;
-  width: 2px; height: 0%;
-  background: linear-gradient(to bottom, var(--gold), var(--gold2));
-  z-index: 1000;
-}
-
-/* NAV */
-nav {
-  position: fixed; top: 0; right: 0; left: 0;
-  z-index: 900;
-  padding: 1.5rem 3rem;
-  display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.5s var(--ease);
-}
-nav.on {
-  padding: 1rem 3rem;
-  background: rgba(12,10,8,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(201,167,108,0.08);
-}
-.n-logo {
-  font-size: 0.65rem; font-weight: 500;
-  letter-spacing: 0.35em;
-  color: var(--text); opacity: 0.9;
-}
-.n-menu { display: flex; gap: 2rem; list-style: none; }
-.n-menu a {
-  font-size: 0.6rem; font-weight: 400;
-  letter-spacing: 0.15em;
-  color: var(--text2);
-  transition: color 0.3s;
-}
-.n-menu a:hover { color: var(--gold); }
-
-/* HERO */
+/* Hero */
 .hero {
-  position: relative;
-  height: 100vh; min-height: 700px;
-  overflow: hidden;
-  display: flex; align-items: flex-end;
-  padding: 0 3rem 6rem;
-}
-.hero-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transform: scale(1.15);
-  filter: brightness(0.4) contrast(1.15);
-  transition: transform 3.5s var(--ease);
-}
-.hero.on .hero-img { transform: scale(1); }
-.hero::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(12,10,8,0.3) 0%, rgba(12,10,8,0.1) 30%, rgba(12,10,8,0.7) 75%, var(--bg) 100%);
-  pointer-events: none;
-}
-.hero-c { position: relative; z-index: 10; max-width: 850px; }
-.hero-ey {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.5em;
-  color: var(--gold);
-  margin-bottom: 1.5rem;
-  opacity: 0; transform: translateY(20px);
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('images/hero.jpg') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
 }
 .hero h1 {
-  font-size: clamp(3rem, 10vw, 8rem);
-  font-weight: 100; line-height: 0.9;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  opacity: 0; transform: translateY(40px);
-}
-.hero h1 small {
-  display: block;
-  font-size: 0.2em; font-weight: 300;
-  color: var(--text2);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
   letter-spacing: 0.05em;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-.hero-sub {
-  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-  font-weight: 300; line-height: 2;
-  color: var(--text2);
-  max-width: 550px;
-  opacity: 0; transform: translateY(25px);
-}
-.hero-meta {
-  display: flex; gap: 2.5rem; flex-wrap: wrap;
-  margin-top: 3rem;
-  opacity: 0; transform: translateY(20px);
-}
-.hero-meta div {
-  display: flex; flex-direction: column; gap: 0.2rem;
-}
-.hero-meta small {
-  font-size: 0.55rem; font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--text3);
-  text-transform: uppercase;
-}
-.hero-meta b {
-  font-size: 0.9rem; font-weight: 400;
-  color: var(--gold);
-}
-.hero-scroll {
-  position: absolute; bottom: 2rem; left: 50%;
-  transform: translateX(-50%); z-index: 10;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0.5rem;
-  opacity: 0;
-}
-.hero-scroll span {
-  font-size: 0.5rem; letter-spacing: 0.3em;
-  color: var(--text3);
-  writing-mode: vertical-rl;
-}
-.s-bar {
-  width: 1px; height: 40px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: pulse 2.5s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: 0.3; height: 25px; }
-  50% { opacity: 0.8; height: 50px; }
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  opacity: 0.9;
+  max-width: 600px;
 }
 
-/* SECTION */
-.s {
-  position: relative;
-  padding: 10rem 3rem;
+/* Section */
+section {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 6rem 2rem;
 }
-.s-tag {
-  font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.45em;
-  color: var(--gold);
-  margin-bottom: 2.5rem;
-  display: flex; align-items: center; gap: 1.2rem;
-}
-.s-tag::before {
-  content: ''; width: 30px; height: 1px;
-  background: var(--gold); opacity: 0.4;
-}
-.s-title {
+.section-title {
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 200; line-height: 1.2;
-  margin-bottom: 2rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
 }
-.s-text {
-  font-size: 1rem; font-weight: 300;
-  line-height: 2.2;
-  color: var(--text2);
-  max-width: 680px;
-}
-.s-text strong { color: var(--gold); font-weight: 400; }
-
-/* SPLIT */
-.split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  margin-top: 4rem;
-}
-.split-img { overflow: hidden; }
-.split-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 1.5s var(--ease);
-}
-.split-img:hover img { transform: scale(1.03); }
-
-/* FULL BLEED */
-.fb {
-  position: relative;
-  height: 80vh; min-height: 500px;
-  overflow: hidden;
-}
-.fb-img {
-  width: 100%; height: 120%;
-  object-fit: cover;
-  margin-top: -10%;
-  will-change: transform;
-}
-.fb::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
-}
-.fb-q {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 10; padding: 2rem;
-}
-.fb-q p {
-  font-size: clamp(1.3rem, 3vw, 2rem);
-  font-weight: 200; text-align: center;
-  line-height: 1.9;
-  color: var(--text);
-  text-shadow: 0 4px 40px rgba(0,0,0,0.7);
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
   max-width: 700px;
 }
 
-/* SPACES */
-.sp {
-  position: relative;
-  min-height: 100vh;
+/* Spaces Grid */
+.spaces {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  overflow: hidden;
-}
-.sp:nth-child(even) { direction: ltr; }
-.sp:nth-child(even) .sp-body { direction: rtl; }
-.sp-vis {
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh;
-}
-.sp-vis img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 1.5s var(--ease);
-}
-.sp:hover .sp-vis img { transform: scale(1.04); }
-.sp-vis::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to left, var(--bg) 0%, transparent 30%);
-}
-.sp:nth-child(even) .sp-vis::after {
-  background: linear-gradient(to right, var(--bg) 0%, transparent 30%);
-}
-.sp-body {
-  display: flex; flex-direction: column;
-  justify-content: center;
-  padding: 5rem;
-  position: relative; z-index: 10;
-}
-.sp-num {
-  font-size: 6rem; font-weight: 100;
-  color: var(--gold); opacity: 0.2;
-  line-height: 1; margin-bottom: 0.3rem;
-}
-.sp h2 {
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
-  font-weight: 200; line-height: 1.2;
-  margin-bottom: 0.4rem;
-}
-.sp-sub {
-  font-size: 0.82rem; font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  margin-bottom: 2rem;
-}
-.sp-desc {
-  font-size: 0.95rem; font-weight: 300;
-  line-height: 2.2;
-  color: var(--text2);
-  margin-bottom: 2rem;
-  max-width: 480px;
-}
-.sp-idea {
-  padding: 1.2rem 1.5rem;
-  border-right: 2px solid var(--gold);
-  background: rgba(201,167,108,0.03);
-  margin-bottom: 2.5rem;
-}
-.sp-idea span {
-  display: block;
-  font-size: 0.58rem; font-weight: 500;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-.sp-idea p {
-  font-size: 0.9rem; font-weight: 400;
-  font-style: italic;
-}
-.sp-specs {
-  display: flex; gap: 2rem; flex-wrap: wrap;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(201,167,108,0.08);
-}
-.sp-spec {
-  display: flex; flex-direction: column; gap: 0.2rem;
-}
-.sp-spec small {
-  font-size: 0.55rem; font-weight: 500;
-  letter-spacing: 0.15em;
-  color: var(--text3);
-  text-transform: uppercase;
-}
-.sp-spec b {
-  font-size: 0.85rem; font-weight: 400;
-}
-
-/* MATERIALS */
-.mats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
-  margin-top: 4rem;
-}
-.mat { text-align: center; }
-.mat-img {
-  width: 100%; aspect-ratio: 1;
-  overflow: hidden;
-  margin-bottom: 1.2rem;
-}
-.mat-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease);
-  filter: brightness(0.9) contrast(1.05);
-}
-.mat:hover .mat-img img { transform: scale(1.05); }
-.mat-name {
-  font-size: 0.85rem; font-weight: 400;
-  margin-bottom: 0.3rem;
-}
-.mat-role {
-  font-size: 0.7rem; font-weight: 300;
-  color: var(--text2);
-}
-
-/* LIGHT */
-.layers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  margin-top: 4rem;
-}
-.layer {
-  padding: 2.5rem 2rem;
-  border: 1px solid rgba(201,167,108,0.08);
-  text-align: center;
-  position: relative;
-  transition: all 0.5s var(--ease);
-}
-.layer::before {
-  content: ''; position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 50px; height: 2px;
-  background: var(--gold); opacity: 0.4;
-}
-.layer:hover {
-  border-color: rgba(201,167,108,0.2);
-  transform: translateY(-4px);
-}
-.layer-n {
-  font-size: 2.5rem; font-weight: 100;
-  color: var(--gold); opacity: 0.3;
-  margin-bottom: 1rem;
-}
-.layer h3 {
-  font-size: 1rem; font-weight: 400;
-  margin-bottom: 1rem;
-}
-.layer p {
-  font-size: 0.85rem; font-weight: 300;
-  line-height: 2;
-  color: var(--text2);
-}
-.layer-k {
-  margin-top: 1.5rem;
-  font-size: 0.62rem; font-weight: 500;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-}
-
-/* LAB */
-.lab {
-  margin-top: 5rem;
-  padding: 3rem;
-  border: 1px solid rgba(201,167,108,0.08);
-  background: var(--bg2);
-}
-.lab-title {
-  font-size: 0.62rem; font-weight: 500;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  margin-bottom: 2rem;
-}
-.lab-prev {
-  position: relative;
-  width: 100%; aspect-ratio: 16/7;
-  overflow: hidden;
-  margin-bottom: 2.5rem;
-}
-.lab-prev img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: filter 0.5s var(--ease);
-}
-.lab-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-.lab-f label {
-  display: block;
-  font-size: 0.58rem; font-weight: 500;
-  letter-spacing: 0.15em;
-  color: var(--text3);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-}
-.lab-f input[type="range"] {
-  width: 100%; height: 3px;
-  -webkit-appearance: none;
-  background: rgba(201,167,108,0.15);
-  outline: none;
-}
-.lab-f input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--gold);
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(201,167,108,0.3);
-}
-.lab-v {
-  font-size: 0.85rem; font-weight: 400;
-  margin-top: 0.6rem;
-  font-variant-numeric: tabular-nums;
-}
-
-/* FLOOR PLAN */
-.fp-img {
   margin-top: 3rem;
-  overflow: hidden;
 }
-.fp-img img {
+.space-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.space-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+.space-card img {
   width: 100%;
-  filter: brightness(0.95) contrast(1.05);
-}
-
-/* SKETCHES */
-.sk {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
-}
-.sk-card {
-  overflow: hidden;
-  background: var(--bg2);
-  transition: transform 0.5s var(--ease), box-shadow 0.5s;
-}
-.sk-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-.sk-card img {
-  width: 100%; aspect-ratio: 4/3;
+  height: 280px;
   object-fit: cover;
-  transition: transform 0.8s var(--ease);
 }
-.sk-card:hover img { transform: scale(1.05); }
-.sk-cap {
-  padding: 1.2rem 1.5rem;
-  font-size: 0.75rem; font-weight: 400;
-  color: var(--text2);
-  border-top: 1px solid rgba(201,167,108,0.08);
+.space-info {
+  padding: 1.5rem;
+}
+.space-info h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+.space-info p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+}
+.space-specs {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: #888;
 }
 
-/* CONCLUSION */
-.conc {
-  min-height: 80vh;
-  display: flex; align-items: center; justify-content: center;
+/* Full Width Image */
+.full-image {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  margin: 4rem 0;
+}
+
+/* Materials */
+.materials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.material-card {
   text-align: center;
-  padding: 8rem 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.06);
 }
-.conc-inner { max-width: 800px; }
-.conc-q {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 200; line-height: 1.8;
-  margin-bottom: 3rem;
+.material-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
-.conc-q strong { color: var(--gold); font-weight: 400; }
-.conc-m {
-  font-size: 0.62rem; font-weight: 400;
-  letter-spacing: 0.3em;
-  color: var(--text3);
+.material-card h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.material-card p {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-/* FOOTER */
+/* Design Principles */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.principle {
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 3px solid #d4af37;
+}
+.principle h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: #1a1a1a;
+}
+.principle p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* Footer */
 footer {
-  padding: 4rem 3rem;
-  border-top: 1px solid rgba(201,167,108,0.06);
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 2rem;
+  background: #1a1a1a;
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
 }
-.f-logo {
-  font-size: 0.65rem; font-weight: 500;
-  letter-spacing: 0.4em;
-  color: var(--gold);
-}
-.f-info {
-  font-size: 0.7rem; font-weight: 300;
-  color: var(--text3);
-}
-.f-copy {
-  font-size: 0.6rem; font-weight: 300;
-  color: var(--text3); opacity: 0.5;
+footer p {
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
-/* REVEAL */
-[data-r] {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s var(--ease), transform 1s var(--ease);
-}
-[data-r].on {
-  opacity: 1;
-  transform: translateY(0);
-}
-[data-r="img"] {
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path 1.4s var(--ease-out);
-}
-[data-r="img"].on {
-  clip-path: inset(0% 0 0 0);
-}
-[data-d="1"] { transition-delay: 0.1s; }
-[data-d="2"] { transition-delay: 0.2s; }
-[data-d="3"] { transition-delay: 0.3s; }
-[data-d="4"] { transition-delay: 0.4s; }
-[data-d="5"] { transition-delay: 0.5s; }
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .s { padding: 7rem 2rem; }
-  .hero { padding: 0 2rem 5rem; }
-  .split { grid-template-columns: 1fr; gap: 3rem; }
-  .sp { grid-template-columns: 1fr; }
-  .sp:nth-child(even) { direction: rtl; }
-  .sp-vis { min-height: 50vh; }
-  .sp-vis::after {
-    background: linear-gradient(to top, var(--bg) 0%, transparent 40%) !important;
-  }
-  .sp-body { padding: 3rem 2rem; }
-  .mats { grid-template-columns: repeat(2, 1fr); }
-  .layers { grid-template-columns: 1fr; }
-  .lab-grid { grid-template-columns: 1fr; }
-  .sk { grid-template-columns: 1fr; }
-}
+/* Responsive */
 @media (max-width: 768px) {
-  .s { padding: 5rem 1.5rem; }
-  .hero { padding: 0 1.5rem 4rem; }
-  .n-menu { display: none; }
-  nav { padding: 1rem 1.5rem; }
-  .sp-body { padding: 2rem 1.5rem; }
-  .sp-num { font-size: 4rem; }
-  .mats { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .lab { padding: 2rem 1.5rem; }
-  footer { padding: 3rem 1.5rem; flex-direction: column; text-align: center; }
+  .spaces { grid-template-columns: 1fr; }
+  .materials { grid-template-columns: 1fr; }
+  .principles { grid-template-columns: 1fr; }
+  section { padding: 4rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="l-kanji">和</div>
-  <div class="l-line"></div>
-  <div class="l-text">WÁ APARTMENT</div>
-</div>
-
-<!-- PROGRESS -->
-<div id="prog"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="n-logo">和 WÁ — ZEN APARTMENT</div>
-  <ul class="n-menu">
-    <li><a href="#brief">داستان</a></li>
-    <li><a href="#spaces">فضاها</a></li>
-    <li><a href="#materials">متریال</a></li>
-    <li><a href="#light">نور</a></li>
-    <li><a href="#sketches">اسکیس</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <img class="hero-img" src="images/hero.jpg" alt="آپارتمان ذن">
-  <div class="hero-c">
-    <p class="hero-ey">JAPANESE MINIMAL × PERSIAN MOTIFS</p>
-    <h1>
-      وَا
-      <small>آپارتمان ذن — ۱۲۰ متر مربع</small>
-    </h1>
-    <p class="hero-sub">
-      تلفیق سکوت ژاپنی با گرمای ایرانی. فضایی که در آن شوجی‌ها نقوش هندسی ایرانی را قاب می‌کنند
-      و نور گرم ۲۷۰۰ کلوین، مرز میان دو فرهنگ را محو می‌کند.
-    </p>
-    <div class="hero-meta">
-      <div><small>مساحت</small><b>۱۲۰ m²</b></div>
-      <div><small>اتاق خواب</small><b>۱ عدد</b></div>
-      <div><small>سبک</small><b>مینیمال ژاپنی × ایرانی</b></div>
-      <div><small>نور</small><b>2700K</b></div>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <span>اسکرول</span>
-    <div class="s-bar"></div>
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <h1>خانه مینیمال</h1>
+    <p>طراحی داخلی ساده و تمیز با تمرکز بر عملکرد و آرامش</p>
   </div>
 </section>
 
-<!-- BRIEF -->
-<section class="s" id="brief">
-  <div class="s-tag" data-r>THE BRIEF</div>
-  <h2 class="s-title" data-r data-d="1">چالش: دو فرهنگ، یک خانه</h2>
-  <p class="s-text" data-r data-d="2">
-    کارفرما خواستار آپارتمانی بود که <strong>آرامش ژاپنی</strong> را با <strong>گرمای ایرانی</strong> پیوند دهد —
-    فضایی ۱۲۰ متری با یک اتاق خواب، پذیرایی بزرگ، آشپزخانه باز و حمامی الهام‌گرفته از اوفورو.
+<!-- About -->
+<section>
+  <h2 class="section-title">درباره پروژه</h2>
+  <p class="section-subtitle">
+    یک آپارتمان مدرن با طراحی مینیمال اسکاندیناویایی. فضایی که در آن هر چیز جای خودش را دارد
+    و هیچ عنصر اضافه‌ای نیست. رنگ‌های خنثی، متریال‌های طبیعی، و نور فراوان.
   </p>
-  <p class="s-text" data-r data-d="3" style="margin-top:1.5rem;">
-    چالش اصلی: چگونه <strong>نقوش هندسی ایرانی</strong> را بدون شلوغی در فضای مینیمال ژاپنی جا دهیم؟
-    پاسخ در «کم‌گویی» بود: نقوش فقط روی شوجی‌ها، در جزئیات سرامیک و در یک دیوار تاکیدی ظاهر شدند.
-  </p>
-  
-  <div class="split">
-    <div data-r="img">
-      <img src="images/sketch1.jpg" alt="نقشه" loading="lazy">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+    <div>
+      <h4 style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">مساحت</h4>
+      <p style="font-size: 1.5rem; font-weight: 500;">۱۱۰ m²</p>
     </div>
     <div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2rem;" data-r data-d="1">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">برنامه فضاها</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
-          پذیرایی + ناهارخوری: ۴۵ m² · آشپزخانه: ۱۵ m² · اتاق خواب: ۲۰ m² · حمام: ۱۰ m² · ورودی (گنکان): ۸ m² · سیرکولاسیون: ۲۲ m²
-        </p>
+      <h4 style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">اتاق خواب</h4>
+      <p style="font-size: 1.5rem; font-weight: 500;">۲ عدد</p>
+    </div>
+    <div>
+      <h4 style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">سبک</h4>
+      <p style="font-size: 1.5rem; font-weight: 500;">مینیمال مدرن</p>
+    </div>
+    <div>
+      <h4 style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">پالت</h4>
+      <p style="font-size: 1.5rem; font-weight: 500;">سفید، چوب، خاکستری</p>
+    </div>
+  </div>
+</section>
+
+<!-- Spaces -->
+<section>
+  <h2 class="section-title">فضاها</h2>
+  <p class="section-subtitle">هر فضا با دقت طراحی شده تا هم زیبا باشد و هم کاربردی.</p>
+  
+  <div class="spaces">
+    <div class="space-card">
+      <img src="images/living.jpg" alt="پذیرایی">
+      <div class="space-info">
+        <h3>پذیرایی</h3>
+        <p>فضای باز و روشن با مبلمان ساده و راحت. پنجره‌های بزرگ نور طبیعی را به داخل می‌آورند.</p>
+        <div class="space-specs">
+          <span>۳۵ m²</span>
+          <span>نور طبیعی</span>
+          <span>مبلمان اسکاندیناوی</span>
+        </div>
       </div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem; margin-bottom:2rem;" data-r data-d="2">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">ایده مرکزی</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
-          «ما» (間) — فضای خالی ژاپنی — به‌عنوان بوم. نقوش ایرانی به‌عنوان «نقطه» — کم اما پرمعنا.
-        </p>
+    </div>
+
+    <div class="space-card">
+      <img src="images/kitchen.jpg" alt="آشپزخانه">
+      <div class="space-info">
+        <h3>آشپزخانه</h3>
+        <p>آشپزخانه باز با کابینت‌های سفید و کانتر چوبی. جزیره مرکزی برای کار و غذا خوردن.</p>
+        <div class="space-specs">
+          <span>۱۸ m²</span>
+          <span>جزیره مرکزی</span>
+          <span>لوازم استیل</span>
+        </div>
       </div>
-      <div style="border-right:2px solid var(--gold); padding-right:2rem;" data-r data-d="3">
-        <h4 style="font-size:1rem; font-weight:400; margin-bottom:0.8rem;">پالت</h4>
-        <p style="font-size:0.85rem; font-weight:300; line-height:2; color:var(--text2);">
-          چوب خاکستر روشن، کرم، گردو، حصیر، سنگ طبیعی، سیاه مات، کاشی ایرانی (تاکیدی).
-        </p>
+    </div>
+
+    <div class="space-card">
+      <img src="images/dining.jpg" alt="ناهارخوری">
+      <div class="space-info">
+        <h3>ناهارخوری</h3>
+        <p>میز گرد چوبی با صندلی‌های ساده. فضای صمیمی برای وعده‌های خانوادگی.</p>
+        <div class="space-specs">
+          <span>۱۲ m²</span>
+          <span>میز ۶ نفره</span>
+          <span>چراغ آویز</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-card">
+      <img src="images/bedroom.jpg" alt="اتاق خواب">
+      <div class="space-info">
+        <h3>اتاق خواب اصلی</h3>
+        <p>فضای آرام با تخت کم‌ارتفاع و رختخواب کتان. پنجره بزرگ با پرده‌های حریر.</p>
+        <div class="space-specs">
+          <span>۲۰ m²</span>
+          <span>تخت پلتفرم</span>
+          <span>نور گرم</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-card">
+      <img src="images/study.jpg" alt="اتاق مطالعه">
+      <div class="space-info">
+        <h3>اتاق مطالعه</h3>
+        <p>فضای کار ساده و کاربردی با میز چوبی و قفسه‌های دیواری. نور طبیعی کافی.</p>
+        <div class="space-specs">
+          <span>۱۰ m²</span>
+          <span>میز کار</span>
+          <span>قفسه کتاب</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-card">
+      <img src="images/bathroom.jpg" alt="حمام">
+      <div class="space-info">
+        <h3>حمام</h3>
+        <p>حمام مدرن با کاشی‌های سفید و روشویی چوبی. دوش بارانی با شیشه شفاف.</p>
+        <div class="space-specs">
+          <span>۸ m²</span>
+          <span>دوش بارانی</span>
+          <span>شیرآلات مشکی</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FB 1 -->
-<div class="fb">
-  <img class="fb-img" src="images/living.jpg" alt="پذیرایی" loading="lazy">
-  <div class="fb-q">
-    <p>«سکوت، زبان مشترک دو فرهنگ است.»</p>
-  </div>
-</div>
+<!-- Full Image -->
+<img src="images/balcony.jpg" alt="بالکن" class="full-image">
 
-<!-- SPACES -->
-<div id="spaces">
-
-  <!-- 01 LIVING -->
-  <div class="sp">
-    <div class="sp-vis">
-      <img src="images/living.jpg" alt="پذیرایی" loading="lazy">
+<!-- Design Principles -->
+<section>
+  <h2 class="section-title">اصول طراحی</h2>
+  <p class="section-subtitle">چهار اصل کلیدی که این فضا را تعریف می‌کنند.</p>
+  
+  <div class="principles">
+    <div class="principle">
+      <h4>سادگی</h4>
+      <p>هر عنصر دلیل حضورش را دارد. هیچ چیز اضافه‌ای نیست. فضا نفس می‌کشد.</p>
     </div>
-    <div class="sp-body">
-      <div class="sp-num">۰۱</div>
-      <h2>پذیرایی</h2>
-      <p class="sp-sub">فضای اصلی — ۴۵ متر مربع</p>
-      <p class="sp-desc">
-        فضای باز با کف تاتامی‌سبک، مبلمان کم‌ارتفاع روی زمین، و شوجی‌هایی که نقوش هندسی ایرانی را در خود دارند.
-        میز چای پایین، کوسن‌های کتان، و یک بونسای به‌عنوان نقطه تمرکز.
-      </p>
-      <div class="sp-idea">
-        <span>ایده</span>
-        <p>زمین، مبلمان است.</p>
-      </div>
-      <div class="sp-specs">
-        <div class="sp-spec"><small>مساحت</small><b>۴۵ m²</b></div>
-        <div class="sp-spec"><small>ارتفاع</small><b>۲۸۰cm</b></div>
-        <div class="sp-spec"><small>نور</small><b>2700K · 100 lx</b></div>
-      </div>
+    <div class="principle">
+      <h4>عملکرد</h4>
+      <p>زیبایی از عملکرد می‌آید. هر فضا برای استفاده واقعی طراحی شده، نه فقط نمایش.</p>
     </div>
-  </div>
-
-  <!-- 02 KITCHEN -->
-  <div class="sp">
-    <div class="sp-vis">
-      <img src="images/kitchen.jpg" alt="آشپزخانه" loading="lazy">
+    <div class="principle">
+      <h4>نور طبیعی</h4>
+      <p>پنجره‌های بزرگ نور روز را به داخل می‌آورند. نور مصنوعی فقط برای شب.</p>
     </div>
-    <div class="sp-body">
-      <div class="sp-num">۰۲</div>
-      <h2>آشپزخانه</h2>
-      <p class="sp-sub">مینیمال و کارآمد — ۱۵ متر مربع</p>
-      <p class="sp-desc">
-        کابینت‌های بدون دستگیره از چوب خاکستر روشن، سینک استیل یکپارچه، قفسه‌های باز با سرامیک‌های دست‌ساز ایرانی.
-        چراغ آویز واشی و باغچه کوچک سبزی روی پنجره.
-      </p>
-      <div class="sp-idea">
-        <span>ایده</span>
-        <p>هر شیء، یک مراسم.</p>
-      </div>
-      <div class="sp-specs">
-        <div class="sp-spec"><small>مساحت</small><b>۱۵ m²</b></div>
-        <div class="sp-spec"><small>کانتر</small><b>سنگ طبیعی</b></div>
-        <div class="sp-spec"><small>نور</small><b>2700K · 180 lx</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 03 BEDROOM -->
-  <div class="sp">
-    <div class="sp-vis">
-      <img src="images/bedroom.jpg" alt="اتاق خواب" loading="lazy">
-    </div>
-    <div class="sp-body">
-      <div class="sp-num">۰۳</div>
-      <h2>اتاق خواب</h2>
-      <p class="sp-sub">پلتفرم تاتامی — ۲۰ متر مربع</p>
-      <p class="sp-desc">
-        تخت کم‌ارتفاع روی پلتفرم تاتامی، رختخواب فوتون کتان، کمد با درهای شوجی.
-        دیوار تاکیدی از چوب سدر، پنجره کف‌تا-سقف رو به باغچه داخلی.
-      </p>
-      <div class="sp-idea">
-        <span>ایده</span>
-        <p>خواب، مراسم است.</p>
-      </div>
-      <div class="sp-specs">
-        <div class="sp-spec"><small>مساحت</small><b>۲۰ m²</b></div>
-        <div class="sp-spec"><small>پلتفرم</small><b>۱۵cm</b></div>
-        <div class="sp-spec"><small>نور</small><b>2400K · 50 lx</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 04 BATHROOM -->
-  <div class="sp">
-    <div class="sp-vis">
-      <img src="images/bathroom.jpg" alt="حمام" loading="lazy">
-    </div>
-    <div class="sp-body">
-      <div class="sp-num">۰۴</div>
-      <h2>حمام</h2>
-      <p class="sp-sub">اوفورو × ایرانی — ۱۰ متر مربع</p>
-      <p class="sp-desc">
-        وان عمیق چوب هینوکی (اوفورو)، کف سنگی با قلوه‌سنگ، جداکننده بامبو.
-        یک دیوار با کاشی هندسی ایرانی به‌عنوان نقطه تاکیدی. دوش بارانی با شیرآلات مشکی مات.
-      </p>
-      <div class="sp-idea">
-        <span>ایده</span>
-        <p>شست‌وشو، مدیتیشن است.</p>
-      </div>
-      <div class="sp-specs">
-        <div class="sp-spec"><small>مساحت</small><b>۱۰ m²</b></div>
-        <div class="sp-spec"><small>وان</small><b>هینوکی</b></div>
-        <div class="sp-spec"><small>نور</small><b>2700K · 120 lx</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 05 ENTRANCE -->
-  <div class="sp">
-    <div class="sp-vis">
-      <img src="images/entrance.jpg" alt="ورودی" loading="lazy">
-    </div>
-    <div class="sp-body">
-      <div class="sp-num">۰۵</div>
-      <h2>گنکان</h2>
-      <p class="sp-sub">آستانه — ۸ متر مربع</p>
-      <p class="sp-desc">
-        ورودی فرورفته با کف سنگی و پله به کف چوبی. کفش‌کن چوب سدر، یک گلدان ایکی‌بانا در گلدان ایرانی.
-        نور مخفی از سقف. لحظه مکث میان بیرون و درون.
-      </p>
-      <div class="sp-idea">
-        <span>ایده</span>
-        <p>ورود، مراسم است.</p>
-      </div>
-      <div class="sp-specs">
-        <div class="sp-spec"><small>مساحت</small><b>۸ m²</b></div>
-        <div class="sp-spec"><small>اختلاف سطح</small><b>۱۰cm</b></div>
-        <div class="sp-spec"><small>نور</small><b>2700K · 80 lx</b></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- FB 2 -->
-<div class="fb">
-  <img class="fb-img" src="images/bedroom.jpg" alt="اتاق خواب" loading="lazy">
-  <div class="fb-q">
-    <p>«خواب، مراسم است.»</p>
-  </div>
-</div>
-
-<!-- MATERIALS -->
-<section class="s" id="materials">
-  <div class="s-tag" data-r>MATERIAL STORY</div>
-  <h2 class="s-title" data-r data-d="1">پالت متریال</h2>
-  <p class="s-text" data-r data-d="2">
-    تلفیق متریال‌های طبیعی ژاپنی با لمسه‌های ایرانی. <strong>هر سطح داستانی دارد.</strong>
-  </p>
-  <div class="mats">
-    <div class="mat" data-r>
-      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy"></div>
-      <div class="mat-name">چوب خاکستر</div>
-      <div class="mat-role">کابینت، کف</div>
-    </div>
-    <div class="mat" data-r data-d="1">
-      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 25% center;"></div>
-      <div class="mat-name">سدر ژاپنی</div>
-      <div class="mat-role">دیوار، گنکان</div>
-    </div>
-    <div class="mat" data-r data-d="2">
-      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 50% center;"></div>
-      <div class="mat-name">کتان کرم</div>
-      <div class="mat-role">کوسن، پرده</div>
-    </div>
-    <div class="mat" data-r data-d="3">
-      <div class="mat-img"><img src="images/materials.jpg" alt="متریال" loading="lazy" style="object-position: 75% center;"></div>
-      <div class="mat-name">کاشی ایرانی</div>
-      <div class="mat-role">حمام (تاکیدی)</div>
+    <div class="principle">
+      <h4>متریال طبیعی</h4>
+      <p>چوب بلوط، کتان، سنگ. متریال‌هایی که با گذشت زمان زیباتر می‌شوند.</p>
     </div>
   </div>
 </section>
 
-<!-- LIGHT -->
-<section class="s" id="light">
-  <div class="s-tag" data-r>LIGHT STRATEGY</div>
-  <h2 class="s-title" data-r data-d="1">استراتژی نور گرم</h2>
-  <p class="s-text" data-r data-d="2">
-    تمام فضاها در <strong>۲۷۰۰ کلوین</strong> — گرم‌تر از استاندارد، برای ایجاد حس صمیمیت ایرانی در فضای ژاپنی.
-    نور همیشه مخفی است: از پشت شوجی، زیر پلتفرم، داخل قفسه.
-  </p>
-  <div class="layers">
-    <div class="layer" data-r>
-      <div class="layer-n">۱</div>
-      <h3>نور پس‌زمینه</h3>
-      <p>نوار LED مخفی در شکاف سقف و زیر پلتفرم‌ها. روشنایی عمومی فضا بدون دیده‌شدن منبع.</p>
-      <div class="layer-k">2700K — AMBIENT</div>
+<!-- Materials -->
+<section>
+  <h2 class="section-title">متریال‌ها</h2>
+  <p class="section-subtitle">پالت ساده از متریال‌های طبیعی و خنثی.</p>
+  
+  <div class="materials">
+    <div class="material-card">
+      <img src="images/details.jpg" alt="چوب بلوط">
+      <h4>چوب بلوط روشن</h4>
+      <p>کف، کانتر، مبلمان</p>
     </div>
-    <div class="layer" data-r data-d="1">
-      <div class="layer-n">۲</div>
-      <h3>نور کار</h3>
-      <p>زیر کابینت آشپزخانه، روی میز چای، کنار آینه حمام. فقط سطح کار روشن.</p>
-      <div class="layer-k">2700K — TASK</div>
+    <div class="material-card">
+      <img src="images/details.jpg" alt="سفید" style="filter: brightness(1.2);">
+      <h4>سفید مات</h4>
+      <p>دیوارها، کابینت‌ها</p>
     </div>
-    <div class="layer" data-r data-d="2">
-      <div class="layer-n">۳</div>
-      <h3>نور شبانه</h3>
-      <p>چراغ‌های واشی و آباژورهای کم‌شدت. فقط بافت‌ها و لبه‌ها. برای مدیتیشن و خواب.</p>
-      <div class="layer-k">2400K — MOOD</div>
+    <div class="material-card">
+      <img src="images/details.jpg" alt="خاکستری" style="filter: grayscale(100%);">
+      <h4>خاکستری روشن</h4>
+      <p>مبلمان، پارچه‌ها</p>
     </div>
-  </div>
-
-  <!-- LAB -->
-  <div class="lab" data-r>
-    <div class="lab-title">LIGHT & MATERIAL LAB</div>
-    <div class="lab-prev">
-      <img class="lab-img" src="images/living.jpg" alt="آزمایشگاه نور" loading="lazy">
-    </div>
-    <div class="lab-grid">
-      <div class="lab-f">
-        <label>شدت روشنایی</label>
-        <input type="range" id="lb" min="30" max="150" value="100">
-        <div class="lab-v" id="lbv">100%</div>
-      </div>
-      <div class="lab-f">
-        <label>دمای رنگ</label>
-        <input type="range" id="lt" min="0" max="100" value="25">
-        <div class="lab-v" id="ltv">3275K</div>
-      </div>
-      <div class="lab-f">
-        <label>کنتراست</label>
-        <input type="range" id="lc" min="60" max="150" value="100">
-        <div class="lab-v" id="lcv">100%</div>
-      </div>
+    <div class="material-card">
+      <img src="images/details.jpg" alt="مشکی" style="filter: brightness(0.3);">
+      <h4>مشکی مات</h4>
+      <p>شیرآلات، جزئیات</p>
     </div>
   </div>
 </section>
 
-<!-- FB 3 -->
-<div class="fb">
-  <img class="fb-img" src="images/bathroom.jpg" alt="حمام" loading="lazy">
-  <div class="fb-q">
-    <p>«شست‌وشو، مدیتیشن است.»</p>
-  </div>
-</div>
-
-<!-- SKETCHES -->
-<section class="s" id="sketches">
-  <div class="s-tag" data-r>SKETCHES</div>
-  <h2 class="s-title" data-r data-d="1">از خط تا فضا</h2>
-  <p class="s-text" data-r data-d="2">
-    اسکیس‌های اولیه که نشان می‌دهند چگونه نقوش ایرانی در قاب‌های ژاپنی جا گرفتند.
-  </p>
-  <div class="sk">
-    <div class="sk-card" data-r>
-      <img src="images/sketch1.jpg" alt="اسکیس ۰۱" loading="lazy">
-      <div class="sk-cap">اسکیس ۰۱ — پلان ۱۲۰ متری</div>
-    </div>
-    <div class="sk-card" data-r data-d="1">
-      <img src="images/sketch2.jpg" alt="اسکیس ۰۲" loading="lazy">
-      <div class="sk-cap">اسکیس ۰۲ — شوجی با نقوش ایرانی</div>
-    </div>
-  </div>
+<!-- Entry -->
+<section>
+  <h2 class="section-title">ورودی</h2>
+  <p class="section-subtitle">اولین لحظه ورود به خانه. ساده و دعوت‌کننده.</p>
+  <img src="images/entry.jpg" alt="ورودی" style="width: 100%; border-radius: 8px; margin-top: 2rem;">
 </section>
 
-<!-- DETAILS -->
-<section class="s">
-  <div class="s-tag" data-r>DETAILS</div>
-  <h2 class="s-title" data-r data-d="1">جزئیات تلفیق</h2>
-  <p class="s-text" data-r data-d="2">
-    اشیاء کوچک که داستان دو فرهنگ را روایت می‌کنند: کاسه چای ایرانی با چوب‌زن ژاپنی،
-    مینیاتور ایرانی کنار شاخه شکوفه، صندل چوبی گِتا و قالیچه کوچک.
-  </p>
-  <div style="margin-top:3rem;" data-r="img">
-    <img src="images/details.jpg" alt="جزئیات" loading="lazy">
-  </div>
-</section>
-
-<!-- CONCLUSION -->
-<section class="conc">
-  <div class="conc-inner">
-    <p class="conc-q" data-r>
-      آپارتمان وَا ثابت می‌کند که <strong>مینیمالیسم می‌تواند گرم باشد</strong> —
-      اگر زبان مشترک دو فرهنگ، سکوت باشد.
-    </p>
-    <p class="conc-m" data-r data-d="1">۱۲۰ متر مربع · مینیمال ژاپنی × موتیف ایرانی</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- Footer -->
 <footer>
-  <div class="f-logo">和 WÁ</div>
-  <div class="f-info">آپارتمان ذن · ۱۲۰ m²<br>مینیمال ژاپنی × ایرانی</div>
-  <div class="f-copy">طراحی معماری</div>
+  <p>طراحی داخلی مینیمال — سادگی، زیبایی، آرامش</p>
 </footer>
 
-<script>
-// ===== LOADER =====
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hide');
-    document.querySelector('.hero').classList.add('on');
-    animateHero();
-  }, 1800);
-});
-
-// ===== HERO ANIMATION =====
-function animateHero() {
-  const els = ['.hero-ey', '.hero h1', '.hero-sub', '.hero-meta', '.hero-scroll'];
-  els.forEach((sel, i) => {
-    const el = document.querySelector(sel);
-    if (!el) return;
-    setTimeout(() => {
-      el.style.transition = 'opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1)';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }, i * 200 + 300);
-  });
-}
-
-// ===== PROGRESS =====
-const prog = document.getElementById('prog');
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const height = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.height = (scrolled / height * 100) + '%';
-});
-
-// ===== NAV =====
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('on', window.scrollY > 80);
-});
-
-// ===== REVEAL =====
-const reveals = document.querySelectorAll('[data-r]');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('on');
-      obs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-reveals.forEach(el => obs.observe(el));
-
-// ===== PARALLAX =====
-const fbImgs = document.querySelectorAll('.fb-img');
-window.addEventListener('scroll', () => {
-  fbImgs.forEach(img => {
-    const rect = img.closest('.fb').getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      const yPos = (rect.top - window.innerHeight) * 0.3;
-      img.style.transform = `translateY(${yPos}px)`;
-    }
-  });
-});
-
-// ===== HERO PARALLAX =====
-const heroImg = document.querySelector('.hero-img');
-window.addEventListener('scroll', () => {
-  if (window.scrollY < window.innerHeight) {
-    heroImg.style.transform = `scale(1) translateY(${window.scrollY * 0.4}px)`;
-  }
-});
-
-// ===== LAB =====
-const labImg = document.querySelector('.lab-img');
-const lb = document.getElementById('lb');
-const lt = document.getElementById('lt');
-const lc = document.getElementById('lc');
-const lbv = document.getElementById('lbv');
-const ltv = document.getElementById('ltv');
-const lcv = document.getElementById('lcv');
-
-function updateLab() {
-  if (!labImg) return;
-  const b = lb.value, t = lt.value, c = lc.value;
-  const sepia = Math.max(0, 50 - t) / 50;
-  const hue = (t - 50) * 0.4;
-  const kelvin = Math.round(2700 + (t / 100) * 2300);
-  labImg.style.filter = `brightness(${b/100}) contrast(${c/100}) sepia(${sepia*0.5}) hue-rotate(${hue}deg) saturate(${1+sepia*0.3})`;
-  lbv.textContent = b + '%';
-  lcv.textContent = c + '%';
-  ltv.textContent = kelvin + 'K';
-}
-[lb, lt, lc].forEach(input => {
-  if (input) input.addEventListener('input', updateLab);
-});
-
-// ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// ===== SPACE HOVER =====
-document.querySelectorAll('.sp').forEach(sp => {
-  const img = sp.querySelector('.sp-vis img');
-  sp.addEventListener('mousemove', (e) => {
-    const rect = sp.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    img.style.transform = `scale(1.04) translate(${x*-10}px, ${y*-10}px)`;
-  });
-  sp.addEventListener('mouseleave', () => {
-    img.style.transform = 'scale(1)';
-  });
-});
-</script>
 </body>
 </html>
