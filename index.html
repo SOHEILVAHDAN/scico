@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خانه شماره ۶ | استودیو سَهی — شیراز ۱۴۰۴</title>
+<meta name="description" content="روایتی سینمایی از یک خانه؛ شش فصل، شش ایده. استودیو سَهی، شیراز.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Lenis Smooth Scroll -->
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loader">
+  <div class="loader-brand">SAHI STUDIO</div>
+  <div class="loader-bar-track"><div class="loader-bar"></div></div>
+  <div class="loader-count">0</div>
+</div>
+
+<!-- ============ PROGRESS BAR ============ -->
+<div id="progress-bar"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav id="nav">
+  <div class="nav-brand">SAHI STUDIO — SHIRAZ</div>
+  <ul class="nav-links">
+    <li><a href="#brief">داستان</a></li>
+    <li><a href="#context">بافت</a></li>
+    <li><a href="#concept">ایده</a></li>
+    <li><a href="#chapters">فصل‌ها</a></li>
+    <li><a href="#materials">متریال</a></li>
+    <li><a href="#light">نور</a></li>
+    <li><a href="#sketches">اسکیس</a></li>
+  </ul>
+  <div class="nav-chapter-indicator"></div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-meta">SAHI STUDIO PRESENTS — SHIRAZ 1404</p>
+    <h1 class="hero-title">خانه شماره ۶</h1>
+    <p class="hero-tagline">
+      روایتی سینمایی از یک خانه؛ شش فصل، شش ایده.
+      جایی که چوب تیره، حصیر و نورِ پنهان، سکوت را قابل زندگی می‌کنند.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">طراحی داخلی</span>
+      <span class="hero-tag">شیراز</span>
+      <span class="hero-tag">۱۴۰۴</span>
+      <span class="hero-tag">مینیمال گرم شرقی</span>
+    </div>
+  </div>
+  <div class="hero-scroll-cue">
+    <span>اسکرول</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============ THE BRIEF ============ -->
+<section class="section" id="brief">
+  <div class="section-label reveal">THE BRIEF</div>
+  <h2 class="section-title reveal stagger-1">چالش طراحی</h2>
+  <p class="section-text reveal stagger-2">
+    کارفرما خانه‌ای خواست که <em>«شب‌ها آرام و روزها روشن»</em> باشد —
+    دو خواسته‌ی به‌ظاهر متناقض در اقلیم گرم و خشک شیراز، جایی که آفتاب بعدازظهر بی‌رحمانه می‌تابد
+    و شب‌ها سکوت مطلق حکمفرماست.
+  </p>
+  <p class="section-text reveal stagger-3" style="margin-top: 1.5rem;">
+    ما به جای افزودن، <em>کم کردیم</em>: پالتی از شش متریال،
+    یک دمای نور ثابت، و شش لحظه‌ای که خانه را روایت می‌کنند.
+    هر فصل یک ایده‌ی واحد دارد و تمام تصمیمات طراحی از همان ایده پیروی می‌کنند.
+  </p>
+</section>
+
+<!-- ============ CONTEXT ANALYSIS ============ -->
+<section class="section" id="context">
+  <div class="section-label reveal">CONTEXT ANALYSIS</div>
+  <h2 class="section-title reveal stagger-1">بافت و زمینه</h2>
+  <div class="context-grid">
+    <div class="context-card reveal">
+      <h3>اقلیم</h3>
+      <p>شیراز، نیمه‌خشک با تابستان‌های داغ (تا ۴۰°C) و زمستان‌های ملایم. آفتاب تند بعدازظهر نیاز به فیلتر نوری دارد. بادهای فصلی از سمت شمال‌غرب.</p>
+    </div>
+    <div class="context-card reveal stagger-1">
+      <h3>سایت</h3>
+      <p>آپارتمان طبقه میانی در بافت مسکونی شیراز. نورگیر جنوبی با حیاط کوچک داخلی. سقف ۳.۲ متر، بالاتر از استاندارد.</p>
+    </div>
+    <div class="context-card reveal stagger-2">
+      <h3>جهت‌گیری</h3>
+      <p>بازشوهای اصلی رو به حیاط جنوبی. نور صبح از شرق، آفتاب تند عصر از غرب. صفحات حصیری در جبهه غربی به‌عنوان فیلتر عمل می‌کنند.</p>
+    </div>
+    <div class="context-card reveal stagger-3">
+      <h3>فرصت‌ها و محدودیت‌ها</h3>
+      <p>ارتفاع سقف غیرمعمول فرصت ایجاد پلتفرم و اختلاف سطح را فراهم کرد. محدودیت اصلی: عدم امکان تغییر نما و نورگیر محدود در سرویس‌ها.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FULLBLEED PARALLAX ============ -->
+<div class="fullbleed">
+  <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/7fb90465-d29c-4570-ab1f-81b942931907/shot2.jpg" alt="نور بی‌منبع" loading="lazy">
+  <div class="fullbleed-overlay">
+    <p class="fullbleed-quote">
+      «ما به جای افزودن، کم کردیم.»
+    </p>
+  </div>
+</div>
+
+<!-- ============ DESIGN CONCEPT ============ -->
+<section class="section" id="concept">
+  <div class="section-label reveal">DESIGN CONCEPT</div>
+  <h2 class="section-title reveal stagger-1">ایده معماری</h2>
+  <p class="section-text reveal stagger-2">
+    ایده مرکزی <em>«سکوت قابل سکونت»</em> است. فضایی که هیچ عنصر اضافه‌ای در آن فریاد نمی‌زند؛
+    هر متریال با صدای خودش حرف می‌زند و نور، نامرئی‌ترین معمار خانه است.
+  </p>
+  <div class="concept-split">
+    <div class="concept-image">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/e645eb88-29f0-4e8b-a666-15f1ea11e679/shot5.jpg" alt="سبز بیرون از قاب" loading="lazy">
+    </div>
+    <div class="concept-points">
+      <div class="concept-point">
+        <h4>الهام</h4>
+        <p>از تاق‌های خانه‌های قاجاری شیراز و فضای نیمه‌تاریک کاروانسراها. از سکوت باغ‌های ایرانی و صدای آب در حوض‌های سنگی.</p>
+      </div>
+      <div class="concept-point">
+        <h4>تولید فرم</h4>
+        <p>حجم‌های مکعبی ساده با حفره‌های منحنی. هر حفره ارجاعی به تاق‌های سنتی است، اما در مقیاس مبلمان و کاربردی.</p>
+      </div>
+      <div class="concept-point">
+        <h4>سلسله‌مراتب فضایی</h4>
+        <p>از بیرون به درون: آستانه (فیلتر) → نشیمن (اجتماعی) → آشپزخانه (کار) → اتاق خواب (خلوت) → سرویس (لمس) → حیاط (رها شدن).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTERS ============ -->
+<div class="chapters-wrapper" id="chapters">
+
+  <!-- Chapter 01: Threshold -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/f80967aa-709a-4d14-990b-d811bce69dec/shot1.jpg" alt="آستانه" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۱</div>
+      <h2 class="chapter-title">آستانه</h2>
+      <p class="chapter-subtitle">پرده‌ای از حصیر</p>
+      <p class="chapter-desc">
+        خانه با یک فیلتر آغاز می‌شود، نه با یک در. صفحات کشویی حصیری، آفتاب تند بعدازظهر شیراز را می‌گیرند و آن را به دانه‌های ریز نور تبدیل می‌کنند. آستانه اینجا یک لحظه است: مکث میان بیرونِ روشن و درونِ آرام.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>نور را نبند، ترجمه‌اش کن.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">بازشو</span><span class="spec-value">۳ لنگه · ۲۸۰cm</span></div>
+        <div class="spec-item"><span class="spec-label">عبور نور</span><span class="spec-value">۴۰٪</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">2700K · 90 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 02: Dark Room -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/2aec9def-1320-4670-8315-168fb82be243/shot6.jpg" alt="اتاق تاریک روشن" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۲</div>
+      <h2 class="chapter-title">اتاق تاریک روشن</h2>
+      <p class="chapter-subtitle">تخت پایین، دیوار گردو</p>
+      <p class="chapter-desc">
+        کف اتاق پایین می‌آید تا سقف بلندتر حس شود. هدبرد یکپارچه از چوب گردوی تیره تا لبه سقف بالا می‌رود و اتاق را مثل یک جعبه‌ی صدا در خود می‌گیرد. ملافه‌های خنثی تنها سطح روشن اتاق‌اند.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>تاریکی زمینه است، روشنی اتفاق.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">ارتفاع سقف</span><span class="spec-value">۳۲۰cm</span></div>
+        <div class="spec-item"><span class="spec-label">بازتاب</span><span class="spec-value">۱۲٪</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">2400K · 40 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 03: Sourceless Light -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/7fb90465-d29c-4570-ab1f-81b942931907/shot2.jpg" alt="نور بی‌منبع" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۳</div>
+      <h2 class="chapter-title">نور بی‌منبع</h2>
+      <p class="chapter-subtitle">خطوط پنهان</p>
+      <p class="chapter-desc">
+        هیچ لامپی دیده نمی‌شود. نور از شکاف‌های میان قفسه‌ها، از زیر لبه‌ها و از پشت طاقچه‌ها بیرون می‌زند و ماده را روشن می‌کند، نه چشم را. دمای نور ۲۷۰۰ کلوین است.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>چراغ را پنهان کن، سطح را روشن کن.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">دمای رنگ</span><span class="spec-value">2700K</span></div>
+        <div class="spec-item"><span class="spec-label">CRI</span><span class="spec-value">+95</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">120 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 04: Curved Niches -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/0d7b0282-b604-406c-a025-9ac73628965e/shot3.jpg" alt="طاقچه‌های منحنی" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۴</div>
+      <h2 class="chapter-title">طاقچه‌های منحنی</h2>
+      <p class="chapter-subtitle">آشپزخانه و مرمر</p>
+      <p class="chapter-desc">
+        در دل بدنه‌ی تیره‌ی آشپزخانه، دو طاقچه با گوشه‌های نرم بریده شده‌اند؛ ارجاعی خودمانی به تاق‌های خانه‌های قدیمی شیراز. مرمر روشنِ پس‌زمینه، عمق را برمی‌گرداند.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>تزیین را حذف کن، جایش حفره بساز.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">شعاع قوس</span><span class="spec-value">۳۸۰mm</span></div>
+        <div class="spec-item"><span class="spec-label">جزیره</span><span class="spec-value">۳۲۰cm</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">3000K · 200 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 05: Stone of Water -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/52b6c47e-5cff-4d08-bacc-6c67f65e59a8/shot4.jpg" alt="سنگ آب" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۵</div>
+      <h2 class="chapter-title">سنگِ آب</h2>
+      <p class="chapter-subtitle">سرویس و لمس</p>
+      <p class="chapter-desc">
+        روشویی یک کاسه‌ی سنگی یکپارچه است روی کانتر تراورتن؛ سطحی که دست باید آن را لمس کند تا باور شود. دیوار فلوت‌شده کنارش، نور دو دیوارکوب را می‌شکند.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>جزئیاتی که دست می‌فهمد، نه دوربین.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">گام فلوت</span><span class="spec-value">۲۸mm</span></div>
+        <div class="spec-item"><span class="spec-label">کانتر</span><span class="spec-value">۸۸cm</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">2700K · 150 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 06: Green Outside -->
+  <div class="chapter">
+    <div class="chapter-visual">
+      <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/e645eb88-29f0-4e8b-a666-15f1ea11e679/shot5.jpg" alt="سبز بیرون از قاب" loading="lazy">
+    </div>
+    <div class="chapter-body">
+      <div class="chapter-num">۰۶</div>
+      <h2 class="chapter-title">سبز، بیرون از قاب</h2>
+      <p class="chapter-subtitle">حیاط و پایان روایت</p>
+      <p class="chapter-desc">
+        هر فضای اصلی به یک برگ ختم می‌شود. پنجره‌های تمام‌قد، حیاط کوچک را قاب می‌کنند تا رنگ سبز، تنها رنگ سیر پالت باشد. خانه شماره ۶ با نگاه‌کردن به بیرون تمام می‌شود.
+      </p>
+      <div class="chapter-idea">
+        <span>ایده</span>
+        <p>آخرین متریالِ خانه، باغ است.</p>
+      </div>
+      <div class="chapter-specs">
+        <div class="spec-item"><span class="spec-label">حیاط</span><span class="spec-value">۲۴ m²</span></div>
+        <div class="spec-item"><span class="spec-label">آستانه</span><span class="spec-value">صفر</span></div>
+        <div class="spec-item"><span class="spec-label">نور</span><span class="spec-value">4200K · 400 lx</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ FULLBLEED PARALLAX 2 ============ -->
+<div class="fullbleed">
+  <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/e645eb88-29f0-4e8b-a666-15f1ea11e679/shot5.jpg" alt="سبز بیرون از قاب" loading="lazy">
+  <div class="fullbleed-overlay">
+    <p class="fullbleed-quote">
+      «آخرین متریالِ خانه، باغ است.»
+    </p>
+  </div>
+</div>
+
+<!-- ============ MATERIAL STORY ============ -->
+<section class="section" id="materials">
+  <div class="section-label reveal">MATERIAL STORY</div>
+  <h2 class="section-title reveal stagger-1">چرا این متریال‌ها؟</h2>
+  <p class="section-text reveal stagger-2">
+    رنگ از جنس متریال می‌آید، نه از قوطی رنگ. دانه چوب، بافت حصیر، رگه تراورتن —
+    هر سطح داستان خودش را دارد. <em>هیچ سطحی صرفاً رنگ‌آمیزی نشده.</em>
+  </p>
+
+  <div class="materials-grid">
+    <div class="material-card">
+      <div class="material-orb orb-walnut"></div>
+      <div class="material-name">چوب گردوی دودی</div>
+      <div class="material-role">بدنه‌ها، هدبرد، درها</div>
+    </div>
+    <div class="material-card">
+      <div class="material-orb orb-rattan"></div>
+      <div class="material-name">حصیر بافت وین</div>
+      <div class="material-role">صفحات کشویی و درهای کمد</div>
+    </div>
+    <div class="material-card">
+      <div class="material-orb orb-travertine"></div>
+      <div class="material-name">تراورتن روشن</div>
+      <div class="material-role">کانتر، کف سرویس</div>
+    </div>
+    <div class="material-card">
+      <div class="material-orb orb-linen"></div>
+      <div class="material-name">کتان طبیعی</div>
+      <div class="material-role">پرده، روتختی، مبلمان</div>
+    </div>
+    <div class="material-card">
+      <div class="material-orb orb-brass"></div>
+      <div class="material-name">برنج مات</div>
+      <div class="material-role">دستگیره، شیرآلات</div>
+    </div>
+    <div class="material-card">
+      <div class="material-orb orb-green"></div>
+      <div class="material-name">سبز باغ</div>
+      <div class="material-role">حیاط و گیاه داخلی</div>
+    </div>
+  </div>
+
+  <div class="material-reason reveal">
+    گردوی دودی به‌خاطر عمق بصری و جذب نور انتخاب شد — تاریکیِ زمینه‌ای که روشنیِ کتان و تراورتن را برجسته می‌کند. حصیر بافت وین، ارجاعی به صنایع‌دستی فارس، نور را فیلتر و سایه را معماری می‌کند. تراورتن به‌خاطر تخلخل و لمس گرم. برنج مات تنها فلز پالت، برای درخشش خفه در جزئیات.
+  </div>
+</section>
+
+<!-- ============ LIGHT STRATEGY ============ -->
+<section class="section" id="light">
+  <div class="section-label reveal">LIGHT STRATEGY</div>
+  <h2 class="section-title reveal stagger-1">استراتژی نور</h2>
+  <p class="section-text reveal stagger-2">
+    نور در خانه شماره ۶ <em>سه لایه</em> دارد و هرگز منبعش دیده نمی‌شود.
+    هدف: روشن‌کردن سطح، نه چشم.
+  </p>
+
+  <div class="light-layers">
+    <div class="light-layer-card">
+      <div class="light-layer-num">۱</div>
+      <h3>خطی پنهان</h3>
+      <p>نوار LED داخل شیار ۴۰ میلی‌متری، نور را روی سطح پخش می‌کند. برای روشنایی عمومی فضا.</p>
+      <div class="light-layer-kelvin">2700K — نور پس‌زمینه</div>
+    </div>
+    <div class="light-layer-card">
+      <div class="light-layer-num">۲</div>
+      <h3>موضعی کار</h3>
+      <p>زیر کابینت، داخل طاقچه، کنار آینه. فقط سطح کار روشن می‌شود. CRI بالای ۹۵ برای وفاداری رنگ.</p>
+      <div class="light-layer-kelvin">3000K — نور کار</div>
+    </div>
+    <div class="light-layer-card">
+      <div class="light-layer-num">۳</div>
+      <h3>شمعی شبانه</h3>
+      <p>دیوارکوب‌های کم‌شدت در ارتفاع چهره. شدت ۵ درصد برای شب. فقط لبه‌ها و بافت‌ها.</p>
+      <div class="light-layer-kelvin">2400K — نور آرامش</div>
+    </div>
+  </div>
+
+  <!-- Light & Material Lab -->
+  <div class="light-lab reveal">
+    <div class="light-lab-title">LIGHT & MATERIAL LAB</div>
+    <div class="light-lab-preview">
+      <img class="lab-preview-img" src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/7fb90465-d29c-4570-ab1f-81b942931907/shot2.jpg" alt="پیش‌نمایش نور" loading="lazy">
+    </div>
+    <div class="lab-controls">
+      <div class="lab-control">
+        <label>شدت روشنایی</label>
+        <input type="range" id="lab-brightness" min="30" max="150" value="100">
+        <div class="lab-value" id="lab-brightness-val">100%</div>
+      </div>
+      <div class="lab-control">
+        <label>دمای رنگ</label>
+        <input type="range" id="lab-temperature" min="0" max="100" value="30">
+        <div class="lab-value" id="lab-temperature-val">3390K</div>
+      </div>
+      <div class="lab-control">
+        <label>کنتراست</label>
+        <input type="range" id="lab-contrast" min="60" max="150" value="100">
+        <div class="lab-value" id="lab-contrast-val">100%</div>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <label style="display:block; font-size:0.6rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.8rem;">متریال غالب</label>
+      <div class="lab-materials">
+        <button class="lab-mat-btn active">گردوی دودی</button>
+        <button class="lab-mat-btn">حصیر وین</button>
+        <button class="lab-mat-btn">تراورتن</button>
+        <button class="lab-mat-btn">کتان</button>
+        <button class="lab-mat-btn">برنج</button>
+        <button class="lab-mat-btn">سبز باغ</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPATIAL EXPERIENCE ============ -->
+<section class="section" id="experience">
+  <div class="section-label reveal">SPATIAL EXPERIENCE</div>
+  <h2 class="section-title reveal stagger-1">تجربه فضایی</h2>
+  <p class="section-text reveal stagger-2">
+    مسیر بازدیدکننده از ورود تا خروج: <em>یک سفر حسی</em> از روشنایی به تاریکی و بازگشت به نور.
+  </p>
+  <div class="spatial-timeline">
+    <div class="timeline-step">
+      <h4>۱. ورود — آستانه</h4>
+      <p>بازدیدکننده از بیرون پرنور وارد فیلتر حصیری می‌شود. نور به دانه‌های ریز تبدیل می‌شود. مکث. چشم عادت می‌کند.</p>
+    </div>
+    <div class="timeline-step">
+      <h4>۲. نشیمن — نور بی‌منبع</h4>
+      <p>فضای اصلی. هیچ لامپی دیده نمی‌شود. نور از شکاف‌ها و لبه‌ها می‌آید. قفسه‌های گردو اشیاء را قاب می‌کنند.</p>
+    </div>
+    <div class="timeline-step">
+      <h4>۳. آشپزخانه — حفره‌ها</h4>
+      <p>بدنه تیره با دو حفره منحنی روشن. ارجاع به تاق‌های قدیمی. مرمر عمق ایجاد می‌کند.</p>
+    </div>
+    <div class="timeline-step">
+      <h4>۴. اتاق خواب — جعبه صدا</h4>
+      <p>کف پایین‌تر، سقف بلندتر. گردو از هر طرف. ملافه کتان تنها نقطه روشن. سکوت مطلق.</p>
+    </div>
+    <div class="timeline-step">
+      <h4>۵. سرویس — لمس</h4>
+      <p>دست روی تراورتن کشیده می‌شود. فلوت‌ها سایه می‌اندازند. آب روی سنگ جاری می‌شود.</p>
+    </div>
+    <div class="timeline-step">
+      <h4>۶. حیاط — پایان</h4>
+      <p>پنجره تمام‌قد باز می‌شود. آستانه صفر. سبز تنها رنگ سیر. خانه با نگاه به بیرون تمام می‌شود.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUSTAINABILITY ============ -->
+<section class="section" id="sustainability">
+  <div class="section-label reveal">SUSTAINABILITY</div>
+  <h2 class="section-title reveal stagger-1">پایداری</h2>
+  <div class="sustain-grid">
+    <div class="sustain-card">
+      <div class="sustain-icon">☀</div>
+      <div>
+        <h4>نور روز</h4>
+        <p>صفحات حصیری آفتاب تند را فیلتر و به نور ملایم تبدیل می‌کنند — کاهش نیاز به نور مصنوعی در روز تا ۶۰٪.</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <div class="sustain-icon">↔</div>
+      <div>
+        <h4>تهویه طبیعی</h4>
+        <p>بازشوهای تمام‌قد در دو جبهه، کوران عرضی ایجاد می‌کنند. حیاط به‌عنوان دودکش حرارتی عمل می‌کند.</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <div class="sustain-icon">◈</div>
+      <div>
+        <h4>جرم حرارتی</h4>
+        <p>تراورتن و چوب ماسیو به‌عنوان جرم حرارتی عمل کرده، نوسان دما را کاهش می‌دهند.</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <div class="sustain-icon">♻</div>
+      <div>
+        <h4>متریال طبیعی</h4>
+        <p>تمام متریال‌ها طبیعی و قابل بازیافت‌اند. بدون MDF، بدون PVC، بدون رنگ شیمیایی.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONSTRUCTION LOGIC ============ -->
+<section class="section" id="construction">
+  <div class="section-label reveal">CONSTRUCTION LOGIC</div>
+  <h2 class="section-title reveal stagger-1">منطق ساخت</h2>
+  <p class="section-text reveal stagger-2">
+    ساخت خشک و مدولار — تمام عناصر چوبی پیش‌ساخته در کارگاه و در محل مونتاژ شده‌اند.
+    این روش ضایعات را <em>۴۰ درصد</em> کاهش داد.
+  </p>
+  <div class="context-grid" style="margin-top: 3rem;">
+    <div class="context-card reveal">
+      <h3>سازه</h3>
+      <p>اسکلت فلزی موجود دست‌نخورده باقی ماند. تمام جداره‌ها و کابینت‌ها با سیستم خشک (قاب فلزی سبک + روکش چوب) اجرا شدند.</p>
+    </div>
+    <div class="context-card reveal stagger-1">
+      <h3>مدولاسیون</h3>
+      <p>عرض ۴۵ سانتی‌متر به‌عنوان مدول پایه انتخاب شد — هم‌خوان با عرض استاندارد صفحات حصیری و ریتم درزهای هدبرد.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FULLBLEED PARALLAX 3 ============ -->
+<div class="fullbleed">
+  <img src="https://sahi-studio-no6.lovable.app/__l5e/assets-v1/2aec9def-1320-4670-8315-168fb82be243/shot6.jpg" alt="اتاق تاریک روشن" loading="lazy">
+  <div class="fullbleed-overlay">
+    <p class="fullbleed-quote">
+      «تاریکی زمینه است، روشنی اتفاق.»
+    </p>
+  </div>
+</div>
+
+<!-- ============ SKETCHES ============ -->
+<section class="section" id="sketches">
+  <div class="section-label reveal">SKETCHES</div>
+  <h2 class="section-title reveal stagger-1">از خط تا خانه</h2>
+  <p class="section-text reveal stagger-2">
+    هر فصل با یک اسکیس دستی شروع شد؛ همان خطوطی که بعداً به چوب و سنگ ترجمه شدند.
+  </p>
+  <div class="sketches-grid">
+    <div class="sketch-card">
+      <img src="https://sahi-studio-no6.lovable.app/assets/sketch-1-CEPN9Kta.jpg" alt="اسکیس ۰۱ — اتاق خواب اصلی و صفحه حصیری" loading="lazy">
+      <div class="sketch-caption">اسکیس ۰۱ — اتاق خواب اصلی و صفحه حصیری</div>
+    </div>
+    <div class="sketch-card">
+      <img src="https://sahi-studio-no6.lovable.app/assets/sketch-2-BxOgOIbx.jpg" alt="اسکیس ۰۲ — سرویس و سنگِ آب" loading="lazy">
+      <div class="sketch-caption">اسکیس ۰۲ — سرویس و سنگِ آب</div>
+    </div>
+    <div class="sketch-card">
+      <img src="https://sahi-studio-no6.lovable.app/assets/sketch-3-_pMIXNYL.jpg" alt="اسکیس ۰۳ — نمای آشپزخانه و طاقچه‌های منحنی" loading="lazy">
+      <div class="sketch-caption">اسکیس ۰۳ — نمای آشپزخانه و طاقچه‌های منحنی</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONCLUSION ============ -->
+<section class="conclusion" id="conclusion">
+  <div class="conclusion-inner">
+    <p class="conclusion-quote reveal">
+      خانه شماره ۶ ثابت می‌کند که <em>کم‌کردن، خودش یک عمل معماری است</em>.
+      شش متریال، یک دمای نور، و شش لحظه‌ای که سکوت را قابل زندگی می‌کنند.
+    </p>
+    <p class="conclusion-meta reveal stagger-1">
+      استودیو سَهی — شیراز — ۱۴۰۴
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-brand">SAHI STUDIO</div>
+  <div class="footer-info">شیراز — ایران — ۱۴۰۴<br>طراحی داخلی · مینیمال گرم شرقی</div>
+  <div class="footer-copy">© استودیو سَهی. تمامی حقوق محفوظ است.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
