@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روایت سینماتیک بوم کسب‌وکار Heidelberg Materials</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0e14;
+            --bg-card: rgba(18, 26, 36, 0.82);
+            --bg-card-hover: rgba(28, 40, 56, 0.92);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-glow: rgba(16, 185, 129, 0.4);
+            
+            --accent-green: #10b981;
+            --accent-green-bright: #34d399;
+            --accent-amber: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+            
+            --font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Background Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Ambient Glow Blobs */
+        .glow-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+            animation: pulseGlow 12s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: var(--accent-green);
+        }
+
+        .glow-2 {
+            bottom: -10%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            background: var(--accent-cyan);
+        }
+
+        .glow-3 {
+            top: 50%;
+            left: 40%;
+            width: 500px;
+            height: 500px;
+            background: var(--accent-amber);
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
+            50% { transform: scale(1.15) translate(-30px, 20px); opacity: 0.22; }
+            100% { transform: scale(0.9) translate(30px, -20px); opacity: 0.12; }
+        }
+
+        /* UI Containers */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        /* Audio Controls Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(10, 14, 20, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 900;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            color: #000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .audio-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-family: var(--font-family);
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        .audio-wave {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 14px;
+        }
+
+        .audio-wave span {
+            width: 3px;
+            background: var(--accent-green);
+            border-radius: 3px;
+            animation: waveAnim 1s infinite ease-in-out alternate;
+        }
+
+        .audio-wave span:nth-child(2) { animation-delay: 0.2s; }
+        .audio-wave span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes waveAnim {
+            0% { height: 3px; }
+            100% { height: 14px; }
+        }
+
+        .audio-wave.muted span {
+            height: 3px !important;
+            animation: none !important;
+            background: var(--text-dim);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem 5rem;
+            position: relative;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-green-bright);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span.green-text {
+            background: linear-gradient(135deg, var(--accent-green-bright), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 820px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            font-family: var(--font-family);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: #051611;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, var(--accent-green-bright), var(--accent-green));
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        /* Section Titles */
+        .section-header {
+            margin: 5rem 0 2.5rem;
+            text-align: right;
+            position: relative;
+        }
+
+        .section-header .chapter-num {
+            color: var(--accent-amber);
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Story Cards Grid */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .story-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .story-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-6px);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .story-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .icon-green { color: var(--accent-green-bright); background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+        .icon-amber { color: var(--accent-amber); background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); }
+        .icon-cyan { color: var(--accent-cyan); background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); }
+        .icon-blue { color: var(--accent-blue); background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2); }
+
+        .story-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .story-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--accent-green-bright);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Business Model Canvas Matrix Grid */
+        .bmc-matrix-container {
+            margin: 4rem 0;
+            background: rgba(12, 18, 26, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+        }
+
+        .bmc-title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .bmc-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, minmax(180px, auto)) minmax(150px, auto);
+            gap: 1rem;
+        }
+
+        /* Osterwalder layout mapping */
+        .bmc-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bmc-box:hover {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: var(--accent-green);
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .bmc-box.active {
+            border-color: var(--accent-green-bright);
+            background: rgba(16, 185, 129, 0.15);
+        }
+
+        .bmc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .bmc-header h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .bmc-header .box-num {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .bmc-box ul {
+            list-style: none;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .bmc-box ul li {
+            position: relative;
+            padding-right: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .bmc-box ul li::before {
+            content: '•';
+            position: absolute;
+            right: 0;
+            color: var(--accent-green);
+        }
+
+        /* Specific Grid Spans */
+        .box-kp { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .box-ka { grid-column: 2 / 3; grid-row: 1 / 2; }
+        .box-kr { grid-column: 2 / 3; grid-row: 2 / 3; }
+        .box-vp { grid-column: 3 / 4; grid-row: 1 / 3; }
+        .box-cr { grid-column: 4 / 5; grid-row: 1 / 2; }
+        .box-ch { grid-column: 4 / 5; grid-row: 2 / 3; }
+        .box-cs { grid-column: 5 / 6; grid-row: 1 / 3; }
+        .box-cost { grid-column: 1 / 3; grid-row: 3 / 4; }
+        .box-rev { grid-column: 3 / 6; grid-row: 3 / 4; }
+
+        @media (max-width: 992px) {
+            .bmc-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            .box-kp, .box-ka, .box-kr, .box-vp, .box-cr, .box-ch, .box-cs, .box-cost, .box-rev {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .box-vp, .box-cost, .box-rev {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bmc-grid {
+                grid-template-columns: 1fr;
+            }
+            .box-vp, .box-cost, .box-rev {
+                grid-column: span 1;
+            }
+        }
+
+        /* Interactive Carbon Calculator Component */
+        .calc-wrapper {
+            background: linear-gradient(135deg, rgba(16, 24, 34, 0.95), rgba(8, 14, 22, 0.95));
+            border: 1px solid var(--accent-green);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -10px rgba(16, 185, 129, 0.2);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-info h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--accent-green-bright);
+        }
+
+        .calc-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .slider-label span.value-highlight {
+            color: var(--accent-amber);
+            font-size: 1.1rem;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            cursor: pointer;
+            box-shadow: 0 0 12px var(--accent-green);
+            transition: transform 0.2s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .results-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .result-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .result-val {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .val-co2 { color: var(--accent-green-bright); }
+        .val-trees { color: var(--accent-cyan); }
+        .val-leed { color: var(--accent-amber); }
+
+        /* Modal Drawer for BMC Detail */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-green);
+            border-radius: 24px;
+            max-width: 650px;
+            width: 100%;
+            padding: 2.5rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 0, 0, 0.4);
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--accent-green-bright);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body {
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .modal-body ul {
+            margin-top: 1rem;
+            padding-right: 1.2rem;
+        }
+
+        .modal-body ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timeline Flow Section */
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+            padding-right: 2rem;
+            border-right: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: -2.6rem;
+            top: 0.2rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 12px var(--accent-green);
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .timeline-content h4 {
+            color: var(--accent-green-bright);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem 1rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent-green-bright);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas for ambient animation -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Glow background blobs -->
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+    <div class="glow-blob glow-3"></div>
+
+    <div class="app-container">
+
+        <!-- Header Controls -->
+        <header>
+            <div class="brand-logo">
+                <span>HEIDELBERG MATERIALS</span>
+                <span class="brand-badge">NORTH AMERICA</span>
+            </div>
+            <button class="audio-btn" id="audioToggleBtn" title="پخش/قطع صوت محیطی">
+                <div class="audio-wave muted" id="audioWave">
+                    <span></span><span></span><span></span>
+                </div>
+                <span id="audioText">صدا: خاموش</span>
+            </button>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">🌱 روایت سینماتیک بوم کسب‌وکار (Business Model Canvas)</div>
+            <h1>معماری آینده ساخت‌وساز:<br><span class="green-text">از سنگ و سیمان تا کربن صفر</span></h1>
+            <p>
+                داستان تحول شرکت <strong>Heidelberg Materials North America</strong> (شرکت سابق Lehigh Hanson)؛ غول ۴۵۰ منطقه‌ای که بیش از یک قرن زیرساخت‌های آمریکا را ساخت و اینک با فناوری جذب کربن (CCUS) زیست‌بوم ساخت‌وساز جهان را دگرگون می‌کند.
+            </p>
+            <div class="cta-group">
+                <a href="#bmcSection" class="btn btn-primary">
+                    <span>⚡ مشاهده بوم تعاملی ۹ گانه</span>
+                </a>
+                <a href="#storyChapters" class="btn btn-secondary">
+                    <span>📖 ورود به داستان تحول</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Interactive BMC Grid Matrix -->
+        <section id="bmcSection" class="bmc-matrix-container">
+            <div class="bmc-title-bar">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">بوم کسب‌وکار تعاملی (۹ ساختار کلیدی)</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">برای مشاهده جزئیات استراتژیک و داستان هر بخش، روی خانه مربوطه کلیک کنید.</p>
+                </div>
+                <div style="font-size: 0.85rem; background: rgba(16, 185, 129, 0.1); color: var(--accent-green-bright); padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    مدل استاندارد اوستروالدر
+                </div>
+            </div>
+
+            <div class="bmc-grid">
+                <!-- 1. Key Partners -->
+                <div class="bmc-box box-kp" onclick="openModal('kp')">
+                    <div class="bmc-header">
+                        <h4>شرکای کلیدی</h4>
+                        <span class="box-num">۸</span>
+                    </div>
+                    <ul>
+                        <li>تامین‌کنندگان سوخت جایگزین</li>
+                        <li>وزارت انرژی آمریکا (US DOE)</li>
+                        <li>سازندگان تکنولوژی CCUS</li>
+                        <li>شرکت‌های حمل‌ونقل ریلی/دریایی</li>
+                    </ul>
+                </div>
+
+                <!-- 2. Key Activities -->
+                <div class="bmc-box box-ka" onclick="openModal('ka')">
+                    <div class="bmc-header">
+                        <h4>فعالیت‌های کلیدی</h4>
+                        <span class="box-num">۷</span>
+                    </div>
+                    <ul>
+                        <li>معدن‌کاری سنگ‌دانه و فرآوری</li>
+                        <li>پخت کلینکر و تولید سیمان</li>
+                        <li>تحقیق و توسعه R&D کربن‌زدایی</li>
+                        <li>مدیریت لجستیک و توزیع بتن</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Key Resources -->
+                <div class="bmc-box box-kr" onclick="openModal('kr')">
+                    <div class="bmc-header">
+                        <h4>منابع کلیدی</h4>
+                        <span class="box-num">۶</span>
+                    </div>
+                    <ul>
+                        <li>۴۵0+ مرکز و معدن فعال</li>
+                        <li>تاسیسات CCUS (میچل و ادمونتون)</li>
+                        <li>ناوگان اختصاصی و ترانزیت</li>
+                        <li>۹,۰۰۰ متخصص و مهندس</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Value Propositions -->
+                <div class="bmc-box box-vp" onclick="openModal('vp')">
+                    <div class="bmc-header">
+                        <h4 style="color: var(--accent-green-bright);">ارزش‌های پیشنهادی</h4>
+                        <span class="box-num" style="background: var(--accent-green); color: #000;">۲</span>
+                    </div>
+                    <ul>
+                        <li>سبد جامع مصالح سنگین (One-Stop)</li>
+                        <li>سیمان صفرکربن واقعی (evoZero)</li>
+                        <li>تحویل سریع با ۴۵۰ نقطه محلی</li>
+                        <li>پلتفرم هوشمند ردیابی بتن</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Customer Relationships -->
+                <div class="bmc-box box-cr" onclick="openModal('cr')">
+                    <div class="bmc-header">
+                        <h4>روابط با مشتریان</h4>
+                        <span class="box-num">۴</span>
+                    </div>
+                    <ul>
+                        <li>مدیریت اختصاصی حساب‌ها</li>
+                        <li>پورتال خودکار و ردیابی زنده</li>
+                        <li>مشاوره مهندسی اختلاط بتن</li>
+                        <li>ارائه گواهی‌های LEED/EPD</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Channels -->
+                <div class="bmc-box box-ch" onclick="openModal('ch')">
+                    <div class="bmc-header">
+                        <h4>کانال‌های توزیع</h4>
+                        <span class="box-num">۳</span>
+                    </div>
+                    <ul>
+                        <li>فروش مستقیم B2B کلیدی</li>
+                        <li>پلتفرم‌های دیجیتال سفارش‌دهی</li>
+                        <li>ترمینال‌های ریلی و پایانه‌های محلی</li>
+                    </ul>
+                </div>
+
+                <!-- 7. Customer Segments -->
+                <div class="bmc-box box-cs" onclick="openModal('cs')">
+                    <div class="bmc-header">
+                        <h4>بخش‌های مشتریان</h4>
+                        <span class="box-num">۱</span>
+                    </div>
+                    <ul>
+                        <li>پیمانکاران زیرساختی و DOTs</li>
+                        <li>انبوه سازان مسکونی/تجاری</li>
+                        <li>سازندگان قطعات پیش‌ساخته</li>
+                        <li>توسعه‌دهندگان ساخت‌وساز سبز</li>
+                    </ul>
+                </div>
+
+                <!-- 8. Cost Structure -->
+                <div class="bmc-box box-cost" onclick="openModal('cost')">
+                    <div class="bmc-header">
+                        <h4>ساختار هزینه‌ها</h4>
+                        <span class="box-num">۹</span>
+                    </div>
+                    <ul>
+                        <li>هزینه سنگین انرژی و برق کوره‌ها</li>
+                        <li>هزینه سوخت ناوگان و حمل‌ونقل</li>
+                        <li>سرمایه‌گذاری CapEx در تکنولوژی جذب کربن</li>
+                    </ul>
+                </div>
+
+                <!-- 9. Revenue Streams -->
+                <div class="bmc-box box-rev" onclick="openModal('rev')">
+                    <div class="bmc-header">
+                        <h4>جریان‌های درآمدی</h4>
+                        <span class="box-num">۵</span>
+                    </div>
+                    <ul>
+                        <li>فروش سیمان فله/کیسه‌ای (پرتلند و evoZero)</li>
+                        <li>فروش سنگ‌دانه، بتن آماده و آسفالت</li>
+                        <li>فروش قطعات و لوله‌های بتنی (AmeriTex) & بازیافت (SEFA)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Carbon Calculator -->
+        <section class="calc-wrapper">
+            <div class="calc-grid">
+                <div class="calc-info">
+                    <h3>🌱 شبیه‌ساز اثرگذاری محیط‌زیستی evoZero®</h3>
+                    <p>
+                        میزان بتن مصرفی پروژه خود را بر حسب متر مکعب ($m^3$) مشخص کنید تا ببینید استفاده از سیمان صفرکربن **evoZero** چه میزان انتشار کربن را در مقایسه با بتن‌های سنتی کاهش می‌دهد.
+                    </p>
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>حجم بتن‌ریزی پروژه:</span>
+                            <span class="value-highlight" id="volumeVal">2,500 متر مکعب</span>
+                        </div>
+                        <input type="range" id="concreteSlider" min="100" max="50000" step="100" value="2500">
+                    </div>
+                </div>
+
+                <div class="results-box">
+                    <div class="result-row">
+                        <span class="result-title">صرفه‌جویی خالص در دی‌اکسید کربن ($CO_2$):</span>
+                        <span class="result-val val-co2" id="co2Saved">۷۵۰ تن</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-title">معادل کاشت درخت بالغ (در سال):</span>
+                        <span class="result-val val-trees" id="treesEquiv">۳۴,۰۹۰ درخت</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-title">امتیاز پایداری پروژه (LEED Impact):</span>
+                        <span class="result-val val-leed" id="leedImpact">سطح طلایی / پلاتین</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cinematic Narrative Chapters -->
+        <section id="storyChapters">
+            <div class="section-header">
+                <span class="chapter-num">فصل‌های داستان</span>
+                <h2>روایت ۵ مرحله‌ای غول مصالح آمریکای شمالی</h2>
+                <p>سفری از اعماق معادن سنگ‌دانه تا انقلاب کربن‌زدایی با فناوری CCUS</p>
+            </div>
+
+            <div class="story-grid">
+                <!-- Act 1 -->
+                <div class="story-card">
+                    <div>
+                        <div class="card-icon icon-amber">🏗️</div>
+                        <h3>فصل اول: شالوده محکم آمریکای شمالی</h3>
+                        <p>
+                            روایت از بیش از ۴۵۰ مرکز عملیاتی و ۹,۰۰۰ نیروی انسانی آغاز می‌شود. شرکت با تامین پایدار سیمان، سنگ‌دانه، بتن آماده و آسفالت، شریان اصلی پروژه‌های عظیم راه‌سازی، پل‌ها و برج‌های آمریکای شمالی را شکل می‌دهد.
+                        </p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">۴۵۰+</span>
+                            <span class="stat-label">موقعیت محلی</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">۹,۰۰۰</span>
+                            <span class="stat-label">نیروی متخصص</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Act 2 -->
+                <div class="story-card">
+                    <div>
+                        <div class="card-icon icon-green">🌿</div>
+                        <h3>فصل دوم: انقلاب evoZero و جذب کربن</h3>
+                        <p>
+                            صنعت سیمان به‌طور سنتی پرانتشار است. اما با پروژه ۵۰۰ میلیون دلاری وزارت انرژی آمریکا (DOE) در کارخانه میچل ایندیانا و پروژه ادمونتون کانادا، تکنولوژی CCUS سالانه میلیون‌ها تن کربن را جذب کرده و نخستین سیمان صفرکربن جهان (evoZero) را متولد می‌کند.
+                        </p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">$۵۰۰M</span>
+                            <span class="stat-label">گرنت فدرال US DOE</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">۲M تن</span>
+                            <span class="stat-label">کاهش CO2 سالانه</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Act 3 -->
+                <div class="story-card">
+                    <div>
+                        <div class="card-icon icon-cyan">⚙️</div>
+                        <h3>فصل سوم: ادغام عمودی و خریدها</h3>
+                        <p>
+                            از استخراج اولیه سنگ در معادن تا تولید قطعات پیش‌ساخته زیرساختی. خریدهای استراتژیک مانند **AmeriTex** (پیش‌ساخته‌ها و لوله‌های بتنی) و **SEFA Group** (بازیافت خاکستر بادی) ارزش کل زنجیره تامین را درون شرکت قفل می‌کنند.
+                        </p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">AmeriTex</span>
+                            <span class="stat-label">قطعات پیش‌ساخته</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">SEFA</span>
+                            <span class="stat-label">اقتصاد چرخه‌ای</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Act 4 -->
+                <div class="story-card">
+                    <div>
+                        <div class="card-icon icon-blue">📱</div>
+                        <h3>فصل چهارم: شریان‌های هوشمند توزیع</h3>
+                        <p>
+                            زمان گیرش بتن محدود است! سیستم هوشمند ردیابی زنده، پورتال‌های سفارش دیجیتال و شبکه ترانزیت ریلی/دریایی تضمین می‌کنند که بتن آماده دقیقاً سر وقت و با بالاترین کیفیت به قلب کارگاه‌های ساختمانی می‌رسد.
+                        </p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">Real-time</span>
+                            <span class="stat-label">ردیابی ناوگان</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Digital Hub</span>
+                            <span class="stat-label">سفارش‌دهی آنلاین</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Timeline Section -->
+        <section style="margin: 5rem 0;">
+            <div class="section-header">
+                <span class="chapter-num">مسیر تحول</span>
+                <h2>نقشه راه استراتژیک تا رسیدن به Net-Zero</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>۲۰۲۳: برندسازی مجدد به Heidelberg Materials North America</h4>
+                        <p>گذارش تاریخی از نام Lehigh Hanson به Heidelberg Materials برای یکپارچه‌سازی جهانی و بازتعریف شرکت فراتر از سیمان و سنگ‌دانه.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>۲۰۲۴: دریافت بودجه تاریخی ۵۰۰ میلیون دلاری از DOE آمریکا</h4>
+                        <p>تخصیص بزرگ‌ترین بودجه کربن‌زدایی صنعت سیمان برای تجهیز کارخانه مدرن میچل در ایندیانا به فناوری جامع CCUS.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>۲۰۲۵ - ۲۰۲۶: عرضه جهانی evoZero و راه‌اندازی پروژه ادمونتون</h4>
+                        <p>آغاز تحویل تجاری اولین سیمان صفرکربن دنیا و بهره‌برداری از تاسیسات کامل جذب کربن در ادمونتون کانادا.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>۲۰۳۰ - ۲۰۵۰: تحقق کامل ساخت‌وساز بدون کربن (Net-Zero)</h4>
+                        <p>کاهش ۲ میلیون تنی سالانه گازهای گلخانه‌ای تنها در یک کارخانه و رهبری کامل صنعت مصالح سنگین جهانی.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>
+                برگرفته از داده‌های رسمی و استراتژیک <strong>Heidelberg Materials North America</strong>
+            </p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">
+                طراحی شده به صورت اختصاصی برای ارائه بوم کسب‌وکار تعاملی و سینماتیک
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Modal Drawer for BMC Details -->
+    <div class="modal-overlay" id="bmcModal" onclick="closeModalOnOverlay(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <h3 id="modalTitle">عنوان بخش</h3>
+            </div>
+            <div class="modal-body" id="modalBody">
+                محتوا...
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Modal Data
+        const modalData = {
+            kp: {
+                title: "۸. شرکای کلیدی (Key Partners)",
+                html: `<p><strong>اکوسیستم شرکای Heidelberg Materials شامل:</strong></p>
+                       <ul>
+                           <li><strong>تامین‌کنندگان سوخت‌های جایگزین و انرژی:</strong> شرکت‌های تامین برق و سوخت‌های پسماندی/زیستی جهت کاهش وابستگی به سوخت‌های فسیلی در کوره‌های سیمان.</li>
+                           <li><strong>وزارت انرژی آمریکا (US DOE) و نهادهای فدرال:</strong> اعطای بودجه تا سقف ۵۰۰ میلیون دلار برای اجرای بزرگ‌ترین پروژه جذب کربن (CCUS) در کارخانه میچل ایندیانا.</li>
+                           <li><strong>شرکت‌های تکنولوژی جذب کربن:</strong> شرکای فنی ارائه‌دهنده سیستم‌های پیشرفته جداسازی و ذخیره‌سازی عمیق دی‌اکسید کربن.</li>
+                           <li><strong>پیمانکاران لجستیک ریلی و دریایی:</strong> حمل‌ونقل فله‌ای میلیون‌ها تن سنگ‌دانه و سیمان در سراسر ایالات متحده و کانادا.</li>
+                       </ul>`
+            },
+            ka: {
+                title: "۷. فعالیت‌های کلیدی (Key Activities)",
+                html: `<p><strong>عملیات اصلی شرکت شامل:</strong></p>
+                       <ul>
+                           <li><strong>استخراج و فرآوری سنگ‌دانه:</strong> انفجار، حفاری و شکستن سنگ‌ها در معادن با رعایت استانداردهای زیست‌محیطی.</li>
+                           <li><strong>تولید کلینکر و سیمان:</strong> پخت مواد اولیه در کوره‌های حرارت‌بالا و آسیاب سیمان.</li>
+                           <li><strong>تحقیق و توسعه (R&D):</strong> فرموله‌سازی مخلوط‌های کم‌کربن، استفاده از خاکستر بادی (Fly Ash) و فناوری‌های اقتصاد چرخه‌ای.</li>
+                           <li><strong>مدیریت لجستیک و ناوبری ناوگان:</strong> توزیع بتن آماده (Ready-Mix) در بازه‌های زمانی حساس پیش از گیرش بتن.</li>
+                       </ul>`
+            },
+            kr: {
+                title: "۶. منابع کلیدی (Key Resources)",
+                html: `<p><strong>دارایی‌های حیاتی شرکت:</strong></p>
+                       <ul>
+                           <li><strong>ذخایر معدنی و شبکه کارخانجات:</strong> بیش از ۴۵۰ مرکز فعال شامل معادن سنگ‌دانه، کارخانجات سیمان و میکسرها.</li>
+                           <li><strong>تاسیسات نوآورانه CCUS:</strong> پروژه‌های عظیم جذب کربن در میچل (ایندیانا) و ادمونتون (آلبرتا).</li>
+                           <li><strong>نیروی انسانی متخصص:</strong> بیش از ۹,۰۰۰ کارمند باتجربه در آمریکای شمالی.</li>
+                           <li><strong>پلتفرم‌های دیجیتال و برند معتبر:</strong> پورتال‌های آنلاین مشتریان و برند جهانی Heidelberg Materials.</li>
+                       </ul>`
+            },
+            vp: {
+                title: "۲. ارزش‌های پیشنهادی (Value Propositions)",
+                html: `<p><strong>چرا مشتریان Heidelberg Materials را انتخاب می‌کنند؟</strong></p>
+                       <ul>
+                           <li><strong>سبد کامل مصالح سنگین (One-Stop-Shop):</strong> دسترسی یکپارچه به سیمان، سنگ‌دانه، بتن، آسفالت و قطعات پیش‌ساخته.</li>
+                           <li><strong>پیشگامی در بتن و سیمان صفرکربن:</strong> برند <strong>evoZero</strong> به‌عنوان نخستین سیمان صفرکربن دنیا و <strong>evoBuild</strong> برای مصالح بازیافتی.</li>
+                           <li><strong>پراکنش جغرافیایی عالی:</strong> تحویل سریع و بهینه از طریق ۴۵۰+ پایگاه منطقه‌ای.</li>
+                           <li><strong>شفافیت و ابزارهای دیجیتال:</strong> ردیابی لحظه‌ای سفارشات و صدور گواهی‌های زیست‌محیطی EPD.</li>
+                       </ul>`
+            },
+            cr: {
+                title: "۴. روابط با مشتریان (Customer Relationships)",
+                html: `<p><strong>شیوه تعامل و حفظ مشتریان:</strong></p>
+                       <ul>
+                           <li><strong>مدیریت اختصاصی حساب‌ها:</strong> اختصاص تیم‌های تخصصی برای پیمانکاران پروژه‌های ملی و ایالتی.</li>
+                           <li><strong>سامانه خودکار و شفافیت زنده:</strong> دسترسی ۲۴/۷ مشتری به وضعیت تراک‌ها و زمان رسیدن بتن به کارگاه.</li>
+                           <li><strong>مشاوره مهندسی اختلاط بتن:</strong> کمک به طراحان برای دستیابی به بالاترین مقاومت سازه‌ای با کمترین ردپای کربنی.</li>
+                       </ul>`
+            },
+            ch: {
+                title: "۳. کانال‌های توزیع و ارتباط (Channels)",
+                html: `<p><strong>مسیرهای عرضه و ارتباط:</strong></p>
+                       <ul>
+                           <li><strong>تیم فروش مستقیم B2B:</strong> مذاکره و انعقاد قراردادهای بزرگ با سازندگان و دولتمردان.</li>
+                           <li><strong>پلتفرم دیجیتال OnSite / HConnect:</strong> ثبت سفارش و مدیریت مالی آنلاین.</li>
+                           <li><strong>شبکه مویرگی پایگاه‌های فیزیکی:</strong> کارخانجات بتن محلی و ترمینال‌های ترانزیتی.</li>
+                       </ul>`
+            },
+            cs: {
+                title: "۱. بخش‌های مشتریان (Customer Segments)",
+                html: `<p><strong>مشتریان هدف اصلی:</strong></p>
+                       <ul>
+                           <li><strong>پیمانکاران زیرساختی و دولتی:</strong> مجریان پروژه‌های بزرگ راه‌سازی، پل‌ها و دپارتمان‌های حمل‌ونقل (DOTs).</li>
+                           <li><strong>انبوه سازان مسکونی و تجاری:</strong> سازندگان برج‌ها و مجتمع‌های شهری.</li>
+                           <li><strong>تولیدکنندگان قطعات پیش‌ساخته:</strong> کارخانجات لوله‌های بتنی و سازه‌های پیش‌ساخته.</li>
+                           <li><strong>توسعه‌دهندگان ساخت‌وساز سبز:</strong> پروژه‌های متقاضی گواهی‌نامه LEED.</li>
+                       </ul>`
+            },
+            cost: {
+                title: "۹. ساختار هزینه‌ها (Cost Structure)",
+                html: `<p><strong>هزینه‌های اصلی عملیاتی:</strong></p>
+                       <ul>
+                           <li><strong>سوخت و انرژی کوره‌ها:</strong> هزینه سنگین برق و سوخت برای فرآوری کلینکر در دمای بالای ۱۴۰۰ درجه.</li>
+                           <li><strong>لجستیک و سوخت ناوگان:</strong> نگهداری و سوخت صدها میکسر و کشنده.</li>
+                           <li><strong>سرمایه‌گذاری‌های عظیم CapEx:</strong> هزینه‌های احداث تجهیزات مدرن CCUS و نوسازی خطوط تولید.</li>
+                           <li><strong>حقوق و دستمزد:</strong> جبران خدمات ۹,۰۰۰ نیروی انسانی متخصص.</li>
+                       </ul>`
+            },
+            rev: {
+                title: "۵. جریان‌های درآمدی (Revenue Streams)",
+                html: `<p><strong>منابع درآمدی شرکت:</strong></p>
+                       <ul>
+                           <li><strong>فروش سیمان فله و کیسه‌ای:</strong> سیمان‌های پرتلند، مخلوط و محصولات ویژه evoZero.</li>
+                           <li><strong>فروش سنگ‌دانه و بتن آماده:</strong> درآمد حاصل از تحویل بتن در کارگاه‌ها و سنگ‌دانه در معادن.</li>
+                           <li><strong>قطعات پیش‌ساخته بتنی (AmeriTex):</strong> فروش لوله‌ها و قطعات زیرساختی بتنی.</li>
+                           <li><strong>بازیافت و اقتصاد چرخه‌ای (SEFA Group):</strong> فروش خاکستر بادی بازیافتی و دریافت ورودی‌های پسماند.</li>
+                       </ul>`
+            }
+        };
+
+        function openModal(key) {
+            const data = modalData[key];
+            if (!data) return;
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalBody').innerHTML = data.html;
+            document.getElementById('bmcModal').classList.add('active');
+            playSound(600, 0.05, 'sine');
+        }
+
+        function closeModal() {
+            document.getElementById('bmcModal').classList.remove('active');
+            playSound(400, 0.05, 'sine');
+        }
+
+        function closeModalOnOverlay(e) {
+            if (e.target.id === 'bmcModal') {
+                closeModal();
+            }
+        }
+
+        // Carbon Calculator Logic
+        const slider = document.getElementById('concreteSlider');
+        const volumeVal = document.getElementById('volumeVal');
+        const co2Saved = document.getElementById('co2Saved');
+        const treesEquiv = document.getElementById('treesEquiv');
+        const leedImpact = document.getElementById('leedImpact');
+
+        slider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            volumeVal.innerText = val.toLocaleString('fa-IR') + ' متر مکعب';
+            
+            // Standard concrete ~ 300kg CO2 per m3. evoZero eliminates ~300kg CO2 per m3.
+            const kgSaved = val * 300;
+            const tonsSaved = Math.round(kgSaved / 1000);
+            co2Saved.innerText = tonsSaved.toLocaleString('fa-IR') + ' تن';
+            
+            // 1 tree absorbs ~22kg CO2 per year
+            const trees = Math.round(kgSaved / 22);
+            treesEquiv.innerText = trees.toLocaleString('fa-IR') + ' درخت';
+            
+            if (val > 15000) {
+                leedImpact.innerText = 'سطح پلاتین (Platinum LEED)';
+                leedImpact.style.color = 'var(--accent-green-bright)';
+            } else if (val > 3000) {
+                leedImpact.innerText = 'سطح طلایی (Gold LEED)';
+                leedImpact.style.color = 'var(--accent-amber)';
+            } else {
+                leedImpact.innerText = 'سطح نقره‌ای (Silver LEED)';
+                leedImpact.style.color = 'var(--accent-cyan)';
+            }
+        });
+
+        // Web Audio API Ambient Sound Synthesizer
+        let audioCtx = null;
+        let ambientOsc = null;
+        let isAudioPlaying = false;
+
+        const audioBtn = document.getElementById('audioToggleBtn');
+        const audioWave = document.getElementById('audioWave');
+        const audioText = document.getElementById('audioText');
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(freq, duration, type='sine') {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        function toggleAmbientAudio() {
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            if (isAudioPlaying) {
+                if (ambientOsc) {
+                    ambientOsc.stop();
+                    ambientOsc = null;
+                }
+                isAudioPlaying = false;
+                audioWave.classList.add('muted');
+                audioText.innerText = 'صدا: خاموش';
+            } else {
+                // Low drone warm sound representing heavy industry / green energy hum
+                ambientOsc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                ambientOsc.type = 'sine';
+                ambientOsc.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 note
+                
+                gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                ambientOsc.connect(gain);
+                gain.connect(audioCtx.destination);
+                ambientOsc.start();
+
+                isAudioPlaying = true;
+                audioWave.classList.remove('muted');
+                audioText.innerText = 'صدا: فعال';
+            }
+        }
+
+        audioBtn.addEventListener('click', toggleAmbientAudio);
+
+        // Particle Canvas Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = 45;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = -Math.random() * 0.5 - 0.2; // float upwards
+                this.opacity = Math.random() * 0.5 + 0.2;
+                // Green or Amber particles
+                this.color = Math.random() > 0.4 ? '#10b981' : '#f59e0b';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+                    this.reset();
+                    this.y = canvas.height;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    </script>
+</body>
+</html>

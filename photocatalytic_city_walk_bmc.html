@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قدم زدن در شهر: بوم کسب‌وکار بتن فتوکاتالیست</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070a0f;
+            --bg-card: rgba(15, 23, 36, 0.88);
+            --accent-green: #10b981;
+            --accent-green-bright: #34d399;
+            --accent-amber: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-family: 'Vazirmatn', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Audio Floating Header */
+        header {
+            position: fixed;
+            top: 1rem;
+            left: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: rgba(7, 10, 15, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+        }
+
+        .brand {
+            font-weight: 900;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #fff, var(--accent-green-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .audio-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        /* Hero Walk Intro */
+        .walk-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15), transparent 70%);
+        }
+
+        .walk-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .walk-hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-bottom: 2.5rem;
+        }
+
+        .scroll-down-btn {
+            background: linear-gradient(135deg, var(--accent-green), #059669);
+            color: #000;
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transition: transform 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .scroll-down-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Story Chapters / Walk Sections */
+        .story-section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .story-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .image-frame {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            transition: transform 0.5s ease;
+        }
+
+        .image-frame:hover {
+            transform: scale(1.02);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-overlay-tag {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .story-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chapter-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            width: fit-content;
+        }
+
+        .badge-polluted { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-clean { background: rgba(16, 185, 129, 0.15); color: var(--accent-green-bright); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-detail { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+        .story-text-content h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .story-text-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Integrated BMC Box */
+        .bmc-integrated-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .bmc-integrated-box h4 {
+            color: var(--accent-amber);
+            font-size: 0.95rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bmc-integrated-box ul {
+            list-style: none;
+            padding-right: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .bmc-integrated-box ul li {
+            margin-bottom: 0.4rem;
+            position: relative;
+        }
+
+        .bmc-integrated-box ul li::before {
+            content: "✦";
+            position: absolute;
+            right: -1.2rem;
+            color: var(--accent-green);
+        }
+
+        /* Complete BMC Grid View Section */
+        .bmc-grid-section {
+            padding: 6rem 2rem;
+            background: rgba(12, 18, 26, 0.95);
+        }
+
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-header-center h2 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+
+        .bmc-matrix-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 850px) {
+            .bmc-matrix-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bmc-grid-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.8rem;
+            transition: all 0.3s;
+        }
+
+        .bmc-grid-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .bmc-grid-card h3 {
+            font-size: 1.2rem;
+            color: var(--accent-green-bright);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .bmc-grid-card ul {
+            list-style: none;
+            padding-right: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .bmc-grid-card ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .bmc-grid-card ul li::before {
+            content: "•";
+            position: absolute;
+            right: -1rem;
+            color: var(--accent-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Control Bar -->
+    <header>
+        <div class="brand">
+            <span>🌿 سینمای پیاده‌روی شهری</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">| بتن فتوکاتالیست</span>
+        </div>
+        <button class="audio-btn" id="audioToggleBtn">
+            🔊 افکت صوتی محیط: فعال
+        </button>
+    </header>
+
+    <!-- Intro Hero Section -->
+    <section class="walk-hero">
+        <span style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green-bright); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.2rem;">
+            🎬 تجربه بصری و سینماتیک در خیابان‌های آلوده
+        </span>
+        <h1>سفری در پیاده‌رو:<br><span style="background: linear-gradient(135deg, var(--accent-green-bright), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">از خفگی آلودگی تا تنفس هوای پاک</span></h1>
+        <p>
+            با ما در پیاده‌روی شهری قدم بزنید... جایی که خفگی دود خودروها شما را می‌آزارد تا این‌که به نمای ساختمانی از جنس **بتن فتوکاتالیست** می‌رسید و ناگهان هوایی شفاف، خنک و پاک ریه‌هایتان را پر می‌کند!
+        </p>
+        <a href="#step1" class="scroll-down-btn">
+            <span>🚶‍♂️ شروع پیاده‌روی سینماتیک</span>
+        </a>
+    </section>
+
+    <!-- Step 1: Smoggy Polluted Sidewalk -->
+    <section id="step1" class="story-section">
+        <div class="story-container">
+            <div class="image-frame">
+                <img src="images/smoggy_polluted_sidewalk.jpg" alt="پیاده‌روی آلوده و خفه‌کننده در شهر">
+                <div class="image-overlay-tag" style="color: #f87171;">⚠️ منطقه آلودگی شدید - شاخص کیفیت هوا: ۱۵۸</div>
+            </div>
+            <div class="story-text-content">
+                <span class="chapter-badge badge-polluted">گام اول: خفگی در پیاده‌روی شهر</span>
+                <h2>قدم زدن در میان دود، دوده و هوای مسموم</h2>
+                <p>
+                    در پیاده‌رو قدم می‌زنید. دود اگزوز خودروها، اکسیدهای نیتروژن ($NO_x$) و ذرات معلق، فضا را خاکستری و سنگین کرده‌اند. تنفس در این خیابان خفه‌کننده است و دیوارهای سیمانی ساختمان‌ها از دوده چرب و سیاه پوشیده شده‌اند...
+                </p>
+                
+                <div class="bmc-integrated-box">
+                    <h4>🎯 بوم کسب‌وکار: مسئله و بخش مشتریان (Customer Segments)</h4>
+                    <ul>
+                        <li><strong>پیمانکاران و شهرداری‌ها:</strong> مواجهه با شکایت مردم از آلودگی و هزینه‌های سنگین شستشوی سالانه نماها.</li>
+                        <li><strong>توسعه‌دهندگان املاک لوکس:</strong> سیاه شدن سریع نمای برج‌های لوکس در نقاط پرترافیک شهری.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 2: Reaching the Clean Photocatalytic Facade -->
+    <section id="step2" class="story-section">
+        <div class="story-container">
+            <div class="story-text-content">
+                <span class="chapter-badge badge-clean">گام دوم: لحظه جادویی - نفس تازه!</span>
+                <h2>رسیدن به نمای بتن فتوکاتالیست و شفافیت هوا</h2>
+                <p>
+                    چند قدم جلوتر می‌روید... ناگهان لایه‌های دود کنار می‌روند! تابش پرتوهای نور خورشید روی نمای سفید و هندسی مدرنی می‌تابد. هوا ناگهان سبک، خنک و شفاف می‌شود. <strong>«نفستان باز می‌شود»</strong>؛ شما در حریم اکولوژیک بتن فتوکاتالیست قرار گرفته‌اید!
+                </p>
+                
+                <div class="bmc-integrated-box">
+                    <h4>💎 بوم کسب‌وکار: ارزش‌های پیشنهادی (Value Propositions)</h4>
+                    <ul>
+                        <li><strong>تجزیه آلاینده‌های هوا ($NO_x$):</strong> نابودی ۵۰٪ تا ۷۰٪ گازهای سمی تا شعاع ۲.۵ متری.</li>
+                        <li><strong>خاصیت خودتمیزشوندگی (Self-Cleaning):** عدم نیاز به شستشو و ثبات رنگ سفید نما برای همیشه.</li>
+                        <li><strong>ارزش افزوده ملکی:** کسب گواهی ساختمان سبز (LEED) و جذب خریداران فاخر.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-frame">
+                <img src="images/clean_photocatalytic_facade.jpg" alt="نمای بتن فتوکاتالیست شفاف و هوای پاک">
+                <div class="image-overlay-tag" style="color: var(--accent-green-bright);">🌱 حریم هوای پاک - شاخص کیفیت هوا: ۲۴</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 3: Close-up TiO2 Catalytic Surface Detail -->
+    <section id="step3" class="story-section">
+        <div class="story-container">
+            <div class="image-frame">
+                <img src="images/photocatalytic_concrete_detail.jpg" alt="بافت زوم‌شده بتن فتوکاتالیست نانو دی‌اکسید تیتانیوم">
+                <div class="image-overlay-tag" style="color: var(--accent-cyan);">🔬 زوم مولکولی - واکنش TiO2 با نور خورشید</div>
+            </div>
+            <div class="story-text-content">
+                <span class="chapter-badge badge-detail">گام سوم: تکنولوژی نانو در خدمت زیبایی</span>
+                <h2>سطحی که هرگز کثیف نمی‌شود و هوا را شستشو می‌دهد</h2>
+                <p>
+                    به سطح بتن نزدیک می‌شوید. ذرات نانو دی‌اکسید تیتانیوم ($TiO_2$) موجود در بافت بتن، با جذب نور خورشید، رادیکال‌های فعال تولید می‌کنند. این رادیکال‌ها آلودگی، دوده و باکتری‌ها را می‌سوزانند و با اولین بارش باران، همه‌چیز کاملاً پاک می‌شود.
+                </p>
+                
+                <div class="bmc-integrated-box">
+                    <h4>⚙️ بوم کسب‌وکار: منابع و فعالیت‌های کلیدی (Key Resources & Activities)</h4>
+                    <ul>
+                        <li><strong>منابع کلیدی:</strong> فرمولاسیون اختصاصی افزودنی نانو $TiO_2$، قالب‌های هندسی ۳D و تاییدیه‌های زیست‌محیطی.</li>
+                        <li><strong>فعالیت‌های کلیدی:</strong> تولید قطعات پیش‌ساخته نما، R&D پایداری نانوذرات و مشاوره به معماران.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Complete Business Model Canvas Matrix -->
+    <section class="bmc-grid-section">
+        <div class="section-header-center">
+            <h2>بوم کسب‌وکار جامع تولید بتن فتوکاتالیست</h2>
+            <p style="color: var(--text-muted);">خلاصه استراتژیک ۹ خانه مدل کسب‌وکار مبتنی بر تجربیات موفق جهانی</p>
+        </div>
+
+        <div class="bmc-matrix-grid">
+            <div class="bmc-grid-card">
+                <h3>👥 ۱. بخش‌های مشتریان</h3>
+                <ul>
+                    <li>توسعه‌دهندگان برج‌های لوکس و تجاری</li>
+                    <li>دفاتر معماری و طراحان نمای مدرن</li>
+                    <li>شهرداری‌ها و سازمان‌های زیباسازی شهری</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>💎 ۲. ارزش‌های پیشنهادی</h3>
+                <ul>
+                    <li>حذف خودکار دوده و کثیفی نما (کاهش هزینه شستشو)</li>
+                    <li>تجزیه فعال آلودگی هوا و ایجاد حریم هوای پاک</li>
+                    <li>کسب امتیاز عالی در گواهی‌های ساختمان سبز (LEED)</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>📢 ۳. کانال‌های توزیع</h3>
+                <ul>
+                    <li>ارتباط مستقیم B2B با دفاتر معماران برجسته</li>
+                    <li>حضور در شووروم‌ها و نمایشگاه‌های ساخت‌وساز</li>
+                    <li>شرکت در مناقصات شهرداری‌ها</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>🤝 ۴. روابط با مشتریان</h3>
+                <ul>
+                    <li>مشاوره فنی اختصاصی طراحی و قالب‌سازی</li>
+                    <li>ارائه ضمانت‌نامه ماندگاری خاصیت خودتمیزشوندگی</li>
+                    <li>ارائه گزارش‌های پایش زیست‌محیطی</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>💰 ۵. جریان‌های درآمدی</h3>
+                <ul>
+                    <li>فروش پنل‌های پیش‌ساخته نما و سنگ‌فرش</li>
+                    <li>فروش افزودنی فتوکاتالیست به کارخانجات بتن</li>
+                    <li>خدمات طراحی و قالب‌سازی اختصاصی ۳D</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>🧪 ۶. منابع کلیدی</h3>
+                <ul>
+                    <li>دانش فنی و نانوذرات $TiO_2$ تاییدشده</li>
+                    <li>کارگاه تولید و قالب‌های پیش‌رفته ۳D</li>
+                    <li>تاییدیه‌های رسمی آزمایشگاه نانو و محیط‌زیست</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>⚡ ۷. فعالیت‌های کلیدی</h3>
+                <ul>
+                    <li>سنتز و اختلاط افزودنی‌های نانو</li>
+                    <li>تولید قطعات پیش‌ساخته با کیفیت عالی</li>
+                    <li>بازاریابی B2B و رایزنی با شهرداری‌ها</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>🌐 ۸. شرکای کلیدی</h3>
+                <ul>
+                    <li>تامین‌کنندگان نانوذرات و مواد شیمیایی</li>
+                    <li>دفاتر برجسته معماری و طراحان نما</li>
+                    <li>مراکز تحقیقاتی نانو و سازمان محیط‌زیست</li>
+                </ul>
+            </div>
+
+            <div class="bmc-grid-card">
+                <h3>📊 ۹. ساختار هزینه‌ها</h3>
+                <ul>
+                    <li>هزینه مواد اولیه ($TiO_2$ و افزودنی‌ها)</li>
+                    <li>هزینه قالب‌سازی و کارگاه پیش‌ساخته</li>
+                    <li>هزینه‌های آزمون‌های آزمایشگاهی و بازاریابی</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>طراحی شده بر اساس سناریوی سینماتیک شهری و بوم کسب‌وکار بتن فتوکاتالیست</p>
+    </footer>
+
+    <!-- Web Audio API Ambient Sound Synthesizer -->
+    <script>
+        let audioCtx = null;
+        let isAudioOn = true;
+        let ambientOsc = null;
+
+        const audioBtn = document.getElementById('audioToggleBtn');
+
+        audioBtn.addEventListener('click', function() {
+            isAudioOn = !isAudioOn;
+            this.innerText = isAudioOn ? '🔊 افکت صوتی محیط: فعال' : '🔇 افکت صوتی محیط: خاموش';
+            if (isAudioOn) {
+                startAmbientSound();
+            } else if (ambientOsc) {
+                ambientOsc.stop();
+                ambientOsc = null;
+            }
+        });
+
+        function startAmbientSound() {
+            if (!isAudioOn) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                if (ambientOsc) ambientOsc.stop();
+
+                ambientOsc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                
+                // Warm soothing ambient breeze tone
+                ambientOsc.type = 'sine';
+                ambientOsc.frequency.setValueAtTime(140, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+
+                ambientOsc.connect(gain);
+                gain.connect(audioCtx.destination);
+                ambientOsc.start();
+            } catch(e) {}
+        }
+
+        // Start ambient sound on first user scroll
+        window.addEventListener('scroll', function() {
+            if (!ambientOsc && isAudioOn) {
+                startAmbientSound();
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
