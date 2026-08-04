@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04070d">
+<title>Z-NOX | بتن فتوکاتالیست دوپ‌شده با کربن فعال — ارائه متحرک</title>
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="grain"></div>
+<div id="vignette"></div>
+
+<main id="stage">
+{{SCENES}}
+</main>
+
+<!-- ===== chrome top ===== -->
+<header id="chrome-top">
+  <div class="brand">
+    <div class="mk">Z</div>
+    <div class="nm">Z-NOX<small>بتن فتوکاتالیست دوپ‌شده با کربن فعال</small></div>
+  </div>
+  <div class="counter">
+    <span class="cnum" id="cnum">۰۱ / ۱۸</span>
+    <span class="cttl" id="cttl">معرفی</span>
+  </div>
+</header>
+
+<!-- ===== chrome bottom ===== -->
+<footer id="chrome-bottom">
+  <div id="pbar"><div class="fill" id="pfill"></div></div>
+  <div class="bar-row">
+    <div class="dots" id="dots"></div>
+    <div class="controls">
+      <button class="ctrl" id="btnReplay" title="پخش از ابتدا" aria-label="پخش از ابتدا"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+      <button class="ctrl" id="btnPrev" title="اسلاید قبلی" aria-label="اسلاید قبلی"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="ctrl play" id="btnPlay" title="پخش / توقف" aria-label="پخش / توقف"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></button>
+      <button class="ctrl" id="btnNext" title="اسلاید بعدی" aria-label="اسلاید بعدی"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button class="ctrl" id="btnMute" title="صدا" aria-label="صدا"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+      <button class="ctrl" id="btnFs" title="تمام‌صفحه" aria-label="تمام‌صفحه"><?xml version="1.0"?><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <span class="hint">Space: پخش/توقف &nbsp;·&nbsp; ← → : اسلاید</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== start overlay ===== -->
+<div class="overlay" id="startOverlay">
+  <div class="ov-ring"></div>
+  <div class="ov-logo">Z-NOX</div>
+  <div class="ov-sub">بتن فتوکاتالیستِ دوپ‌شده با کربن فعال<br>مصالحی که هم‌زمان آلاینده‌های هوا را تجزیه و دی‌اکسیدکربن را جذب می‌کند</div>
+  <button class="ov-btn" id="btnStart">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+    شروع ارائه با صدا
+  </button>
+  <button class="ov-btn ghost" id="btnDownload">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
+    دانلود فایل (HTML)
+  </button>
+  <div class="ov-note">برای بهترین تجربه، هدفون یا بلندگو روشن باشد · <b>رویداد بذر طلایی — مرداد ۱۴۰۵</b></div>
+</div>
+
+<!-- ===== end overlay ===== -->
+<div class="overlay hide" id="endCard">
+  <div class="thanks-big">با تشکر از توجه شما</div>
+  <div class="e-sub">Z-NOX آماده است تا در قالب جلسات فنی و مالی تفصیلی، جزئیات فرمولاسیون، برنامه تست و مدل مالی را با طرفین علاقه‌مند به اشتراک بگذارد.</div>
+  <button class="ov-btn" id="btnReplayAll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+    پخش دوباره
+  </button>
+  <button class="ov-btn ghost" id="btnDownloadEnd">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
+    دانلود فایل
+  </button>
+  <div class="ov-note">Z-NOX · بتن فتوکاتالیست دوپ‌شده با کربن فعال · رویداد بذر طلایی، مرداد ۱۴۰۵</div>
+</div>
+
+<div id="loading">در حال آماده‌سازی…</div>
+
+<script>
+window.__AUDIO_EMBED__ = {{AUDIOEMBED}};
+</script>
+<script>
+{{JS}}
+</script>
+</body>
+</html>
