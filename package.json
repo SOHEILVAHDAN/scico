@@ -1,0 +1,19 @@
+{
+  "name": "znox-catalogue",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Z-NOX — motion catalogue, brand mark and motion logo (rendered from a time-driven canvas engine)",
+  "scripts": {
+    "serve": "node tools/serve.js 4173",
+    "audio": "node tools/audio.js",
+    "render": "node tools/render.js --fps 30 --scale 1 --out out/znox-catalogue-silent.mp4",
+    "logo": "node tools/render.js --mode logo --out out/znox-logo.mp4",
+    "assets": "node tools/assets.js"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^153.0.0",
+    "puppeteer-core": "^24.0.0",
+    "@napi-rs/canvas": "^0.1.80",
+    "opentype.js": "^1.3.4"
+  }
+}
