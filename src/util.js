@@ -230,6 +230,7 @@ function caption(ctx, t, {
   tag = '', title = '', sub = '', bottom = H - 112, x = W - 132, maxW = 900,
   accent = C.accent, size = 60, inAt = 0, outAt = 999
 } = {}) {
+  if (window.NO_CAPTIONS) return;      /* catalog mode: copy lives in HTML */
   const a = bump(t, inAt, outAt, .8, .7);
   if (a <= .002) return;
   const rise = (1 - easeOut(clamp((t - inAt) / .9))) * 26;

@@ -47,6 +47,9 @@ const AUTOPLAY = params.has('autoplay');
 const RENDER = params.has('render');   // headless render mode: no UI, no audio
 if (RENDER) document.body.classList.add('export');
 const LOGO_MODE = params.get('mode') === 'logo';
+/* catalog mode: the HTML page supplies all copy and the HUD */
+window.NO_CAPTIONS = params.has('nocap');
+window.NO_HUD = params.has('nocap');
 const EXPORT_SCALE = Number(params.get('scale') || 1);
 if (RENDER && EXPORT_SCALE < 1) {
   canvas.width = Math.round(W * EXPORT_SCALE);
@@ -139,7 +142,7 @@ function render(t) {
   }
 
   // ---- HUD: chapter progress marks
-  if (!RENDER) drawHud(scene, i, local);
+  if (!RENDER && !window.NO_HUD) drawHud(scene, i, local);
 }
 
 function drawHud(scene, i, local) {

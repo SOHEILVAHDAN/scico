@@ -42,7 +42,8 @@ const ROOT = path.resolve(__dirname, '..');
   page.on('pageerror', e => console.log('[pageerror]', e.message));
 
   const MODE = arg('mode', '');
-  const url = `http://127.0.0.1:${PORT}/index.html?render=1${MODE ? '&mode=' + MODE : ''}&scale=${SCALE}`;
+  const NOCAP = args.includes('--nocap') ? '&nocap=1' : '';
+  const url = `http://127.0.0.1:${PORT}/index.html?render=1${MODE ? '&mode=' + MODE : ''}&scale=${SCALE}${NOCAP}`;
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 120000 });
   await page.waitForFunction('window.__renderReady === true', { timeout: 180000 });
 
@@ -55,7 +56,7 @@ const ROOT = path.resolve(__dirname, '..');
   const outPath = path.resolve(ROOT, OUT);
   const isImage = /\.(png|jpg|jpeg)$/i.test(outPath);
 
-  const vf = `scale=${Math.round(1920 * SCALE)}:-2:flags=lanczos`;
+  const vf = `scale=trunc(${Math.round(1920 * SCALE)}/2)*2:-2:flags=lanczos`;
   const ffArgs = isImage
     ? ['-y', '-hide_banner', '-loglevel', 'error', '-f', 'image2pipe', '-c:v', 'mjpeg', '-i', '-', '-vf', vf, '-frames:v', '1', outPath]
     : ['-y', '-hide_banner', '-loglevel', 'error',

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z-NOX · زیناکس — کاتالوگ تعاملی فتوکاتالیست</title>
+<meta name="description" content="کاتالوگ تعاملی زیناکس: پوستهٔ سرامیکی فتوکاتالیستی برای نما، کف و دیوار داخلی. با اسکرول، فناوری، محصول و جزئیات اجرا را ببینید.">
+<link rel="icon" href="assets/logo/znox-mark.svg">
+<style>
+  @font-face{font-family:'Vaz';src:url('assets/fonts/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Vaz';src:url('assets/fonts/Vazirmatn-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Vaz';src:url('assets/fonts/Vazirmatn-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+  @font-face{font-family:'Vaz';src:url('assets/fonts/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'Vaz';src:url('assets/fonts/Vazirmatn-ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/Inter-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/Inter-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/Inter-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/Inter-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#07080b; --bg2:#0b0d12; --ink:#f2efe8; --dim:rgba(242,239,232,.62); --faint:rgba(242,239,232,.34);
+    --green:#8ce81f; --green2:#c6ff62; --violet:#a99bff; --line:rgba(242,239,232,.13);
+    --panel:rgba(242,239,232,.045);
+  }
+  html{scroll-behavior:auto;overflow-x:hidden}
+  body{
+    background:var(--bg); color:var(--ink); font-family:'Vaz',system-ui,sans-serif;
+    line-height:1.9; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--green); color:#07080b}
+  img{max-width:100%}
+  a{color:inherit}
+
+  /* ---------- scrollbar ---------- */
+  ::-webkit-scrollbar{width:7px}
+  ::-webkit-scrollbar-track{background:#07080b}
+  ::-webkit-scrollbar-thumb{background:rgba(140,232,31,.55);border-radius:4px}
+
+  /* ================= STAGE (sticky film) ================= */
+  #stage{position:fixed;inset:0;z-index:0;background:#07080b}
+  #film{position:absolute;top:0;right:0;width:100%;height:100%;object-fit:cover;object-position:38% center;
+        display:block;opacity:1;transition:opacity .6s ease;filter:brightness(1.12) contrast(1.02)}
+  @media (min-width:861px){ #film{width:108%;right:-4%} }
+  #stage::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% 40%,transparent 30%,rgba(7,8,11,.55) 78%,rgba(7,8,11,.9) 100%)}
+  /* side scrim: keeps text legible over the film */
+  .scrim{position:absolute;inset:0;pointer-events:none;transition:opacity .6s ease;
+    background:linear-gradient(270deg,rgba(7,8,11,.96) 0%,rgba(7,8,11,.90) 26%,rgba(7,8,11,.55) 44%,rgba(7,8,11,0) 62%,rgba(7,8,11,.30) 100%)}
+  .scrim.center{background:radial-gradient(70% 70% at 50% 50%,rgba(7,8,11,.86),rgba(7,8,11,.55) 60%,rgba(7,8,11,.75))}
+
+  /* ================= top bar ================= */
+  header{
+    position:fixed;top:0;right:0;left:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+    padding:18px 34px;pointer-events:none
+  }
+  header .brand{display:flex;align-items:center;gap:11px;pointer-events:auto}
+  header .brand img{width:34px;height:34px;filter:drop-shadow(0 0 18px rgba(140,232,31,.35))}
+  header .brand b{font-family:'Inter';letter-spacing:.24em;font-size:13.5px;font-weight:700}
+  header .brand span{font-size:11px;color:var(--faint);letter-spacing:.14em}
+  nav{display:flex;gap:2px;pointer-events:auto;flex-wrap:wrap;justify-content:flex-end;max-width:70vw}
+  nav button{
+    background:transparent;border:1px solid transparent;color:var(--faint);font-family:'Vaz';font-size:11.5px;
+    padding:5px 8px;border-radius:999px;cursor:pointer;transition:.22s;letter-spacing:.02em;white-space:nowrap
+  }
+  nav button:hover{color:var(--ink);background:rgba(242,239,232,.06)}
+  nav button.on{color:var(--green2);border-color:rgba(140,232,31,.38);background:rgba(140,232,31,.10)}
+
+  /* progress rail (right) */
+  #rail{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:9px}
+  #rail i{display:block;width:2px;height:26px;background:rgba(242,239,232,.16);border-radius:2px;overflow:hidden;position:relative}
+  #rail i::after{content:'';position:absolute;inset:0;background:var(--green);transform:scaleY(var(--p,0));transform-origin:top;transition:transform .1s linear}
+  #rail b{font-family:'Inter';font-size:9.5px;color:var(--faint);letter-spacing:.1em;writing-mode:vertical-rl;margin-top:6px}
+
+  /* ================= panels ================= */
+  main{position:relative;z-index:10}
+  .step{min-height:100vh;display:flex;align-items:center;position:relative;padding:5vh 0}
+  #s-hero.step,#s-end.step{min-height:100vh}
+  #s-hero{height:100vh;padding:0}
+  #s-hero .inner{
+    height:100%;display:grid;place-items:center;text-align:center;padding:0 24px;
+  }
+  .hero-mark{width:150px;height:150px;margin:0 auto 26px;filter:drop-shadow(0 0 40px rgba(140,232,31,.35));
+    animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  h1{font-family:'Inter';font-weight:700;font-size:clamp(46px,8.4vw,116px);letter-spacing:.14em;line-height:1;margin-right:.14em}
+  .hero-fa{font-size:clamp(18px,2.4vw,26px);color:var(--green2);font-weight:500;margin-top:16px;letter-spacing:.02em}
+  .hero-sub{font-size:clamp(14px,1.6vw,18px);color:var(--dim);margin-top:12px}
+  .hero-tags{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--dim);
+    background:rgba(7,8,11,.4);backdrop-filter:blur(6px)}
+  .scrollcue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);text-align:center;color:var(--faint);font-size:11.5px;letter-spacing:.2em}
+  .scrollcue i{display:block;width:1px;height:44px;margin:0 auto 10px;background:linear-gradient(180deg,var(--green),transparent);
+    animation:cue 1.9s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.25;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* text cards anchored to the side opposite the film's focal point */
+  /* copy lives in its own column; the film stays fully visible beside it */
+  .card{
+    width:min(42vw,600px);margin-right:4.5vw;margin-left:auto;text-align:right;
+    padding:0;position:relative;
+  }
+  /* keep the whole card inside one comfortable read without clipping */
+  @media (min-width:861px){
+    .kicker{margin-bottom:10px}
+    h2{line-height:1.28}
+    .lede{margin-top:12px}
+    .bullets{margin-top:16px;gap:8px}
+    .bullets li{line-height:1.75}
+    .nums{margin-top:20px}
+  }
+  @media (max-height:860px) and (min-width:861px){
+    .card{width:min(38vw,520px)}
+    h2{font-size:clamp(22px,2.5vw,34px)}
+    .lede{font-size:14px;line-height:1.85;margin-top:10px}
+    .bullets{margin-top:14px;gap:7px}
+    .bullets li{font-size:13px}
+    .num b{font-size:17px}
+    .num span{font-size:10.5px}
+    .spec{font-size:12.5px}
+    .sw{width:42px;height:42px}
+  }
+  @media (max-height:900px) and (min-width:861px){
+    .card{width:min(40vw,560px)}
+    h2{font-size:clamp(24px,2.9vw,40px)}
+    .lede{font-size:15px;line-height:1.95;margin-top:12px}
+    .nums{margin-top:18px;gap:9px}
+    .num{padding:10px}
+    .spec td{padding:8px 4px}
+  }
+  .card.left{margin-left:4.5vw;margin-right:auto}
+  .card.center{margin:0 auto;max-width:min(60vw,800px);text-align:center}
+  @media (min-width:1600px){ .card{width:min(40vw,660px)} }
+  /* the film's focal element stays in the left 58% of the frame */
+  @media (min-width:861px){
+    .card{width:min(39vw,560px)}
+    .card.center{width:min(58vw,760px)}
+  }
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:'Inter';font-size:11px;font-weight:600;
+    letter-spacing:.22em;color:var(--green);margin-bottom:14px}
+  .kicker b{font-family:'Vaz';font-weight:600;letter-spacing:0;color:var(--dim);font-size:12px}
+  .kicker::before{content:'';width:26px;height:1px;background:var(--green)}
+  h2{font-size:clamp(26px,3.3vw,46px);font-weight:700;line-height:1.34;letter-spacing:-.01em}
+  .lede{font-size:clamp(14.5px,1.35vw,18px);color:var(--dim);font-weight:300;line-height:2.05;margin-top:16px}
+  .lede b{color:var(--ink);font-weight:600}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+  .num{border:1px solid var(--line);border-radius:10px;padding:13px 12px;background:rgba(7,8,11,.5);backdrop-filter:blur(8px);text-align:right}
+  .num u{display:block;font-family:'Inter';font-size:11px;color:var(--green);letter-spacing:.1em;text-decoration:none;margin-bottom:2px}
+  .num b{display:block;font-size:clamp(17px,1.7vw,23px);font-weight:700;line-height:1.2}
+  .num span{display:block;font-size:11.5px;color:var(--faint);margin-top:4px}
+  .bullets{list-style:none;margin-top:22px;display:grid;gap:10px}
+  .bullets li{display:flex;gap:11px;font-size:14.5px;color:var(--dim);line-height:1.85}
+  .bullets li::before{content:'';flex:0 0 auto;width:6px;height:6px;margin-top:11px;border-radius:50%;
+    background:var(--green);box-shadow:0 0 12px rgba(140,232,31,.8)}
+  .bullets li b{color:var(--ink);font-weight:600}
+
+  /* reveal-on-scroll */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  /* spec table */
+  .spec{width:100%;border-collapse:collapse;margin-top:24px;font-size:14px}
+  .spec tr{border-bottom:1px solid rgba(242,239,232,.08)}
+  .spec td{padding:11px 4px;color:var(--dim)}
+  .spec td:first-child{color:var(--faint);font-size:12.5px;width:44%}
+  .spec td:last-child{font-weight:600;color:var(--ink);text-align:left;font-size:14.5px}
+
+  /* palette / finishes */
+  .swatches{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .swatches.tight .sw{width:46px;height:46px}
+  .sw{width:56px;height:56px;border-radius:8px;border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden}
+  .sw span{position:absolute;bottom:0;right:0;left:0;font-size:8.5px;text-align:center;background:rgba(7,8,11,.72);padding:2px 0;color:#fff}
+
+  /* logo section */
+  .logowall{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:26px}
+  .lw{border:1px solid var(--line);border-radius:12px;background:linear-gradient(160deg,rgba(242,239,232,.06),rgba(7,8,11,.4));
+    display:grid;place-items:center;padding:16px;min-height:150px}
+  .lw img{max-height:132px}
+
+  /* cta / contact */
+  #s-end{min-height:100vh;display:grid;place-items:center;text-align:center;padding:80px 22px;
+    background:radial-gradient(60% 60% at 50% 46%,rgba(7,8,11,.97) 0%,rgba(7,8,11,.93) 55%,rgba(7,8,11,.80) 100%)}
+  #s-end .card{margin:0 auto}
+  body.at-end #stage{opacity:0;transition:opacity .5s ease}
+  #stage{transition:opacity .5s ease}
+  .cta{max-width:760px}
+  .cta .mark{width:96px;height:96px;margin:0 auto 22px;filter:drop-shadow(0 0 30px rgba(140,232,31,.4))}
+  .cta h2{font-size:clamp(28px,4vw,52px)}
+  .cta .lede{margin-top:14px}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:999px;font-size:13.5px;
+    text-decoration:none;transition:.24s;border:1px solid var(--line);color:var(--ink);background:rgba(242,239,232,.04)}
+  .btn:hover{background:rgba(242,239,232,.1);transform:translateY(-2px)}
+  .btn.primary{background:var(--green);color:#080a06;border-color:var(--green);font-weight:600}
+  .btn.primary:hover{background:var(--green2);border-color:var(--green2)}
+  footer{padding:34px 24px 40px;text-align:center;font-size:11.5px;color:var(--faint);letter-spacing:.08em;position:relative;z-index:10}
+
+  /* keyboard hint */
+  .hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:30;font-size:10.5px;color:var(--faint);
+    letter-spacing:.12em;background:rgba(7,8,11,.6);border:1px solid var(--line);border-radius:999px;padding:5px 14px;
+    backdrop-filter:blur(8px)}
+  .hint b{font-family:'Inter';color:var(--dim)}
+
+  /* touch / mobile: film gets a fixed frame at top, text flows below */
+  @media (max-width:860px){
+    #stage{position:fixed;top:0;left:0;right:0;bottom:auto;height:52vh;z-index:1;
+           border-bottom:1px solid rgba(242,239,232,.10);background:#07080b}
+    #film{height:52vh;width:100%;right:0;filter:brightness(1.08)}
+    #stage::after{background:linear-gradient(180deg,rgba(7,8,11,.62) 0%,rgba(7,8,11,0) 30%,rgba(7,8,11,.35) 82%,rgba(7,8,11,.95) 100%)}
+    .scrim{display:none}
+    main{margin-top:calc(52vh - 10px);position:relative;z-index:10}
+    header{padding:12px 16px;position:absolute}
+    header .brand span{display:none}
+    nav{display:none}
+    #rail{display:none}
+    .hint{display:none}
+    main{margin-top:0}
+    #s-hero{height:auto;min-height:0;margin-top:0;padding:58px 0 8px;display:block;text-align:center}
+    #s-hero .hero-mark{display:none}
+    #s-hero h1{font-size:30px;letter-spacing:.12em;margin-right:.12em}
+    #s-hero .hero-fa{font-size:12px;line-height:1.7}
+    #s-hero .inner{display:block;height:auto;padding:0 18px}
+    .hero-sub,.hero-tags,.scrollcue{display:none}
+    h1{font-size:34px;letter-spacing:.1em}
+    .hero-fa{font-size:12.5px;margin-top:6px}
+    .hero-mark{width:56px;height:56px;margin-bottom:8px}
+    .hero-mark{width:86px;height:86px;margin-bottom:12px}
+    .step{padding:0;background:linear-gradient(180deg,rgba(7,8,11,.86) 0%,rgba(7,8,11,.55) 40%,rgba(7,8,11,.92) 100%)}
+    .card,.card.left,.card.right{position:relative;top:auto;transform:none;width:auto;max-width:none;margin:0;padding:34px 20px}
+    .card.center{max-width:none}
+    .nums{grid-template-columns:1fr 1fr}
+    .logowall{grid-template-columns:1fr}
+    .step{min-height:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ sticky film stage ============ -->
+<div id="stage">
+  <video id="film" muted playsinline preload="auto" disablepictureinpicture
+         poster="assets/img/poster-logo.jpg" src="out/znox-catalog-web-captionfree.mp4"></video>
+  <div class="scrim center" id="scrim"></div>
+</div>
+
+<header>
+  <div class="brand">
+    <img src="assets/logo/znox-mark.svg" alt="Z-NOX">
+    <div>
+      <b>Z-NOX</b><br>
+      <span>فتوکاتالیست نانوساختار</span>
+    </div>
+  </div>
+  <nav id="nav"></nav>
+</header>
+
+<div id="rail"></div>
+<div class="hint"><b>اسکرول</b> کنید تا فیلم حرکت کند · <b>Space</b> پخش · کلیدهای <b>1…9</b> پرش به بخش</div>
+
+<main>
+  <!-- 0 · HERO -->
+  <section id="s-hero" class="step" data-chapter="0">
+    <div class="inner">
+      <div>
+        <img class="hero-mark" src="assets/logo/znox-mark.svg" alt="نشان زیناکس">
+        <h1>Z-NOX</h1>
+        <div class="hero-fa">زیناکس · فتوکاتالیست نانوساختار برای پوستهٔ معماری</div>
+        <div class="hero-sub">کاتالوگ تعاملی برای معماران — از مفهوم تا جزئیات اجرا</div>
+        <div class="hero-tags">
+          <span class="tag">تصفیهٔ هوای شهری</span>
+          <span class="tag">سطح خودشوینده</span>
+          <span class="tag">پنل سرامیکی ۱۶۰۰×۳۲۰۰</span>
+          <span class="tag">اجرای خشک و قابل تعویض</span>
+        </div>
+      </div>
+      <div class="scrollcue"><i></i>اسکرول کنید</div>
+    </div>
+  </section>
+
+  <!-- 1 · PROBLEM -->
+  <section class="step" data-chapter="2">
+    <div class="card right rv">
+      <div class="kicker">01 <b>مسئله</b></div>
+      <h2>هوا، هر روز روی نما می‌نشیند.</h2>
+      <p class="lede">دوده، اکسیدهای نیتروژن و ترکیبات آلی روی پوسته می‌نشینند؛ نما خاکستری و هزینهٔ نگهداشت هر سال بیشتر می‌شود.</p>
+      <div class="nums">
+        <div class="num"><u>−28%</u><b>درخشندگی</b><span>پس از سه سال</span></div>
+        <div class="num"><u>−38%</u><b>یکنواختی رنگ</b><span>لکه‌های ناشی از آب</span></div>
+        <div class="num"><u>−48%</u><b>بازتاب نور</b><span>هزینهٔ نگهداشت صعودی</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · PRODUCT -->
+  <section class="step" data-chapter="3">
+    <div class="card right rv">
+      <div class="kicker">02 <b>محصول</b></div>
+      <h2>فتوکاتالیست، در عمق پوشش.</h2>
+      <p class="lede">پنلی سرامیکی با بدنهٔ نانوساختار TiO₂. کاتالیست در تمام ضخامت پوشش <b>پخت شده</b> است؛ با سایش و شست‌وشو از بین نمی‌رود.</p>
+      <ul class="bullets">
+        <li><b>سه لایه</b> — پوشش فعال، پیوند سرامیکی، بدنهٔ ۱۲ میلی‌متری</li>
+        <li><b>سه خانواده</b> — نما، کف، دیوار داخلی</li>
+        <li><b>پخت ۱۲۰۰°C</b> — بدون VOC، کلاس A1</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · MECHANISM -->
+  <section class="step" data-chapter="4">
+    <div class="card right rv">
+      <div class="kicker">03 <b>فناوری</b></div>
+      <h2>نور می‌رسد، آلودگی تجزیه می‌شود.</h2>
+      <p class="lede">فتون، الکترون را برانگیخته می‌کند و جفت <b>الکترون–حفره</b> می‌سازد؛ رادیکال‌های فعال، آلاینده را می‌شکنند:</p>
+      <ul class="bullets">
+        <li><b>TiO₂ + hν → e⁻ + h⁺</b></li>
+        <li><b>h⁺ + H₂O → •OH</b> — رادیکال هیدروکسیل</li>
+        <li><b>•OH + NOₓ → NO₃⁻</b> — نیترات محلول و شسته‌شدنی</li>
+        <li><b>•OH + VOC → CO₂ + H₂O</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · HYDROPHILIC -->
+  <section class="step" data-chapter="5">
+    <div class="card right rv">
+      <div class="kicker">04 <b>ابرآب‌پذیری</b></div>
+      <h2>آب، روی سطح می‌گسترد.</h2>
+      <p class="lede">زاویهٔ تماس کمتر از <b>۵ درجه</b>؛ آب کل پنل را می‌شوید و رسوب را می‌برد — بدون شوینده.</p>
+      <div class="nums">
+        <div class="num"><u>&lt; 5°</u><b>زاویهٔ تماس</b><span>سطح زیناکس</span></div>
+        <div class="num"><u>&lt; 0.5%</u><b>جذب آب</b><span>بدنهٔ متراکم</span></div>
+        <div class="num"><u>100</u><b>چرخهٔ یخ‌زدگی</b><span>بدون تغییر</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · SYSTEM -->
+  <section class="step" data-chapter="6">
+    <div class="card right rv">
+      <div class="kicker">05 <b>سیستم و ابعاد</b></div>
+      <h2>پنل، زیرسازی، تهویه.</h2>
+      <p class="lede">اجرای خشک روی زیرسازی آلومینیومی با <b>درز باز ۱۰ م‌م</b> و حفرهٔ تهویهٔ ۴۰ م‌م؛ پوسته نفس می‌کشد.</p>
+      <table class="spec">
+        <tr><td>ابعاد پنل</td><td>۱۶۰۰ × ۳۲۰۰ میلی‌متر</td></tr>
+        <tr><td>ضخامت</td><td>۱۲ میلی‌متر</td></tr>
+        <tr><td>وزن</td><td>~۳۰ کیلوگرم بر متر مربع</td></tr>
+        <tr><td>درز اجرایی / حفرهٔ تهویه</td><td>۱۰ / ۴۰ میلی‌متر</td></tr>
+        <tr><td>زیرسازی</td><td>آلومینیوم T6063</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6 · BUILD DETAIL -->
+  <section class="step" data-chapter="7">
+    <div class="card right rv">
+      <div class="kicker">06 <b>جزئیات اجرا</b></div>
+      <h2>جزئیاتی که اجرا را ساده می‌کند.</h2>
+      <p class="lede">کلیپس مخفی و پنل مستقل: تعویض بدون تخریب و بدون دورریز.</p>
+      <div class="nums">
+        <div class="num"><u>۴ گام</u><b>توالی نصب</b><span>نشانه‌گذاری تا کلیپس</span></div>
+        <div class="num"><u>۱ پنل</u><b>تعویض مستقل</b><span>بدون داربست کامل</span></div>
+        <div class="num"><u>۰</u><b>دورریز اجرایی</b><span>خشک و قابل بازکردن</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · SPECS + FINISHES -->
+  <section class="step" data-chapter="8">
+    <div class="card right rv">
+      <div class="kicker">07 <b>مشخصات</b></div>
+      <h2>عملکرد، در اعداد.</h2>
+      <div class="nums" style="margin-top:22px">
+        <div class="num"><u>A1</u><b>کلاس آتش</b><span>غیرقابل اشتعال</span></div>
+        <div class="num"><u>1200°C</u><b>دمای پخت</b><span>پوشش کاملاً پخت‌شده</span></div>
+        <div class="num"><u>15</u><b>سال گارانتی</b><span>رنگ و عملکرد</span></div>
+      </div>
+      <table class="spec" style="margin-top:14px">
+        <tr><td>گروه محصول</td><td>نما / کف / دیوار داخلی</td></tr>
+        <tr><td>جذب آب</td><td>کمتر از ۰٫۵ درصد</td></tr>
+      </table>
+      <div class="swatches tight">
+        <div class="sw" style="background:#e8e4dc"><span>سفید مات</span></div>
+        <div class="sw" style="background:#b9b6b0"><span>خاکستری روشن</span></div>
+        <div class="sw" style="background:#6e7075"><span>خاکستری تیره</span></div>
+        <div class="sw" style="background:#c4b2a0"><span>بژ سنگی</span></div>
+        <div class="sw" style="background:#3a3b3f"><span>زغالی</span></div>
+        <div class="sw" style="background:#f2efe8"><span>سفید صدفی</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · IDENTITY -->
+  <section class="step" data-chapter="0" data-logo="1" data-label="هویت">
+    <div class="card right rv">
+      <div class="kicker">08 <b>هویت</b></div>
+      <h2>نشانهٔ یک سطح فعال.</h2>
+      <p class="lede">هگزاگون: پنل سرامیکی. تیغهٔ سبز: لایهٔ فعال‌شده با نور. کمان و نقطهٔ نوری: فوتون ورودی.</p>
+      <div class="logowall">
+        <div class="lw"><img src="assets/logo/znox-lockup.svg" alt="لوک‌آپ زیناکس"></div>
+        <div class="lw"><img src="assets/logo/znox-mark.svg" alt="نشان زیناکس"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · CTA -->
+  <section id="s-end" class="step" data-chapter="8">
+    <div class="cta rv">
+      <img class="mark" src="assets/logo/znox-mark.svg" alt="">
+      <h2>پوستهٔ ساختمان،<br>به‌عنوان سیستم تصفیهٔ هوا.</h2>
+      <p class="lede">برای دریافت نمونهٔ متریال، دیتاشیت فنی و نقشهٔ جزئیات اجرا با ما در تماس باشید.</p>
+      <div class="btns">
+        <a class="btn primary" href="out/ZNOX-Catalogue-1080p.mp4" download>دانلود کاتالوگ ویدیویی</a>
+        <a class="btn" href="index.html?autoplay=1">پخش فیلم کامل با صدا</a>
+        <a class="btn" href="assets/logo/znox-lockup.svg" download>دریافت لوگو</a>
+      </div>
+      <div style="margin-top:26px;font-size:12.5px;color:var(--faint);letter-spacing:.1em">www.z-nox.com · Z-NOX Architectural Surfaces</div>
+    </div>
+  </section>
+</main>
+
+<footer>© Z-NOX — کاتالوگ تعاملی · نسخهٔ ۱٫۰ · طراحی و موشن: استودیو</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- chapters (mirror of src/copy.js) ---------- */
+  const SC = [
+    { fa: 'سرآغاز', en: 'INTRODUCTION', dur: 4.6 },  // logo sting
+    { fa: 'سرآغاز', en: 'INTRODUCTION', dur: 10.8 },
+    { fa: 'مسئله', en: 'THE PROBLEM', dur: 17.4 },
+    { fa: 'محصول', en: 'THE PRODUCT', dur: 18.2 },
+    { fa: 'فناوری', en: 'THE MECHANISM', dur: 20.4 },
+    { fa: 'ابرآب‌پذیری', en: 'HYDROPHILIC', dur: 15.8 },
+    { fa: 'سیستم', en: 'SYSTEM', dur: 18.8 },
+    { fa: 'جزئیات اجرا', en: 'BUILD DETAIL', dur: 16.6 },
+    { fa: 'مشخصات', en: 'SPECIFICATION', dur: 17.0 }
+  ];
+  let acc = 0;
+  SC.forEach(s => { s.start = acc; acc += s.dur; });
+  const DUR = acc;
+
+  const video = document.getElementById('film');
+  const scrim = document.getElementById('scrim');
+  const nav = document.getElementById('nav');
+  const rail = document.getElementById('rail');
+  const sections = [...document.querySelectorAll('main section')];
+
+  /* ---------- nav ---------- */
+  sections.forEach((sec, i) => {
+    if (i === 0) return; // skip hero
+    const b = document.createElement('button');
+    const ch = SC[+sec.dataset.chapter];
+    const nm = sec.dataset.label || ch.fa;
+    b.textContent = String(i).padStart(2, '0') + ' ' + nm;
+    b.dataset.i = i;
+    b.onclick = () => scrollToSection(i);
+    nav.appendChild(b);
+  });
+
+  function scrollToSection(i) {
+    const el = sections[i];
+    const y = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  /* ---------- rail ---------- */
+  for (let i = 0; i < 12; i++) rail.appendChild(document.createElement('i'));
+  const railBars = [...rail.querySelectorAll('i')];
+  const railLabel = document.createElement('b');
+  railLabel.textContent = 'Z-NOX';
+  rail.appendChild(railLabel);
+
+  /* ---------- film source: web-optimised master ---------- */
+  let videoOk = true;
+  video.addEventListener('error', () => {
+    videoOk = false;
+    // graceful fallback: still image sequence behind the copy
+    const img = document.createElement('img');
+    img.src = 'assets/img/plate-detail.jpg';
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;opacity:.55';
+    video.replaceWith(img);
+  });
+
+  /* ---------- scroll → time mapping ----------
+     Each section owns a slice of the film. Chapter sections map to their
+     chapter's time range; the hero holds the logo sting; the end holds the
+     final card. Within a section we scrub the whole chapter, so the visitor
+     sees the motion complete before moving on. */
+  const doc = document.documentElement;
+  let target = 0, current = 0, raf = null, playing = false;
+
+  function sectionProgress() {
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    let idx = 0, p = 0;
+    for (let i = 0; i < sections.length; i++) {
+      const top = sections[i].offsetTop;
+      const h = sections[i].offsetHeight;
+      if (y + vh * .5 >= top && y + vh * .5 < top + h) { idx = i; p = (y + vh * .5 - top) / h; break; }
+      if (y + vh * .5 >= top) { idx = i; p = 1; }
+    }
+    return { idx, p: Math.max(0, Math.min(1, p)) };
+  }
+
+  function timeFor(idx, p) {
+    const sec = sections[idx];
+    if (idx === 0) return 2.2 + p * 2.2;                     // logo assembled → flash
+    const ch = SC[+sec.dataset.chapter];
+    if (sec.dataset.logo) return ch.start + ch.dur * .55 + p * 1.4; // hold the identity frame
+    return ch.start + ch.dur * Math.min(.985, p * 1.02);
+  }
+
+  function tick() {
+    raf = null;
+    // ease the time so scrubbing feels like a camera move, not a slider
+    current += (target - current) * .30;
+    if (Math.abs(target - current) < 0.004) current = target;
+    if (videoOk && video.readyState >= 2) {
+      try { video.currentTime = current; } catch (e) { }
+    }
+    paint(current);
+    if (current !== target) raf = requestAnimationFrame(tick);
+  }
+
+  function requestSeek() {
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
+  /* ---------- paint UI state ---------- */
+  let lastIdx = -1;
+  function paint(t) {
+    // chapter highlight
+    const { idx } = sectionProgress();
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      [...nav.children].forEach((b, k) => b.classList.toggle('on', +b.dataset.i === idx));
+      document.body.classList.toggle('at-end', sections[idx].id === 's-end');
+      const chSec = sections[idx];
+      const ch = SC[+chSec.dataset.chapter];
+      scrim.classList.toggle('center', idx === 0 || chSec.id === 's-end');
+      railLabel.textContent = idx === 0 ? 'Z-NOX' : (chSec.dataset.label ? ch.en : ch.en);
+    }
+    // rail fills
+    const n = railBars.length;
+    const per = DUR / n;
+    railBars.forEach((b, i) => {
+      const f = Math.max(0, Math.min(1, (t - i * per) / per));
+      b.style.setProperty('--p', f.toFixed(3));
+    });
+    // document progress line
+    doc.style.setProperty('--read', (t / DUR).toFixed(4));
+  }
+
+  /* ---------- listeners ---------- */
+  let seekLock = false;
+  function onScroll() {
+    const { idx, p } = sectionProgress();
+    target = timeFor(idx, p);
+    requestSeek();
+    revealInView();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  /* reveal on scroll */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .25 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  function revealInView() {
+    document.querySelectorAll('.rv:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * .8 && r.bottom > 0) el.classList.add('in');
+    });
+  }
+
+  /* ---------- optional play mode (Space) ---------- */
+  const btnPlay = document.createElement('button');
+  function playMode() {
+    if (playing) { playing = false; video.pause(); return; }
+    playing = true;
+    video.currentTime = SC[1].start;
+    video.play().catch(() => { });
+        const finish = () => {
+      if (!playing) return;
+      playing = false; video.pause(); onScroll();
+    };
+    video.addEventListener('ended', finish, { once: true });
+    // stop play mode as soon as the visitor scrolls
+    const stop = () => { if (playing) { playing = false; video.pause(); } window.removeEventListener('scroll', stop); };
+    window.addEventListener('scroll', stop, { passive: true });
+  }
+
+  /* ---------- keyboard ---------- */
+  window.addEventListener('keydown', e => {
+    if (e.code === 'Space') { e.preventDefault(); playMode(); }
+    const n = parseInt(e.key);
+    if (n >= 0 && n <= 9) {
+      const target_i = n === 0 ? 0 : n;
+      if (sections[target_i]) scrollToSection(target_i);
+    }
+  });
+
+  /* ---------- init ---------- */
+  function boot() {
+    onScroll();
+    // first paint once metadata is known
+    const ready = () => { requestSeek(); };
+    // some browsers fire scroll before metadata is parsed: seek as soon as
+    // the duration is known, then keep a couple of follow-up seeks so the
+    // first frame never stays black.
+    const onMeta = () => {
+      const { idx, p } = sectionProgress();
+      current = target = timeFor(idx, p);
+      try { video.currentTime = current; } catch (e) { }
+      requestSeek();
+      setTimeout(() => { try { video.currentTime = current + .001; } catch (e) { } }, 350);
+    };
+    if (video.readyState >= 1) onMeta();
+    else video.addEventListener('loadedmetadata', onMeta, { once: true });
+    revealInView();
+  }
+  boot();
+  window.__catalog = { SC, DUR, timeFor, sections };
+})();
+</script>
+</body>
+</html>
