@@ -16,13 +16,13 @@ const OUT = path.join(ROOT, 'assets/vo/vo_full.mp3');
 const SCENES = [
   { vo: 0, at: 0, dur: 4.6 },     // logo sting — sound synthesised below
   { vo: 1, at: 1.5, dur: 10.8 },
-  { vo: 2, at: 0.7, dur: 17.4 },
-  { vo: 3, at: 0.6, dur: 18.2 },
-  { vo: 4, at: 0.6, dur: 20.4 },
+  { vo: 2, at: 0.7, dur: 17.6 },
+  { vo: 3, at: 0.6, dur: 17.8 },
+  { vo: 4, at: 0.6, dur: 23.8 },
   { vo: 5, at: 0.6, dur: 15.8 },
   { vo: 6, at: 0.6, dur: 18.8 },
   { vo: 7, at: 0.6, dur: 16.6 },
-  { vo: 8, at: 0.6, dur: 17.0 }
+  { vo: 8, at: 0.6, dur: 17.8 }
 ];
 let acc = 0;
 const cues = SCENES.map(s => { const c = { ...s, start: acc }; acc += s.dur; return c; });

@@ -14,8 +14,8 @@ const MARK = {
   bladeStroke: 66,
   // orbital arc with a photon head
   arc: [500, 492, 468],
-  arcStart: -1.05,
-  arcEnd: 1.75,
+  arcStart: -2.20,
+  arcEnd: 1.55,
   // titanium hexagon
   hex2: [500, 500, 196]
 };

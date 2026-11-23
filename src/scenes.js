@@ -115,9 +115,10 @@ function scProblem(ctx, t, S, A) {
   ctx.restore();
 
   const marks = [
-    { label: 'NOₓ', x: .26, y: .26, at: 3.2 },
-    { label: 'PM₂.₅', x: .62, y: .46, at: 4.3 },
-    { label: 'VOC', x: .34, y: .68, at: 5.4 }
+    { label: 'NOₓ', x: .24, y: .24, at: 3.0 },
+    { label: 'PM₂.₅', x: .60, y: .44, at: 4.1 },
+    { label: 'VOC', x: .32, y: .64, at: 5.2 },
+    { label: 'CO₂', x: .64, y: .78, at: 6.3 }
   ];
   marks.forEach(m => {
     const a = easeOut(inv(t, m.at, m.at + .9)) * (1 - inv(t, 11.4, 12.2));
@@ -153,7 +154,7 @@ function scProblem(ctx, t, S, A) {
   caption(ctx, t, {
     tag: '01 — THE PROBLEM',
     title: 'هوا، هر روز روی نما می‌نشیند.',
-    sub: 'دوده، اکسیدهای نیتروژن و ترکیبات آلی، درخشندگی و یکنواختی پوسته را می‌بلعند — و هزینهٔ نگهداشت را هر سال بالا می‌برند.',
+    sub: 'دوده، اکسیدهای نیتروژن، ترکیبات آلی و دی‌اکسید کربن، درخشندگی و یکنواختی پوسته را می‌بلعند — و هزینهٔ نگهداشت را هر سال بالا می‌برند.',
     bottom: H - 92, inAt: .5, outAt: S.dur - .2, maxW: 900, size: 56
   });
   vignette(ctx, .55);
@@ -189,7 +190,7 @@ function scProduct(ctx, t, S, A) {
       const lx = cx - pw / 2 - 150;
       SPEC.layers.forEach((L, i) => {
         const a = easeOut(inv(t, 7.6 + i * .34, 9.0 + i * .34)) * layers;
-        const y = cy - 150 + i * 104;
+        const y = cy - 140 + i * 100;
         ctx.save(); ctx.globalAlpha = a;
         ctx.fillStyle = L.c; ctx.fillRect(lx - 128, y, 128, L.h * 1.5);
         ctx.globalAlpha = a * .45; ctx.fillRect(lx - 128, y, 128, L.h * 1.5);
@@ -204,19 +205,19 @@ function scProduct(ctx, t, S, A) {
   }
 
   const headA = easeOut(inv(t, .4, 1.8)) * copyOut;
-  txt(ctx, 'Z-NOX  ·  PANEL', RX, 206, { size: 18, weight: 600, family: 'Inter', ls: 6, color: C.accent, alpha: headA });
-  para(ctx, 'یک پنل سرامیکی با بدنهٔ نانوساختار تیتانیوم دی‌اکسید', RX, 292, 660,
-    { size: 46, weight: 700, color: C.ink, lh: 1.42, alpha: headA });
+  txt(ctx, 'Z-NOX  ·  COATING SYSTEM', RX, 200, { size: 18, weight: 600, family: 'Inter', ls: 6, color: C.accent, alpha: headA });
+  para(ctx, 'یک پوشش فتوکاتالیستی، روی پنل سرامیکی بتنی', RX, 282, 680,
+    { size: 44, weight: 700, color: C.ink, lh: 1.42, alpha: headA });
 
   const bodyA = easeOut(inv(t, 1.6, 3.2)) * copyOut;
-  para(ctx, 'فتوکاتالیست در تمام ضخامت پوشش پخت شده است؛ برخلاف پوشش‌های سطحی، با سایش، خراش یا شست‌وشو از بین نمی‌رود.',
-    RX, 448, 620, { size: 26, weight: 300, color: C.dim, lh: 1.9, alpha: bodyA });
+  para(ctx, 'پنل با کربن اکتیو دوپ شده است؛ پوشش در تمام ضخامت پخت می‌شود و با سایش، خراش یا شست‌وشو از بین نمی‌رود.',
+    RX, 428, 640, { size: 25, weight: 300, color: C.dim, lh: 1.85, alpha: bodyA });
 
   let cxp = RX;
-  ['پخت ۱۲۰۰°C', 'بدون VOC', 'A1 غیرقابل اشتعال'].forEach((lab, i) => {
+  ['فعال با نور مرئی', 'دوپ کربن اکتیو', 'پخت ۱۲۰۰°C', 'A1'].forEach((lab, i) => {
     const a = easeOut(inv(t, 3.0 + i * .3, 4.2 + i * .3)) * copyOut;
-    const w = chip(ctx, lab, cxp, 600, { alpha: a, accent: i === 0 });
-    cxp -= w + 12;
+    const w = chip(ctx, lab, cxp, 590, { alpha: a, accent: i < 2, size: 20 });
+    cxp -= w + 10;
   });
 
   const fam = inv(t, 12.2, 13.8);
@@ -241,14 +242,14 @@ function scProduct(ctx, t, S, A) {
     });
     caption(ctx, t, {
       tag: '02 — THE PRODUCT',
-      title: 'یک پوسته، سه کاربرد.',
-      sub: 'نما، کف و دیوار داخلی — با یک بدنهٔ سرامیکی مشترک و پوشش فعال یکسان.',
+      title: 'یک پوشش، سه کاربرد.',
+      sub: 'نما، کف و دیوار داخلی — بدنهٔ سرامیکی بتنی مشترک، با کربن اکتیو و پوشش فعال یکسان.',
       bottom: H - 92, inAt: 12.8, outAt: S.dur - .2, maxW: 760, size: 52
     });
   } else {
     caption(ctx, t, {
       tag: '02 — THE PRODUCT',
-      title: 'فتوکاتالیست، در عمق پوشش.',
+      title: 'پوشش فعال، روی پنل بتنی.',
       bottom: H - 92, inAt: .8, outAt: 12.0, maxW: 760, size: 56
     });
   }
@@ -257,17 +258,20 @@ function scProduct(ctx, t, S, A) {
 
 /* ---------- 04 · THE MECHANISM ---------- */
 function scTech(ctx, t, S, A) {
+  const stripA = easeOut(inv(t, 11.6, 12.8));   /* step strip — particles give way */
+  const recede = 1 - .78 * stripA;
   ctx.fillStyle = '#07080B'; ctx.fillRect(0, 0, W, H);
   grid(ctx, { step: 64, color: 'rgba(242,239,232,.03)' });
-  glowAt(ctx, 620, 420, 640, C.glow, .17 + .03 * Math.sin(t));
+  glowAt(ctx, 560, 360, 660, C.glow, .16 + .03 * Math.sin(t));
+  glowAt(ctx, 900, 210, 380, C.warm, .05 + .03 * Math.sin(t * .8 + 1));
 
   const surfY = 838;
   const x0 = 120, x1 = 1000;
 
-  // ceramic slab in perspective
+  // ---------- ceramic-concrete slab with carbon-doped layer ----------
   ctx.save();
   const sg = ctx.createLinearGradient(0, surfY, 0, H);
-  sg.addColorStop(0, '#c2bfb9'); sg.addColorStop(.10, '#8e8c87'); sg.addColorStop(1, '#202125');
+  sg.addColorStop(0, '#c6c3bd'); sg.addColorStop(.10, '#918f8a'); sg.addColorStop(1, '#202125');
   ctx.fillStyle = sg;
   ctx.beginPath();
   ctx.moveTo(x0, surfY); ctx.lineTo(x1, surfY);
@@ -275,42 +279,62 @@ function scTech(ctx, t, S, A) {
   ctx.closePath(); ctx.fill();
   ctx.strokeStyle = hexA(C.accent, .60); ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(x0, surfY); ctx.lineTo(x1, surfY); ctx.stroke();
-  ctx.restore();
-
-  txt(ctx, 'سطح فعال  TiO₂', 940, surfY + 58, { size: 20, weight: 500, color: C.accent2, alpha: .85 });
-
-  // travelling sheen on the active surface
-  const sh = (t * .3) % 1;
+  // carbon flecks inside the body
+  const rnd = mulberry(31);
   ctx.save();
-  const shg = ctx.createLinearGradient(x0, 0, x1, 0);
-  shg.addColorStop(clamp(sh - .16), 'rgba(142,123,255,0)');
-  shg.addColorStop(sh, 'rgba(205,192,255,.6)');
-  shg.addColorStop(clamp(sh + .16), 'rgba(142,123,255,0)');
-  ctx.fillStyle = shg; ctx.fillRect(x0, surfY - 3, x1 - x0, 5);
+  ctx.beginPath(); ctx.moveTo(x0, surfY + 6); ctx.lineTo(x1, surfY + 6);
+  ctx.lineTo(x1 + 84, H + 20); ctx.lineTo(x0 - 84, H + 20); ctx.closePath(); ctx.clip();
+  for (let i = 0; i < 220; i++) {
+    const px = x0 - 80 + rnd() * (x1 - x0 + 170);
+    const py = surfY + 8 + rnd() * (H - surfY);
+    ctx.fillStyle = `rgba(18,18,20,${.15 + rnd() * .35})`;
+    ctx.beginPath(); ctx.arc(px, py, .8 + rnd() * 2.6, 0, 7); ctx.fill();
+  }
+  ctx.restore();
   ctx.restore();
 
-  // photons
-  for (let i = 0; i < 6; i++) {
-    const ph = (t * .5 + i * 1 / 6) % 1;
-    const sx = x0 + 100 + i * 168, sy = 120;
-    const ex = sx + 130, ey = surfY - 6;
+  // ---------- carbon-doped adsorption band ----------
+  const bandY = surfY + 14, bandH = 44;
+  ctx.save();
+  const bg = ctx.createLinearGradient(0, bandY, 0, bandY + bandH);
+  bg.addColorStop(0, 'rgba(127,216,255,.30)'); bg.addColorStop(1, 'rgba(127,216,255,.04)');
+  ctx.fillStyle = bg; ctx.fillRect(x0, bandY, x1 - x0, bandH);
+  ctx.strokeStyle = hexA(C.cyan, .45); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(x0, bandY + bandH); ctx.lineTo(x1, bandY + bandH); ctx.stroke();
+  ctx.restore();
+  txt(ctx, 'لایهٔ جذب کربن اکتیو', x1 - 6, bandY + bandH + 40, { size: 19, weight: 500, color: C.cyan, alpha: .95 });
+  txt(ctx, 'CARBON-DOPED ADSORPTION', x1 - 6, bandY + bandH + 62, { size: 11, weight: 500, family: 'Inter', ls: 2, color: C.faint });
+
+  // ---------- visible light ----------
+  const visA = easeOut(inv(t, 0.4, 1.6));
+  for (let i = 0; i < 7; i++) {
+    const ph = (t * .5 + i / 7) % 1;
+    const sx = x0 + 90 + i * 140, sy = 110;
+    const ex = sx + 120, ey = surfY - 8;
     const x = lerp(sx, ex, ph), y = lerp(sy, ey, ph);
+    const hue = [C.warm, '#FFE9C2', '#FFF6E4'][i % 3];
     ctx.save();
-    ctx.globalAlpha = .85 * Math.sin(ph * Math.PI);
-    ctx.strokeStyle = C.accent2; ctx.lineWidth = 1.6; ctx.setLineDash([14, 14]);
-    ctx.beginPath(); ctx.moveTo(x - 58, y - 58); ctx.lineTo(x, y); ctx.stroke();
+    ctx.globalAlpha = .85 * Math.sin(ph * Math.PI) * visA;
+    ctx.strokeStyle = hue; ctx.lineWidth = 1.5; ctx.setLineDash([13, 15]);
+    ctx.beginPath(); ctx.moveTo(x - 60, y - 60); ctx.lineTo(x, y); ctx.stroke();
     ctx.setLineDash([]);
-    glowAt(ctx, x, y, 24, C.accent, .5);
-    ctx.beginPath(); ctx.arc(x, y, 3, 0, 7); ctx.fillStyle = '#fff'; ctx.fill();
+    glowAt(ctx, x, y, 22, C.warm, .40);
+    ctx.beginPath(); ctx.arc(x, y, 2.8, 0, 7); ctx.fillStyle = '#fff'; ctx.fill();
     ctx.restore();
   }
-  txt(ctx, 'hν', x0 + 60, 150, { size: 24, weight: 500, family: 'Inter', color: C.accent2, alpha: .85 });
-  txt(ctx, 'نور مرئی و فرابنفش', x0 + 60, 182, { size: 17, weight: 400, color: C.faint });
+  (function legendScrim() {
+    const g = ctx.createRadialGradient(x0 + 60, 190, 10, x0 + 60, 190, 330);
+    g.addColorStop(0, 'rgba(7,8,11,.80)'); g.addColorStop(1, 'rgba(7,8,11,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 60, 460, 300);
+  })();
+  txt(ctx, 'نور مرئی', x0 + 26, 132, { size: 26, weight: 600, color: C.warm, alpha: visA });
+  txt(ctx, 'VISIBLE LIGHT  ·  ~400–700 nm', x0 + 26, 158, { size: 11, weight: 500, family: 'Inter', ls: 2, color: C.faint, alpha: visA });
+  txt(ctx, 'بدون نیاز به UV', x0 + 26, 182, { size: 15, weight: 400, color: C.faint, alpha: visA });
 
-  // electron / hole pairs
-  const sites = [x0 + 300, x0 + 640];
+  // ---------- electrons / holes ----------
+  const sites = [x0 + 330, x0 + 660];
   sites.forEach((sx, k) => {
-    const t0 = 2.2 + k * 1.9;
+    const t0 = 2.6 + k * 1.9;
     const a = easeOut(inv(t, t0, t0 + .8));
     if (a <= 0) return;
     const pulse = .5 + .5 * Math.sin(t * 2.1 - k);
@@ -329,77 +353,121 @@ function scTech(ctx, t, S, A) {
     txt(ctx, 'شکاف انرژی', sx - 26, (ey + surfY) / 2, { size: 14, weight: 400, color: C.faint, alpha: a });
   });
 
-  // radicals
+  // ---------- radicals ----------
   const radicals = [
-    { x: x0 + 250, lab: '•OH', c: C.accent2, at: 4.2 },
-    { x: x0 + 400, lab: 'O₂•⁻', c: C.cyan, at: 4.9 },
-    { x: x0 + 600, lab: '•OH', c: C.accent2, at: 5.5 },
-    { x: x0 + 740, lab: 'O₂•⁻', c: C.cyan, at: 6.1 }
+    { x: x0 + 260, lab: '•OH', c: C.accent2, at: 4.6 },
+    { x: x0 + 410, lab: 'O₂•⁻', c: C.cyan, at: 5.2 },
+    { x: x0 + 620, lab: '•OH', c: C.accent2, at: 5.8 },
+    { x: x0 + 760, lab: 'O₂•⁻', c: C.cyan, at: 6.4 }
   ];
   radicals.forEach((r, i) => {
     const a = easeOut(inv(t, r.at, r.at + .7));
     if (a <= 0) return;
     const flow = ((t * .2 + i * .23) % 1);
-    const y = lerp(surfY - 50, 300, flow);
+    const y = lerp(surfY - 60, 320, flow);
     const x = r.x + Math.sin(t * 1.1 + i) * 20;
-    particle(ctx, x, y, 15, r.c, { alpha: a * (1 - flow * .2), glow: 1 });
-    txt(ctx, r.lab, x, y + 2, { size: 11, weight: 700, family: 'Inter', color: '#0b0a14', align: 'center', alpha: a, baseline: 'middle' });
+    particle(ctx, x, y, 15, r.c, { alpha: a * (1 - flow * .2) * recede, glow: 1 });
+    txt(ctx, r.lab, x, y + 2, { size: 11, weight: 700, family: 'Inter', color: '#0b0a14', align: 'center', alpha: a * recede, baseline: 'middle' });
   });
 
-  // ---- reaction card (right)
-  const cardA = easeOut(inv(t, 6.6, 7.8));
+  // ---------- CO₂ adsorption (down into the carbon layer) ----------
+  const co2A = easeOut(inv(t, 7.0, 8.2));
+  if (co2A > 0) {
+    for (let i = 0; i < 6; i++) {
+      const ph = ((t * .30 + i / 6) % 1);
+      const x = x0 + 150 + i * 130 + Math.sin(t + i) * 10;
+      const y = lerp(210, surfY - 6, ph);
+      ctx.save(); ctx.globalAlpha = co2A * Math.sin(ph * Math.PI) * .95 * recede;
+      particle(ctx, x, y, 15, '#c9beac', { glow: .5 });
+      txt(ctx, 'CO₂', x, y + 2, { size: 10, weight: 700, family: 'Inter', color: '#16130d', align: 'center', baseline: 'middle' });
+      ctx.restore();
+    }
+    /* legend row pinned under the light block — it must never collide with it */
+    ctx.save(); ctx.globalAlpha = co2A;
+    ctx.beginPath(); ctx.arc(x0 + 150, 253, 4, 0, 7);
+    ctx.fillStyle = '#c9beac'; ctx.fill();
+    txt(ctx, 'جذب و تثبیت CO₂', x0 + 130, 260, { size: 17, weight: 500, color: '#c9beac' });
+    ctx.restore();
+  }
+
+  // ---------- O₂ released upward ----------
+  const o2A = easeOut(inv(t, 9.6, 10.8));
+  if (o2A > 0) {
+    for (let i = 0; i < 7; i++) {
+      const ph = ((t * .26 + i / 7) % 1);
+      const x = x0 + 240 + i * 110 + Math.sin(t * .8 + i) * 16;
+      const y = lerp(surfY - 30, 250, ph);
+      ctx.save(); ctx.globalAlpha = o2A * (1 - ph * .35) * .95 * recede;
+      particle(ctx, x, y, 16, C.ok, { glow: 1 });
+      txt(ctx, 'O₂', x, y + 2, { size: 10, weight: 700, family: 'Inter', color: '#07160d', align: 'center', baseline: 'middle' });
+      ctx.restore();
+    }
+    txt(ctx, 'آزادسازی اکسیژن', x0 + 980, 300, { size: 20, weight: 600, color: C.ok, alpha: o2A });
+    txt(ctx, 'OXYGEN RELEASE', x0 + 980, 324, { size: 11, weight: 500, family: 'Inter', ls: 2, color: C.faint, alpha: o2A });
+  }
+
+  // ---------- reaction card ----------
+  const cardA = easeOut(inv(t, 1.4, 2.6));
   if (cardA > 0) {
-    const cw = 560, ch = 300, cx = RX - cw, cy = 196;
+    const cw = 560, ch = 322, cx = RX - cw, cy = 176;
     ctx.save(); ctx.globalAlpha = cardA;
     rrect(ctx, cx, cy, cw, ch, 6);
-    ctx.fillStyle = 'rgba(10,11,17,.8)'; ctx.fill();
+    ctx.fillStyle = 'rgba(10,11,17,.82)'; ctx.fill();
     ctx.strokeStyle = 'rgba(242,239,232,.12)'; ctx.lineWidth = 1; ctx.stroke();
-    txt(ctx, 'مسیر واکنش', RX - 28, cy + 46, { size: 20, weight: 500, color: C.dim });
+    txt(ctx, 'مسیر واکنش', RX - 28, cy + 44, { size: 20, weight: 500, color: C.dim });
     const eqs = [
-      ['TiO₂ + hν', '→  e⁻ + h⁺'],
-      ['h⁺ + H₂O', '→  •OH + H⁺'],
+      ['TiO₂ + light', '→  e⁻ + h⁺'],
+      ['C (active) + CO₂', '→  ads.'],
+      ['h⁺ + H₂O', '→  •OH'],
       ['•OH + NOₓ', '→  NO₃⁻ + H₂O'],
-      ['•OH + VOC', '→  CO₂ + H₂O']
+      ['•OH + VOC  /  O₂', '→  CO₂ + H₂O  +  O₂ ↑']
     ];
     eqs.forEach((e, i) => {
-      const a = easeOut(inv(t, 6.8 + i * .5, 7.8 + i * .5)) * cardA;
-      const y = cy + 96 + i * 52;
+      const a = easeOut(inv(t, 2.0 + i * .55, 3.0 + i * .55)) * cardA;
+      const y = cy + 92 + i * 46;
       ctx.save(); ctx.globalAlpha = a;
-      ctx.font = '500 22px Inter'; ctx.direction = 'ltr';
+      ctx.font = '500 20px Inter'; ctx.direction = 'ltr';
       ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
       ctx.fillStyle = C.ink;
       ctx.fillText(e[0] + '  ', RX - 28, y);
       const w0 = ctx.measureText(e[0] + '  ').width;
-      ctx.fillStyle = C.accent2;
+      ctx.fillStyle = i === 4 ? C.ok : C.accent2;
       ctx.fillText(e[1], RX - 28 - w0, y);
       ctx.restore();
       ctx.fillStyle = 'rgba(242,239,232,.06)';
-      ctx.fillRect(cx + 20, y + 16, cw - 40, 1);
+      ctx.fillRect(cx + 20, y + 14, cw - 40, 1);
     });
     ctx.restore();
   }
 
-  // ---- pollutant → product flow (left, below photons)
-  const flowA = easeOut(inv(t, 9.2, 10.4));
-  if (flowA > 0) {
-    for (let i = 0; i < 10; i++) {
-      const ph = (t * .14 + i / 10) % 1;
-      const x = lerp(x0 + 40, x1 - 100, ph), y = 740 + Math.sin(i * 2.1) * 12;
-      ctx.save(); ctx.globalAlpha = flowA * .7 * Math.sin(ph * Math.PI);
-      ctx.beginPath(); ctx.arc(x, y, 4, 0, 7);
-      ctx.fillStyle = hexA('#938c7c', .95); ctx.fill();
+  // ---------- "how the surface works" strip ----------
+  if (stripA > 0) {
+    const items = [
+      { n: '۱', fa: 'جذب', en: 'ADSORB' },
+      { n: '۲', fa: 'فعال‌سازی با نور مرئی', en: 'ACTIVATE' },
+      { n: '۳', fa: 'تجزیهٔ آلاینده', en: 'DECOMPOSE' },
+      { n: '۴', fa: 'آزادسازی اکسیژن', en: 'OXYGEN' }
+    ];
+    items.forEach((it, i) => {
+      const a = easeOut(inv(t, 11.8 + i * .35, 12.8 + i * .35)) * stripA;
+      const x = RX - i * 232;
+      ctx.save(); ctx.globalAlpha = a;
+      txt(ctx, it.n, x, H - 470, { size: 15, weight: 700, family: 'Vaz', color: C.accent });
+      txt(ctx, it.fa, x, H - 436, { size: 18, weight: 500, color: C.ink });
+      txt(ctx, it.en, x, H - 414, { size: 10, weight: 500, family: 'Inter', ls: 2, color: C.faint });
       ctx.restore();
-    }
-    const fx = 980;
-    txt(ctx, 'آلاینده‌ها', fx, 596, { size: 18, weight: 500, color: '#a09a8c', alpha: flowA });
-    txt(ctx, 'H₂O  ·  NO₃⁻  ·  CO₂', fx, 636, { size: 21, weight: 500, color: C.cyan, alpha: flowA });
+      if (i < 3) {
+        ctx.fillStyle = 'rgba(242,239,232,.14)';
+        ctx.fillRect(x - 214, H - 456, 90, 1);
+      }
+    });
   }
 
   caption(ctx, t, {
     tag: '03 — THE MECHANISM',
-    title: 'نور می‌رسد، آلودگی تجزیه می‌شود.',
-    sub: 'فتون‌های نور مرئی و فرابنفش جفت الکترون–حفره می‌سازند؛ رادیکال‌های فعال، آلاینده را به آب، نیترات و دی‌اکسید کربن می‌شکنند.',
-    bottom: H - 92, inAt: .5, outAt: S.dur - .2, maxW: 800, size: 54
+    title: 'با نور مرئی فعال می‌شود.',
+    sub: 'نور روز پوشش را فعال می‌کند؛ کربن اکتیو CO₂ و آلاینده را جذب و متمرکز می‌کند؛ رادیکال‌های فعال آن‌ها را می‌شکنند و اکسیژن آزاد می‌شود.',
+    bottom: H - 92, inAt: .5, outAt: S.dur - .2, maxW: 820, size: 52
   });
   vignette(ctx, .5);
 }
@@ -560,6 +628,8 @@ function scSystem(ctx, t, S, A) {
   // overall dims
   dim(ctx, gx - 54, gy, gx - 54, gy + gh, '', { vertical: true, alpha: jointA });
   dim(ctx, gx, gy + gh + 46, gx + gw, gy + gh + 46, '2 × 1600 + 10', { alpha: jointA, size: 18 });
+  // carbon-doped badge on the elevation
+  txt(ctx, 'پنل سرامیکی بتنی + دوپ کربن اکتیو', gx + gw, gy - 26, { size: 19, weight: 500, color: C.cyan, alpha: jointA });
   ctx.restore();
 
   // joint callout → cross-section bubble
@@ -609,20 +679,20 @@ function scSystem(ctx, t, S, A) {
   const tw = 620;
   rows.forEach((r, i) => {
     const a = easeOut(inv(t, 2.0 + i * .2, 3.0 + i * .2));
-    const ry = 340 + i * 66;
+    const ry = 330 + i * 56;
     ctx.save(); ctx.globalAlpha = a;
     ctx.fillStyle = i % 2 ? 'rgba(242,239,232,.03)' : 'rgba(242,239,232,.055)';
-    rrect(ctx, RX - tw, ry, tw, 54, 3); ctx.fill();
-    txt(ctx, r[0], RX - 22, ry + 36, { size: 21, weight: 400, color: C.dim });
-    txt(ctx, r[1], RX - 246, ry + 36, { size: 21, weight: 600, color: C.ink });
+    rrect(ctx, RX - tw, ry, tw, 50, 3); ctx.fill();
+    txt(ctx, r[0], RX - 22, ry + 34, { size: 21, weight: 400, color: C.dim });
+    txt(ctx, r[1], RX - 246, ry + 34, { size: 21, weight: 600, color: C.ink });
     ctx.restore();
   });
 
   caption(ctx, t, {
     tag: '05 — SYSTEM',
-    title: 'پنل، زیرسازی، تهویه.',
-    sub: 'اجرای خشک روی زیرسازی آلومینیومی، با درز باز و حفرهٔ تهویهٔ پشت پوسته.',
-    bottom: H - 92, inAt: 4.4, outAt: S.dur - .2, maxW: 700, size: 54
+    title: 'پوشش روی پنل، پنل روی زیرسازی.',
+    sub: 'پنل سرامیکی بتنی دوپ‌شده با کربن اکتیو، با پوشش فتوکاتالیستی؛ اجرای خشک روی زیرسازی آلومینیومی.',
+    bottom: H - 88, inAt: 4.6, outAt: S.dur - .2, maxW: 700, size: 50
   });
   vignette(ctx, .45);
 }
@@ -675,20 +745,27 @@ function scDetail(ctx, t, S, A) {
     arrow(ctx, ax + 200, yy, ax + 200, yy + 40, { color: hexA(C.cyan, .9), width: 1.5, head: 6 });
     ctx.restore();
   }
-  // panel
+  // panel + coating layer
   const pnl = easeOut(inv(t, 1.8, 3.0));
   ctx.save();
   ctx.translate((1 - pnl) * 46, 0);
-  panelFace(ctx, ax + 244, ay + 8, 44, ah - 16, { tone: 2, light: 1.02, gloss: .6 });
+  panelFace(ctx, ax + 250, ay + 8, 42, ah - 16, { tone: 2, light: 1.02, gloss: .6 });
+  // carbon doping speckle inside the panel
+  const pr = mulberry(17);
+  for (let i = 0; i < 120; i++) {
+    ctx.fillStyle = `rgba(16,16,18,${.2 + pr() * .4})`;
+    ctx.fillRect(ax + 252 + pr() * 38, ay + 12 + pr() * (ah - 24), 1 + pr() * 1.6, 1 + pr() * 1.6);
+  }
+  // photocatalytic coating (the product)
   ctx.fillStyle = hexA(C.accent, .95);
-  ctx.fillRect(ax + 244, ay + 8, 4, ah - 16);
+  ctx.fillRect(ax + 244, ay + 8, 6, ah - 16);
   ctx.restore();
   ctx.restore();
 
   // numbered markers on the drawing
   const markA = easeOut(inv(t, 3.0, 3.8));
   const marks = [
-    { n: 1, x: ax + 266, y: ay + 80 },
+    { n: 1, x: ax + 247, y: ay + 80 },
     { n: 2, x: ax + 214, y: ay + 240 },
     { n: 3, x: ax + 170, y: ay + 390 },
     { n: 4, x: ax + 240, y: ay + 460 }
@@ -708,14 +785,15 @@ function scDetail(ctx, t, S, A) {
     const lx = 660;
     txt(ctx, 'جزئیات مقطع', lx + 250, ay - 16, { size: 18, weight: 500, color: C.dim, alpha: lg });
     const items = [
-      ['پنل سرامیکی ۱۲ میلی‌متر', 'CERAMIC PANEL 12 mm'],
+      ['پوشش فتوکاتالیستی', 'PHOTOCATALYTIC COATING'],
+      ['پنل سرامیکی بتنی', 'CERAMIC CONCRETE PANEL'],
       ['حفرهٔ تهویه ۴۰ میلی‌متر', 'VENTILATED CAVITY 40 mm'],
       ['ریل و براکت آلومینیومی', 'ALUMINIUM RAIL & BRACKET'],
       ['درز باز ۱۰ میلی‌متر', 'OPEN JOINT 10 mm']
     ];
     items.forEach((it, i) => {
       const a = easeOut(inv(t, 3.6 + i * .3, 4.6 + i * .3)) * lg;
-      const y = ay + 30 + i * 104;
+      const y = ay + 26 + i * 98;
       ctx.save(); ctx.globalAlpha = a;
       ctx.beginPath(); ctx.arc(lx + 236, y, 13, 0, 7);
       ctx.strokeStyle = 'rgba(242,239,232,.3)'; ctx.lineWidth = 1; ctx.stroke();
@@ -805,15 +883,15 @@ function scClose(ctx, t, S, A) {
 
   // big figures (left)
   const nums = [
-    { v: 'A1', l: 'کلاس آتش', en: 'FIRE CLASS' },
-    { v: '۰٫۵٪ >', l: 'جذب آب', en: 'WATER ABSORPTION' },
-    { v: '۱۵ سال', l: 'گارانتی رنگ و عملکرد', en: 'WARRANTY' }
+    { v: 'نور مرئی', l: 'فعال‌سازی پوشش', en: 'VISIBLE-LIGHT ACTIVE' },
+    { v: 'CO₂', l: 'جذب با کربن اکتیو', en: 'CO₂ CAPTURE' },
+    { v: 'O₂', l: 'آزادسازی اکسیژن', en: 'OXYGEN RELEASE' }
   ];
   nums.forEach((n, i) => {
     const a = easeOut(inv(t, 4.2 + i * .35, 5.4 + i * .35));
-    const y = 340 + i * 176;
+    const y = 330 + i * 168;
     ctx.save(); ctx.globalAlpha = a;
-    txt(ctx, n.v, 520, y, { size: 62, weight: 700, color: C.ink });
+    txt(ctx, n.v, 520, y, { size: 54, weight: 700, color: i === 2 ? C.ok : C.ink });
     txt(ctx, n.l, 520, y + 46, { size: 22, weight: 400, color: C.dim });
     txt(ctx, n.en, 520, y + 74, { size: 11, weight: 500, family: 'Inter', ls: 3, color: C.faint });
     ctx.restore();
@@ -841,6 +919,7 @@ function scClose(ctx, t, S, A) {
     txt(ctx, FILM.brandFa + '  ·  فتوکاتالیست نانوساختار', W / 2, H * .40 + 116, { size: 31, weight: 500, align: 'center', alpha: a2, color: C.accent2 });
     tick(ctx, W / 2 - 190, H * .40 + 162, 380, a2, 'rgba(242,239,232,.18)');
     txt(ctx, 'پوستهٔ ساختمان، به‌عنوان سیستم تصفیهٔ هوا', W / 2, H * .40 + 216, { size: 34, weight: 300, align: 'center', alpha: a2 });
+    txt(ctx, 'فعال با نور مرئی  ·  جذب CO₂  ·  آزادسازی اکسیژن', W / 2, H * .40 + 258, { size: 20, weight: 400, align: 'center', color: C.ok, alpha: a2 });
 
     const a3 = easeOut(inv(t, 11.6, 12.8));
     txt(ctx, FILM.url, W / 2, H * .40 + 302, { size: 23, weight: 500, family: 'Inter', align: 'center', ls: 4, alpha: a3, color: C.dim });
@@ -851,7 +930,7 @@ function scClose(ctx, t, S, A) {
   if (end < .2) {
     caption(ctx, t, {
       tag: '07 — SPECIFICATION',
-      title: 'عملکرد، در اعداد.',
+      title: 'چهار چیز که این پوشش را متفاوت می‌کند.',
       bottom: H - 96, inAt: .6, outAt: 8.4, maxW: 700, size: 54
     });
   }

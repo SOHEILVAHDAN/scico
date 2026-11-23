@@ -108,9 +108,12 @@ function render(t) {
       bctx.clearRect(0, 0, W, H);
       logoScene(bctx, clamp(t, 0, LOGO.dur), null, A);
       grain(bctx, t, .3);
-      ctx.clearRect(0, 0, W, H);
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);          /* device pixels, not scene units */
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(buf, 0, 0, canvas.width, canvas.height);
+      ctx.restore();
     } else {
       ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
       logoScene(ctx, clamp(t, 0, LOGO.dur), null, A);

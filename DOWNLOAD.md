@@ -11,12 +11,14 @@
 ## 🎬 فیلم‌ها
 | فایل | لینک |
 |---|---|
-| کاتالوگ کامل ۱۰۸۰p با نریشن (۲:۱۹) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/ZNOX-Catalogue-1080p.mp4 |
+| کاتالوگ کامل ۱۰۸۰p با نریشن (۲:۲۴) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/ZNOX-Catalogue-1080p.mp4 |
 | نسخهٔ وب بدون کپشن (برای کاتالوگ آنلاین، ۵٫۷MB) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/znox-catalog-web-captionfree.mp4 |
-| موشن‌لوگو با صدا (۶ ثانیه) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/znox-logo-sound.mp4 |
-| موشن‌لوگو بی‌صدا | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/znox-logo.mp4 |
+| موشن‌لوگو با صدا (۵٫۶ ثانیه) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/znox-logo-sound.mp4 |
+| موشن‌لوگو بی‌صدا (۵٫۶ ثانیه) | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/out/znox-logo.mp4 |
 
 ## 🅉 لوگو
+
+> در کاتالوگ: زیناکس یک **پوشش فتوکاتالیستی** است که روی **پنل سرامیکی بتنی** دوپ‌شده با کربن اکتیو اجرا می‌شود؛ با نور مرئی فعال می‌شود، CO₂ را جذب و اکسیژن آزاد می‌کند.
 | فایل | لینک |
 |---|---|
 | نشان SVG | https://github.com/SOHEILVAHDAN/scico/blob/arena/89811820-scico/assets/logo/znox-mark.svg |
